@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 
 import UserSelect from './userSelect';
+
+import UserInformation from './userInformation';
+import Footer from './footer';
 
 import './styles.scss';
 
@@ -10,7 +13,16 @@ const Landing = () => (
         <header className="masthead">
             <UserSelect />
         </header>
-
+        <Switch>
+            <Route
+                path="/for-volunteers"
+                render={() => <UserInformation userGroup={1} />}
+            />
+            <Route
+                path="/need-volunteers"
+                render={() => <UserInformation userGroup={2} />}
+            />
+        </Switch>
         <section id="about">
             <div className="container">
                 <div className="row">
@@ -323,6 +335,7 @@ const Landing = () => (
                 </div>
             </div>
         </section>
+        <Footer />
     </div>
 );
 

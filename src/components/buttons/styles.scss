@@ -1,24 +1,25 @@
-.btn {
+.btn.button {
     font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 700;
+    font-weight: 700 !important;
+    text-transform: uppercase;
 }
 
-.btn-xl {
+.btn.button-xl {
     font-size: 18px;
     padding: 20px 40px;
 }
 
-.btn-primary {
+.btn.button-primary {
     background-color: #fed136;
     border-color: #fed136;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+.btn.button-primary:active, .btn.button-primary:focus, .btn.button-primary:hover {
     background-color: #fec810 !important;
     border-color: #fec810 !important;
     color: white;
 }
 
-.btn-primary:active, .btn-primary:focus {
+.btn.button-primary:active, .btn.button-primary:focus {
     box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './styles.scss';
+import logo from '../../components/img/nav-logo.png';
 
 const NavigationComponent = ({
     setNavRef
@@ -11,7 +13,10 @@ const NavigationComponent = ({
         ref={e => setNavRef(e)}
     >
         <div className="container">
-            <a className="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/nav-logo.png"/></a>
+            <Link
+                className="navbar-brand js-scroll-trigger" to="/">
+                <img src={logo}/>
+            </Link>
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i className="fa fa-bars" />
@@ -19,16 +24,13 @@ const NavigationComponent = ({
             <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav text-uppercase ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#about">About</a>
+                        <a className="nav-link js-scroll-trigger" href="#events">for Volunteers</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#events">Events</a>
+                        <a className="nav-link js-scroll-trigger" href="#team">Need Volunteers</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#team">Team</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#gallery">Gallery</a>
+                        <Link className="nav-link js-scroll-trigger" to="/">Open positions</Link>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link js-scroll-trigger" href="#contact">Contact</a>

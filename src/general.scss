@@ -1,3 +1,7 @@
+
+@import "./vendor/bootstrap/css/bootstrap.min.css";
+@import "./vendor/font-awesome/css/font-awesome.min.css";
+
 body {
     overflow-x: hidden;
     font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -52,3 +56,15 @@ img::selection {
 img::-moz-selection {
   background: transparent;
 }
+.text-align-left {
+  text-align : left;
+}
+.text-align-right {
+  text-align : right;
+}
+#App > #app-routes {
+  padding-top : 100px;
+  @media screen and (max-width : 992px){
+    padding-top : 55.6px;
+  }
+} 

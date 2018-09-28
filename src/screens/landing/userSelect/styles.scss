@@ -1,3 +1,20 @@
 .usertype-select {
     padding-top : 150px;
 }
+.usertype-select-buttons {
+    display: block;
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.buttons-separator {
+    margin : 20px;
+    font-weight: 600;
+    color: #928546;
+    @media screen and (min-width: 768px) {
+        margin : 20px;
+    }
+}
