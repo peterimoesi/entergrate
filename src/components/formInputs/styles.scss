@@ -5,7 +5,7 @@
     padding-bottom: 60px;
     margin-bottom: 0;
     @media screen and (max-width : 992px){
-        font-size : 18px;
+        font-size : 14px;
     }
     &.scroll-view {
         opacity: 1;
@@ -20,7 +20,7 @@
         align-items: center;
     }
     .numbers {
-        font-size: 13px;
+        font-size: 12px;
         width : 40px;
         i {
             margin-left : 5px;
@@ -37,6 +37,7 @@
         max-width: 100%;
         width : 900px;
         padding-left : 40px;
+        margin-bottom: 30px;
         @media screen and (max-width : 768px){
             padding-left: 0;
         }
@@ -46,7 +47,6 @@
             border : 0;
             font-size : 24px;
             padding-bottom: 0;
-            margin-bottom: 30px;
             padding-left : 0;
             @media screen and (max-width : 992px){
                 font-size : 16px;
@@ -59,6 +59,25 @@
         textarea.form-control {
             resize: none;
             font-size: 18px;
+        }
+        .list-form {
+            display: block;
+            position: relative;
+            .form-list-num, .form-list-close {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 12px;
+            }
+            .form-list-close {
+                right : 5px;
+                cursor: pointer;
+            }
+            input {
+                margin-bottom : 10px;
+                padding-left : 15px !important;
+                padding-right: 15px !important;
+            }
         }
     }
 }

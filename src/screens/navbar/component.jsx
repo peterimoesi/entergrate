@@ -24,16 +24,16 @@ const NavigationComponent = ({
             <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav text-uppercase ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#events">for Volunteers</a>
+                        <Link className="nav-link js-scroll-trigger" to="/for-volunteers">for Volunteers</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#team">Need Volunteers</a>
+                        <Link className="nav-link js-scroll-trigger" to="/need-volunteers">Need Volunteers</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link js-scroll-trigger" to="/">Open positions</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                        <a className="nav-link js-scroll-trigger" href="#contact">login</a>
                     </li>
                 </ul>
             </div>

@@ -14,7 +14,9 @@
     padding-left: 15px;
     padding-right: 15px;
     @media screen and (max-width : 992px){
-        left: -15px;
+        left: 0px;
+        padding-top: calc(25vh);
+        padding-bottom: calc(25vh);
     }
 }
 .pre-form-info {
@@ -23,6 +25,6 @@
     font-size: 24px;
     margin-bottom: 60px;
     @media screen and (max-width : 992px){
-        font-size : 18px;
+        font-size : 14px;
     }
 }

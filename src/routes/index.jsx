@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import LandingScreen from '../screens/landing';
-import UserApplyScreen from '../screens/users';
+import UserApplyScreen from '../screens/usersApply';
 
 const routes = (
     <Switch>

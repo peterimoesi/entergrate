@@ -19,17 +19,21 @@ class Users extends React.Component {
         this.navRef = null;
     }
     componentDidMount() {
-        this.userApplyRef.addEventListener('scroll', this.handleScroll);
-        this.applyContainerHeightMid =  this.userApplyRef.offsetHeight / 2;
-        this.navRef = document.querySelector('#mainNav');
-        this.formInputs = document.querySelectorAll('.apply-form-inputs');
-
+        if (this.userApplyRef) {
+            this.userApplyRef.addEventListener('scroll', this.handleScroll);
+            this.applyContainerHeightMid =  this.userApplyRef.offsetHeight / 2;
+            this.navRef = document.querySelector('#mainNav');
+            this.formInputs = document.querySelectorAll('.apply-form-inputs');
+        }
     }
     componentWillUnmount() {
-        this.userApplyRef.removeEventListener('scroll', this.handleScroll);
+        if (this.userApplyRef) {
+            this.userApplyRef.removeEventListener('scroll', this.handleScroll);
+        }
     }
 
     setUserApplyRef(e) {
+        console.log(e);
         this.userApplyRef = e;
     }
 
@@ -58,16 +62,15 @@ class Users extends React.Component {
     }
 
     onInputClick(e) {
-        const firstElemOffsetTop = this.formInputs[0].offsetTop;
+        const firstElemOffsetTop = this.userApplyRef.firstElementChild.offsetTop;
         this.userApplyRef.scrollTo(0, e.target.offsetTop - firstElemOffsetTop);
     }
 
     onEnterClick(e) {
-        console.log(e.keyCode);
         if (e.keyCode === 13) {
             [].forEach.call(this.formInputs, (elem, x) => {
                 if (elem.classList.contains('scroll-view') && this.formInputs[x + 1]) {
-                    const firstElemOffsetTop = this.formInputs[0].offsetTop;
+                    const firstElemOffsetTop = this.userApplyRef.firstElementChild.offsetTop;
                     this.userApplyRef.scrollTo(0, this.formInputs[x + 1].offsetTop - firstElemOffsetTop);
                     return;
                 }
@@ -89,7 +92,15 @@ class Users extends React.Component {
                                     onEnterClick={this.onEnterClick}
                                 />}
                         />
-                        <Route path="/apply/want-volunteers" component={WantVolunteers} />
+                        <Route path="/apply/want-volunteers" 
+                            render={(props) =>
+                                <WantVolunteers
+                                    {...props}
+                                    setRef={this.setUserApplyRef}
+                                    onInputClick={this.onInputClick}
+                                    onEnterClick={this.onEnterClick}
+                                />}
+                        />
                         <Route path="/apply" component={NoPage} />
                     </Switch>
                 </div>
