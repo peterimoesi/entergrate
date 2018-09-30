@@ -1,0 +1,35 @@
+.input-col {
+    margin: 15px 0;
+    label {
+        color : #9a9a9a;
+    }
+    .input-container {
+        position : relative;
+        i {
+            position : absolute;
+            right : 10px;
+            top : 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            outline: none !important;
+        }
+    }
+    input {
+        height : 50px;
+        padding-right: 30px;
+    }
+    textarea {
+        resize: none;
+    }
+    input, textarea {
+        transition-timing-function: ease-in-out;
+        transition-duration: 400ms;
+        &.no-editing {
+            border-color: transparent;
+            pointer-events: none;
+        }
+    }
+}
+.section-cta {
+    text-align: right;
+}
