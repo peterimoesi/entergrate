@@ -32,7 +32,7 @@ collapseSection.propTypes = {
     expand : PropTypes.bool.isRequired,
     dataLoaded : PropTypes.bool.isRequired,
     toggleExpand : PropTypes.func.isRequired,
-    children : PropTypes.object.isRequired
+    children : PropTypes.element.isRequired
 };
 
 export default collapseSection;

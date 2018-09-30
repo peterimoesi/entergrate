@@ -24,6 +24,7 @@
     input, textarea {
         transition-timing-function: ease-in-out;
         transition-duration: 400ms;
+        color: #3a3a3a;
         &.no-editing {
             border-color: transparent;
             pointer-events: none;

@@ -107,8 +107,11 @@ class NeedVolunteers extends React.Component {
                     type="password"
                     onKeyDown={this.props.onEnterClick}
                 >
-                    <div>Enter your secure password here.</div>
-                    <div>Please note that Entergrate will never ask you for your login information</div>
+                    <div>
+                        <div>Enter your secure password here.</div>
+                        <div>Please note that Entergrate will never ask you for your login information</div>
+                    </div>
+                    
                 </FormElement>
                 <FormElement
                     number={4}

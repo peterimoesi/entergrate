@@ -53,8 +53,10 @@ class ForVolunteers extends React.Component {
                     type="text"
                     onKeyDown={this.props.onEnterClick}
                 >
-                    <div>Please provide your fullname here</div>
-                    <div>Your name will be displayed along with your profile</div>
+                    <div>
+                        <div>Please provide your fullname here</div>
+                        <div>Your name will be displayed along with your profile</div>
+                    </div>
                 </FormElement>
                 <FormElement
                     number={2}
@@ -65,8 +67,10 @@ class ForVolunteers extends React.Component {
                     type="email"
                     onKeyDown={this.props.onEnterClick}
                 >
-                    <div>Enter your email address</div>
-                    <div>Your email along with your secure password will be required for login</div>
+                    <div>
+                        <div>Enter your email address</div>
+                        <div>Your email along with your secure password will be required for login</div>
+                    </div>
                 </FormElement>
                 <FormElement
                     number={3}
@@ -77,8 +81,10 @@ class ForVolunteers extends React.Component {
                     type="password"
                     onKeyDown={this.props.onEnterClick}
                 >
-                    <div>Enter your secure password here.</div>
-                    <div>Please note that Entergrate will never ask you for your login information</div>
+                    <div>
+                        <div>Enter your secure password here.</div>
+                        <div>Please note that Entergrate will never ask you for your login information</div>
+                    </div>
                 </FormElement>
                 <FormElement
                     number={4}

@@ -46,7 +46,7 @@ const formElement = (props) => {
 formElement.propTypes = {
     inputType : PropTypes.string,
     number : PropTypes.number.isRequired,
-    children : PropTypes.array.isRequired,
+    children : PropTypes.element.isRequired,
     onClick : PropTypes.func,
     klass : PropTypes.string
 };
