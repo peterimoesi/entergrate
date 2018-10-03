@@ -1,16 +1,20 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# caches
+yarn.lock
+package-lock.json
+
 # dependencies
-/node_modules
+node_modules
 
 # vscodeSettings
 /.vscode
 
 # testing
-/coverage
+coverage
 
 # production
-/build
+build
 
 # misc
 .DS_Store

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import ScrollFormInput from '../../../components/scrollInputs';
 import Button from '../../../components/buttons';
+
 
 class ForVolunteers extends React.Component {
     constructor() {
@@ -15,10 +17,21 @@ class ForVolunteers extends React.Component {
             bio : ''
         };
         this.onChange = this.onChange.bind(this);
+        this.apply = this.apply.bind(this);
     }
 
     onChange(e) {
         this.setState({ [e.target.name] : e.target.value });
+    }
+    apply() {
+        axios.post(`${global.apiUrl}/api/users`, this.state).then(response => {
+            if (response.status === 200) {
+                // handle 200
+                console.log('REGISTERED');
+            } else {
+                // handle error
+            }
+        }).catch(error => console.log(error));
     }
 
     render () {
@@ -122,7 +135,7 @@ class ForVolunteers extends React.Component {
                 <div>
                     <Button
                         title="Apply"
-                        onClick={() =>  null}
+                        onClick={this.apply}
                         size="xl"
                         type="primary"
                     />

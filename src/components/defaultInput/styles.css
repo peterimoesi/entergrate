@@ -1,0 +1,25 @@
+.input-col {
+  margin: 15px 0; }
+  .input-col label {
+    color: #9a9a9a; }
+  .input-col .input-container {
+    position: relative; }
+    .input-col .input-container i {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      outline: none !important; }
+  .input-col input {
+    height: 50px;
+    padding-right: 30px; }
+  .input-col textarea {
+    resize: none; }
+  .input-col input, .input-col textarea {
+    transition-timing-function: ease-in-out;
+    transition-duration: 400ms;
+    color: #3a3a3a; }
+    .input-col input.no-editing, .input-col textarea.no-editing {
+      border-color: transparent;
+      pointer-events: none; }
