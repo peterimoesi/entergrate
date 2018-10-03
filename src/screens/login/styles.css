@@ -1,0 +1,11 @@
+#login-form {
+  border: 1px solid #e5e5e5;
+  padding: 50px 40px 10px;
+  border-radius: 5px;
+  width: 600px;
+  max-width: 100%;
+  margin: 50px auto 0; }
+  #login-form > div {
+    margin-bottom: 30px; }
+  #login-form .login-final-cta {
+    text-align: center; }

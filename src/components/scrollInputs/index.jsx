@@ -6,7 +6,7 @@ import FormList from './lists';
 
 import './styles.scss';
 
-const formElement = (props) => {
+const scrollFormInput = (props) => {
     let htmlElement;
     switch (props.inputType) {
     case 'textarea':
@@ -21,7 +21,7 @@ const formElement = (props) => {
     }
     return (
         <div
-            className={`apply-form-inputs form-input ${props.klass}`}
+            className={`apply-form-inputs scroll-input ${props.klass}`}
             onClick={props.onClick}
         >
             <div className="input-label-cont">
@@ -43,7 +43,7 @@ const formElement = (props) => {
     );
 };
 
-formElement.propTypes = {
+scrollFormInput.propTypes = {
     inputType : PropTypes.string,
     number : PropTypes.number.isRequired,
     children : PropTypes.element.isRequired,
@@ -51,8 +51,8 @@ formElement.propTypes = {
     klass : PropTypes.string
 };
 
-formElement.defaultProps = {
+scrollFormInput.defaultProps = {
     inputType : null
 };
 
-export default formElement;
+export default scrollFormInput;

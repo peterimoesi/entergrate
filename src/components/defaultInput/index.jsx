@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './styles.scss';
+
 const dashboardInput = ({
     label,
     placeholder,
@@ -9,6 +11,7 @@ const dashboardInput = ({
     onChange,
     editing,
     toggleEditing,
+    noIcon,
     type
 }) => (
     <div>
@@ -17,7 +20,7 @@ const dashboardInput = ({
             {
                 type === 'textArea' ?
                     <textarea
-                        className={`profile-input form-control ${editing !== name && 'no-editing'}`}
+                        className={`profile-input form-control ${(editing !== name || !noIcon) && 'no-editing'}`}
                         name={name}
                         placeholder={placeholder}
                         onChange={onChange}
@@ -25,7 +28,7 @@ const dashboardInput = ({
                         rows={4}
                     /> :
                     <input
-                        className={`profile-input form-control ${editing !== name && 'no-editing'}`}
+                        className={`profile-input form-control ${(editing !== name || !noIcon) && 'no-editing'}`}
                         name={name}
                         placeholder={placeholder}
                         onChange={onChange}
@@ -33,13 +36,16 @@ const dashboardInput = ({
                         type={type}
                     />
             }
+            {
+                !noIcon ?
+                    <i
+                        className={`fa fa-${editing === name ? 'close' : 'pencil'}`}
+                        tabIndex="0"
+                        role="button"
+                        onClick={() => toggleEditing(editing !== name && name)}
+                    /> : null
+            }
             
-            <i
-                className={`fa fa-${editing === name ? 'close' : 'pencil'}`}
-                tabIndex="0"
-                role="button"
-                onClick={() => toggleEditing(editing !== name && name)}
-            />
         </div>
     </div>
 );
@@ -50,13 +56,18 @@ dashboardInput.propTypes = {
     name : PropTypes.string.isRequired,
     value : PropTypes.string.isRequired,
     onChange : PropTypes.func.isRequired,
-    editing : PropTypes.string.isRequired,
-    toggleEditing : PropTypes.func.isRequired,
-    type : PropTypes.string
+    editing : PropTypes.string,
+    toggleEditing : PropTypes.func,
+    type : PropTypes.string,
+    noIcon : PropTypes.bool
+    
 };
 
 dashboardInput.defaultProps = {
-    type : 'text'
+    type : 'text',
+    noIcon : null,
+    toggleEditing : null,
+    editing : null
 };
 
 export default dashboardInput;

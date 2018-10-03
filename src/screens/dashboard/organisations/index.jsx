@@ -1,22 +1,19 @@
 import React from 'react';
 
 import Profile from '../profile';
-import Interest from './interest';
+import Events from './events';
 import Search from '../search';
 
-class VolunteerDashboard extends React.Component {
-    componentDidMount() {
-        console.log('silence');
-    }
+class OrganisationDashboard extends React.Component {
     render() {
         return (
             <div>
                 <Profile />
-                <Interest />
+                <Events />
                 <Search />
             </div>
         );
     }
 }
 
-export default VolunteerDashboard;
+export default OrganisationDashboard;

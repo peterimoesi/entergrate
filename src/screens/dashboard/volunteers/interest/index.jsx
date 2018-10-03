@@ -7,8 +7,8 @@ class Interest extends React.Component {
     constructor() {
         super();
         this.state = {
-            expand : true,
-            dataLoaded : true,
+            expand : false,
+            dataLoaded : false,
             showMore : ''
         };
         this.toggleExpand = this.toggleExpand.bind(this);
@@ -22,7 +22,8 @@ class Interest extends React.Component {
                 eventLocation : 'ehehee',
                 eventArtwork : 'hehehehehe',
                 id : 'ipoiofoio',
-                dateApplied : '22-03-1220'
+                dateApplied : '22-03-1220',
+                eventDate : '22-03-4238'
             },
             {
                 eventName : 't4tt4t',
@@ -37,7 +38,8 @@ class Interest extends React.Component {
                 eventLocation : 'uikuiuoi',
                 eventArtwork : 'gsdtggs',
                 id : 'kioeiooig',
-                dateApplied : '22-03-1220'
+                dateApplied : '22-03-1220',
+                eventDate : '22-03-4238'
             },
             {
                 eventName : 'heeh',
@@ -52,7 +54,8 @@ class Interest extends React.Component {
                 eventLocation : 'ehehee',
                 eventArtwork : 'hehehehehe',
                 id : '459009igioj',
-                dateApplied : '22-03-1220'
+                dateApplied : '22-03-1220',
+                eventDate : '22-03-4238'
             },
         ];
     }
@@ -76,27 +79,25 @@ class Interest extends React.Component {
     }
     render() {
         return (
-            <div className="container">
-                <CollapseSection
-                    name="Your Interest"
-                    expand={this.state.expand}
-                    dataLoaded={this.state.dataLoaded}
-                    toggleExpand={this.toggleExpand}
-                >
-                    <div>
-                        {
-                            this.fakeInterest.map(int => (
-                                <InterestItem
-                                    key={int.id}
-                                    interestItem={int}
-                                    toggleShowMore={this.toggleShowMore}
-                                    showMore={this.state.showMore}
-                                />
-                            ))
-                        }
-                    </div>
-                </CollapseSection>
-            </div>
+            <CollapseSection
+                name="Your Interest"
+                expand={this.state.expand}
+                dataLoaded={this.state.dataLoaded}
+                toggleExpand={this.toggleExpand}
+            >
+                <div>
+                    {
+                        this.fakeInterest.map(int => (
+                            <InterestItem
+                                key={int.id}
+                                interestItem={int}
+                                toggleShowMore={this.toggleShowMore}
+                                showMore={this.state.showMore}
+                            />
+                        ))
+                    }
+                </div>
+            </CollapseSection>
         );
     }
 }

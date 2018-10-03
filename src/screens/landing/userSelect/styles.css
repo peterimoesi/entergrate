@@ -1,0 +1,19 @@
+.usertype-select {
+  padding-top: 150px; }
+
+.usertype-select-buttons {
+  display: block; }
+  @media screen and (min-width: 768px) {
+    .usertype-select-buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center; } }
+
+.buttons-separator {
+  margin: 20px;
+  font-weight: 600;
+  color: #928546; }
+  @media screen and (min-width: 768px) {
+    .buttons-separator {
+      margin: 20px; } }

@@ -27,13 +27,19 @@ const interest = ({ interestItem, showMore, toggleShowMore }) => (
         {
             showMore === interestItem.id ?
                 <div className="show-more-item">
+                    <div className="interest-location-date">
+                        <div>
+                            <div className="item-head">Date</div>
+                            <div>{interestItem.eventDate}</div>
+                        </div>
+                        <div>
+                            <div className="item-head">Location</div>
+                            <div>{interestItem.eventLocation}</div>
+                        </div>
+                    </div>
                     <div>
                         <div className="item-head">Description</div>
                         <div>{interestItem.eventDescription}</div>
-                    </div>
-                    <div>
-                        <div className="item-head">Location</div>
-                        <div>{interestItem.eventLocation}</div>
                     </div>
                 </div> : null
         }

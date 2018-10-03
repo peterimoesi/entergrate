@@ -1,0 +1,67 @@
+.scroll-input {
+  max-width: 100%;
+  opacity: 0.5;
+  font-size: 24px;
+  padding-bottom: 60px;
+  margin-bottom: 0; }
+  @media screen and (max-width: 992px) {
+    .scroll-input {
+      font-size: 14px; } }
+  .scroll-input.scroll-view {
+    opacity: 1; }
+    .scroll-input.scroll-view .form-group input.form-control, .scroll-input.scroll-view .form-group textarea.form-control {
+      border-bottom: 1px solid #ced4da; }
+  .scroll-input .input-label-cont {
+    display: flex;
+    align-items: center; }
+  .scroll-input .numbers {
+    font-size: 12px;
+    width: 40px; }
+    .scroll-input .numbers i {
+      margin-left: 5px; }
+    @media screen and (max-width: 768px) {
+      .scroll-input .numbers {
+        display: none; } }
+  .scroll-input .input-label {
+    line-height: 2;
+    font-weight: 300;
+    color: #9a9a9a; }
+  .scroll-input .form-group {
+    max-width: 100%;
+    width: 900px;
+    padding-left: 40px;
+    margin-bottom: 30px; }
+    @media screen and (max-width: 768px) {
+      .scroll-input .form-group {
+        padding-left: 0; } }
+    .scroll-input .form-group input.form-control, .scroll-input .form-group textarea.form-control {
+      width: 100%;
+      border-radius: 0;
+      border: 0;
+      font-size: 24px;
+      padding-bottom: 0;
+      padding-left: 0; }
+      @media screen and (max-width: 992px) {
+        .scroll-input .form-group input.form-control, .scroll-input .form-group textarea.form-control {
+          font-size: 16px; } }
+      .scroll-input .form-group input.form-control:focus, .scroll-input .form-group textarea.form-control:focus {
+        outline: none;
+        box-shadow: none; }
+    .scroll-input .form-group textarea.form-control {
+      resize: none;
+      font-size: 18px; }
+    .scroll-input .form-group .list-form {
+      display: block;
+      position: relative; }
+      .scroll-input .form-group .list-form .form-list-num, .scroll-input .form-group .list-form .form-list-close {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px; }
+      .scroll-input .form-group .list-form .form-list-close {
+        right: 5px;
+        cursor: pointer; }
+      .scroll-input .form-group .list-form input {
+        margin-bottom: 10px;
+        padding-left: 15px !important;
+        padding-right: 15px !important; }

@@ -1,0 +1,22 @@
+.user-info {
+  background-image: url("./board.png");
+  margin: 60px auto;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 700px;
+  max-width: 100%;
+  transition-duration: 1000ms;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  padding: 0; }
+  .user-info.user-info-show {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    padding: 70px 149px 90px 100px;
+    overflow: auto; }
+  .user-info .user-group-cta {
+    margin-top: 30px; }

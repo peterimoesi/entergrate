@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormElement from '../../../components/formInputs';
+import ScrollFormInput from '../../../components/scrollInputs';
 import Button from '../../../components/buttons';
 
 class NeedVolunteers extends React.Component {
@@ -76,7 +76,7 @@ class NeedVolunteers extends React.Component {
                         <span> to view the list of open volunteers in your location</span>
                     </div>
                 </div>
-                <FormElement
+                <ScrollFormInput
                     number={1}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -86,8 +86,8 @@ class NeedVolunteers extends React.Component {
                     onKeyDown={this.props.onEnterClick}
                 >
                     <div>Name of your Organisation</div>
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={2}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -97,8 +97,8 @@ class NeedVolunteers extends React.Component {
                     onKeyDown={this.props.onEnterClick}
                 >
                     <div>Enter your business/contact email address</div>
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={3}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -112,8 +112,8 @@ class NeedVolunteers extends React.Component {
                         <div>Please note that Entergrate will never ask you for your login information</div>
                     </div>
                     
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={4}
                     onClick={this.props.onInputClick}
                     onChange={this.onChange}
@@ -123,8 +123,8 @@ class NeedVolunteers extends React.Component {
                     onKeyDown={this.props.onEnterClick}
                 >
                     <div>Your contact address, city and country</div>
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={5}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -134,8 +134,8 @@ class NeedVolunteers extends React.Component {
                     type="text"
                 >
                     <div>Please enter your phone number along with the country code</div>
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={6}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -145,11 +145,11 @@ class NeedVolunteers extends React.Component {
                     inputType="textarea"
                 >
                     <div>Describe your oraganisation in a few words or drop a link to your website</div>
-                </FormElement>
+                </ScrollFormInput>
                 <div className="pre-form-info">
                     <div>Nom complete the form below to describe your event. </div>
                 </div>
-                <FormElement
+                <ScrollFormInput
                     number={7}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -159,8 +159,8 @@ class NeedVolunteers extends React.Component {
                     onKeyDown={this.props.onEnterClick}
                 >
                     <div>The namne of the event</div>
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={8}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -170,8 +170,8 @@ class NeedVolunteers extends React.Component {
                     onKeyDown={this.props.onEnterClick}
                 >
                     <div>Location of the event if it different from the one above</div>
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={9}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
@@ -181,8 +181,8 @@ class NeedVolunteers extends React.Component {
                     inputType="textarea"
                 >
                     <div>Describe your event or simply drop the link to the event website</div>
-                </FormElement>
-                <FormElement
+                </ScrollFormInput>
+                <ScrollFormInput
                     number={10}
                     onChange={this.handleListChange}
                     onClick={this.props.onInputClick}
@@ -194,7 +194,7 @@ class NeedVolunteers extends React.Component {
                     inputType="formList"
                 >
                     <div>List the requirements needed for this position</div>
-                </FormElement>
+                </ScrollFormInput>
                 <div>
                     <Button
                         title="Apply"

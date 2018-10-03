@@ -1,0 +1,23 @@
+.form-container {
+  width: 100%;
+  position: absolute;
+  overflow: auto;
+  height: calc(100vh - 100px);
+  padding-top: calc(50vh - 100px);
+  padding-bottom: calc(50vh - 100px);
+  padding-left: 15px;
+  padding-right: 15px; }
+  @media screen and (max-width: 992px) {
+    .form-container {
+      left: 0px;
+      padding-top: calc(25vh);
+      padding-bottom: calc(25vh); } }
+
+.pre-form-info {
+  line-height: 2;
+  font-weight: 300;
+  font-size: 24px;
+  margin-bottom: 60px; }
+  @media screen and (max-width: 992px) {
+    .pre-form-info {
+      font-size: 14px; } }

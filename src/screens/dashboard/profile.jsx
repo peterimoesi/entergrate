@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CollapseSection from '../../components/collapseSection/collapseSection';
-import DashboardInput from './components/dashboardInput';
+import DefaultInput from '../../components/defaultInput';
 import Button from '../../components/buttons';
 import './styles.scss';
 
@@ -52,95 +52,93 @@ class Profile extends React.Component{
     render () {
         const { editing } = this.state;
         return (
-            <div className="container">
-                <CollapseSection
-                    name="Profile"
-                    expand={this.state.expand}
-                    dataLoaded={this.state.dataLoaded}
-                    toggleExpand={this.toggleExpand}
-                >
-                    <div>
-                        <div className="row">
-                            <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
-                                <DashboardInput
-                                    onChange={this.onChange}
-                                    label="Full name"
-                                    value={this.state.userData.fullName}
-                                    toggleEditing={this.toggleEditing}
-                                    editing={editing}
-                                    placeholder="Full name"
-                                    name="fullName"
-                                />
-                            </div>
-                            <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
-                                <DashboardInput
-                                    onChange={this.onChange}
-                                    label="Email"
-                                    type="email"
-                                    value={this.state.userData.email}
-                                    toggleEditing={this.toggleEditing}
-                                    editing={editing}
-                                    placeholder="Email"
-                                    name="email"
-                                />
-                            </div>
-                            <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
-                                <DashboardInput
-                                    onChange={this.onChange}
-                                    label="Address"
-                                    value={this.state.userData.address}
-                                    toggleEditing={this.toggleEditing}
-                                    editing={editing}
-                                    placeholder="Address"
-                                    name="address"
-                                />
-                            </div>
-                            <div className="col-lg-6 col-md-6-col-sm-12 col-xs-12 input-col">
-                                <DashboardInput
-                                    onChange={this.onChange}
-                                    label="Phone number"
-                                    value={this.state.userData.phoneNumber}
-                                    toggleEditing={this.toggleEditing}
-                                    editing={editing}
-                                    placeholder="Phone number"
-                                    name="phoneNumber"
-                                />
-                            </div>
-                            <div className="col-lg-6 col-md-6-col-sm-12 col-xs-12 input-col">
-                                <DashboardInput
-                                    onChange={this.onChange}
-                                    label="Password"
-                                    value={`${this.state.userData.password}******`}
-                                    toggleEditing={this.toggleEditing}
-                                    editing={editing}
-                                    placeholder="Password"
-                                    type="password"
-                                    name="password"
-                                />
-                            </div>
-                            <div className="col-lg-12 col-md-12-col-sm-12 col-xs-12 input-col">
-                                <DashboardInput
-                                    onChange={this.onChange}
-                                    label="About you"
-                                    value={this.state.userData.bio}
-                                    toggleEditing={this.toggleEditing}
-                                    editing={editing}
-                                    placeholder="Anout me"
-                                    type="textArea"
-                                    name="bio"
-                                />
-                            </div>
+            <CollapseSection
+                name="Profile"
+                expand={this.state.expand}
+                dataLoaded={this.state.dataLoaded}
+                toggleExpand={this.toggleExpand}
+            >
+                <div>
+                    <div className="row">
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
+                            <DefaultInput
+                                onChange={this.onChange}
+                                label="Full name"
+                                value={this.state.userData.fullName}
+                                toggleEditing={this.toggleEditing}
+                                editing={editing}
+                                placeholder="Full name"
+                                name="fullName"
+                            />
                         </div>
-                        <div className="section-cta">
-                            <Button
-                                title="Save"
-                                onClick={() => null}
-                                type="primary"
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
+                            <DefaultInput
+                                onChange={this.onChange}
+                                label="Email"
+                                type="email"
+                                value={this.state.userData.email}
+                                toggleEditing={this.toggleEditing}
+                                editing={editing}
+                                placeholder="Email"
+                                name="email"
+                            />
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
+                            <DefaultInput
+                                onChange={this.onChange}
+                                label="Address"
+                                value={this.state.userData.address}
+                                toggleEditing={this.toggleEditing}
+                                editing={editing}
+                                placeholder="Address"
+                                name="address"
+                            />
+                        </div>
+                        <div className="col-lg-6 col-md-6-col-sm-12 col-xs-12 input-col">
+                            <DefaultInput
+                                onChange={this.onChange}
+                                label="Phone number"
+                                value={this.state.userData.phoneNumber}
+                                toggleEditing={this.toggleEditing}
+                                editing={editing}
+                                placeholder="Phone number"
+                                name="phoneNumber"
+                            />
+                        </div>
+                        <div className="col-lg-6 col-md-6-col-sm-12 col-xs-12 input-col">
+                            <DefaultInput
+                                onChange={this.onChange}
+                                label="Password"
+                                value={`${this.state.userData.password}******`}
+                                toggleEditing={this.toggleEditing}
+                                editing={editing}
+                                placeholder="Password"
+                                type="password"
+                                name="password"
+                            />
+                        </div>
+                        <div className="col-lg-12 col-md-12-col-sm-12 col-xs-12 input-col">
+                            <DefaultInput
+                                onChange={this.onChange}
+                                label="About you"
+                                value={this.state.userData.bio}
+                                toggleEditing={this.toggleEditing}
+                                editing={editing}
+                                placeholder="Anout me"
+                                type="textArea"
+                                name="bio"
                             />
                         </div>
                     </div>
-                </CollapseSection>
-            </div>
+                    <div className="section-cta-right">
+                        <Button
+                            title="Save"
+                            onClick={() => null}
+                            type="primary"
+                        />
+                    </div>
+                </div>
+            </CollapseSection>
         );
     }
 }
