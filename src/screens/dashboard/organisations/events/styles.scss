@@ -1,0 +1,75 @@
+.event-details {
+    border: 1px solid #ededed;
+    padding: 20px 0;
+    border-right: 0;
+    border-left: 0;
+    color: #3a3a3a;
+    font-size: 12px;
+    .event-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 18px;
+        img {
+            width : 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right : 10px;
+        }
+        span {
+            font-size: 18px;
+        }
+    }
+    .event-admin-detail {
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        & > .show-more {
+            margin-top : 18px;
+        }
+    }
+    .event-default {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .show-more {
+        margin : 0;
+        outline: none !important;
+    }
+    .event-management {
+        .item-head {
+            cursor: pointer;
+            &.delete:hover {
+                color : #dc3545
+            }
+            &.manage:hover {
+                color : #28a745;
+            }
+            &.modify:hover {
+                color : #ffc107;
+            }
+        }
+    }
+}
+.event-form {
+    label {
+        font-size: 12px;
+    }
+    .new-event-input, .requirement-input {
+        margin : 15px 0;
+    }
+    .requirement-input {
+        position: relative;
+        i {
+            top : 50%;
+            transform: translateY(-50%);
+            position : absolute;
+            right: 10px;
+            cursor: pointer;
+        }
+        input {
+            padding-right : 25px;
+        }
+    }
+}

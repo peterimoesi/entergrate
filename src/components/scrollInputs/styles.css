@@ -11,6 +11,8 @@
     opacity: 1; }
     .scroll-input.scroll-view .form-group input.form-control, .scroll-input.scroll-view .form-group textarea.form-control {
       border-bottom: 1px solid #ced4da; }
+    .scroll-input.scroll-view .form-group input[type="file"] {
+      border-bottom: 0 !important; }
   .scroll-input .input-label-cont {
     display: flex;
     align-items: center; }

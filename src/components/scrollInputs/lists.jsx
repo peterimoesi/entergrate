@@ -53,7 +53,7 @@ const list = ({
 
 list.propTypes = {
     onChange : PropTypes.func.isRequired,
-    value : PropTypes.string.isRequired,
+    value : PropTypes.array.isRequired,
     name : PropTypes.string.isRequired,
     addToList : PropTypes.func.isRequired,
     removeFromList : PropTypes.func.isRequired

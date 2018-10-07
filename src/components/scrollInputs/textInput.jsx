@@ -8,7 +8,8 @@ const textInput = ({
     value,
     type,
     onKeyDown,
-    name
+    name,
+    placeholder
 }) => (
     <input
         className="form-control"
@@ -17,6 +18,7 @@ const textInput = ({
         type={type}
         name={name}
         onKeyDown={onKeyDown}
+        placeholder={placeholder}
     />
 );
 
@@ -28,12 +30,14 @@ textInput.propTypes = {
     type : PropTypes.string.isRequired,
     name : PropTypes.string.isRequired,
     onKeyDown : PropTypes.func.isRequired,
+    placeholder : PropTypes.string,
     onClick : PropTypes.func,
     klass : PropTypes.string
 };
 
 textInput.defaultProps = {
     onClick : null,
+    placeholder : '',
     klass : ''
 };
 

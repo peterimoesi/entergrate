@@ -20,7 +20,7 @@ const dashboardInput = ({
             {
                 type === 'textArea' ?
                     <textarea
-                        className={`profile-input form-control ${(editing !== name || !noIcon) && 'no-editing'}`}
+                        className={`profile-input form-control ${(editing !== name) && 'no-editing'}`}
                         name={name}
                         placeholder={placeholder}
                         onChange={onChange}
@@ -28,7 +28,7 @@ const dashboardInput = ({
                         rows={4}
                     /> :
                     <input
-                        className={`profile-input form-control ${(editing !== name || !noIcon) && 'no-editing'}`}
+                        className={`profile-input form-control ${(editing !== name) && 'no-editing'}`}
                         name={name}
                         placeholder={placeholder}
                         onChange={onChange}

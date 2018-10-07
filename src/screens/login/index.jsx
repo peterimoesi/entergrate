@@ -1,7 +1,10 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from '../../components/buttons';
 import DefaultInput from '../../components/defaultInput';
+
+import { onLogin } from './action';
 import './styles.scss';
 
 class Login extends React.Component {
@@ -20,7 +23,7 @@ class Login extends React.Component {
     }
 
     formSubmit() {
-        console.log(this.state);
+        this.props.onLogin(this.state);
     }
 
     render() {
@@ -58,4 +61,8 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+Login.propTypes = {
+    onLogin : PropTypes.func.isRequired
+};
+
+export default connect(null, { onLogin })(Login);

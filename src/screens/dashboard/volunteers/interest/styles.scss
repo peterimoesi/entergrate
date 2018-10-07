@@ -32,25 +32,7 @@
     font-size: 12px;
     text-align: right;
 }
-.show-more-interest {
-    cursor: pointer;
-    margin-left : 10px;
-    &:hover {
-        text-decoration: underline;
-        color : blue;
-    }
-}
-.show-more-item {
-    font-size: 14px;
-    .item-head {
-        font-weight: 600;
-        color : #9a9a9a;
-        margin-bottom: 10px;
-    }
-    & > div {
-        margin : 30px 0;
-    }
-}
+
 .interest-location-date {
     display: flex;
     flex-wrap: wrap;

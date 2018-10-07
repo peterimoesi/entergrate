@@ -13,6 +13,9 @@
             input.form-control, textarea.form-control {
             border-bottom : 1px solid #ced4da;
             }
+            input[type="file"] {
+                border-bottom: 0 !important;
+            }
         }
     }
     .input-label-cont {

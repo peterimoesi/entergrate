@@ -1,37 +1,47 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import ScrollFormInput from '../../../components/scrollInputs';
+import FileUpload from '../../../components/scrollInputs/upload';
 import Button from '../../../components/buttons';
 
+import { apply } from './actions';
 
 class ForVolunteers extends React.Component {
     constructor() {
         super();
         this.state = {
+            userGroup : 1,
             fullName : '',
             email : '',
             address : '',
             phoneNumber : '',
             password : '',
-            bio : ''
+            bio : '',
+            image :''
         };
         this.onChange = this.onChange.bind(this);
         this.apply = this.apply.bind(this);
+        this.handleUpload = this.handleUpload.bind(this);
     }
 
     onChange(e) {
         this.setState({ [e.target.name] : e.target.value });
     }
+
+    handleUpload(e) {
+        e.preventDefault();
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            this.setState({ image : e.target.result });
+        };
+        if (e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    }
+
     apply() {
-        axios.post(`${global.apiUrl}/api/users`, this.state).then(response => {
-            if (response.status === 200) {
-                // handle 200
-                console.log('REGISTERED');
-            } else {
-                // handle error
-            }
-        }).catch(error => console.log(error));
+        this.props.apply(this.state);
     }
 
     render () {
@@ -132,6 +142,15 @@ class ForVolunteers extends React.Component {
                 >
                     <div>Say a few worlds about yourself. Let organiations know who your are.</div>
                 </ScrollFormInput>
+                <FileUpload
+                    number={6}
+                    onUpload={this.handleUpload}
+                    onClick={this.props.onInputClick}
+                    name="profileImage"
+                >
+                    <div>Upload your profile picture</div>
+                </FileUpload>
+
                 <div>
                     <Button
                         title="Apply"
@@ -148,7 +167,8 @@ class ForVolunteers extends React.Component {
 ForVolunteers.propTypes = {
     setRef : PropTypes.func.isRequired,
     onInputClick : PropTypes.func.isRequired,
-    onEnterClick : PropTypes.func.isRequired
+    onEnterClick : PropTypes.func.isRequired,
+    apply : PropTypes.func.isRequired
 };
 
-export default ForVolunteers ;
+export default connect(null, { apply })(ForVolunteers) ;

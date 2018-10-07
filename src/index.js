@@ -22,6 +22,20 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(...middleware))
 );
 
+const userCredentials = localStorage.userCredentials;
+if (userCredentials) {
+    try {
+        store.dispatch({
+            type : 'IS_AUTHENTICATED',
+            data : JSON.parse(userCredentials)
+        });
+    } catch (e) {
+        console.error(e);
+        // store.dispatch(removeUserCredentials());
+        localStorage.removeItem('userCredentials');
+    }
+}
+
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>

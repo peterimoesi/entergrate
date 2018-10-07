@@ -1,6 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Button from '../../../../components/buttons';
 import CollapseSection from '../../../../components/collapseSection/collapseSection';
+import EventComponent from './eventComponent';
+import Modal from '../../../../components/modals';
+import EventForm from './eventForm';
+
+import { getEvents } from './actions';
 
 class Events extends React.Component {
     constructor() {
@@ -8,91 +16,127 @@ class Events extends React.Component {
         this.state = {
             expand : false,
             dataLoaded : false,
+            showMore : '',
+            openModal : false,
+            eventIndex : '',
+            modalChild : null
         };
         this.toggleExpand = this.toggleExpand.bind(this);
-        this.fakedData = [
-            {
-                eventName : 'heeh',
-                businessName : 'ehehehe',
-                active : true,
-                eventDescription : 'eheheh',
-                eventLocation : 'ehehee',
-                eventArtwork : 'hehehehehe',
-                id : 'ipoiofoio',
-                dateCreated : '22-03-1220',
-                eventDate : '34-34-3434',
-                volunteers : [
-                    {
-                        name : 'wfiwifoh',
-                        id : 'feihfiehfhief',
-                        dateApplied : '23-22-2323',
-                        profileImg : ''
-                    }, {
-                        name : 'wfiwifoh',
-                        id : 'feihfieehfhief',
-                        dateApplied : '23-22-2323',
-                        profileImg : ''
-                    }
-
-                ]
-            }, {
-                eventName : 'heehee',
-                businessName : 'ehehehe',
-                active : true,
-                eventDescription : 'eheheh',
-                eventLocation : 'ehehee',
-                eventArtwork : 'hehehehehe',
-                id : 'ipoieofoio',
-                dateCreated : '22-03-1220',
-                eventDate : '34-34-3434',
-                volunteers : [
-                    {
-                        name : 'wfiwifoh',
-                        id : 'feihfiehfhief',
-                        dateApplied : '23-22-2323',
-                        profileImg : ''
-                    }, {
-                        name : 'wfiwifoh',
-                        id : 'feihfieehfhief',
-                        dateApplied : '23-22-2323',
-                        profileImg : ''
-                    }
-
-                ]
-            }
-        ];
+        this.toggleShowMore = this.toggleShowMore.bind(this);
+        this.onModify = this.onModify.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     toggleExpand() {
         this.setState({ expand : !this.state.expand }, () => {
             if (this.state.expand) {
-                this.timeout = setTimeout(() => this.setState({ dataLoaded : true }), 500);
+                this.props.getEvents(this.props.userId)
+                    .then(res => res && this.setState({ dataLoaded : true }));
             } else {
-                clearTimeout(this.timeout);
                 this.setState({ dataLoaded : false });
             }
         });
     }
+
+    toggleShowMore(id) {
+        const { showMore } = this.state;
+        if (id === showMore) {
+            this.setState({ showMore : '' });
+        } else {
+            this.setState({ showMore : id });
+        }
+    }
+
+    onModify(i) {
+        this.setState({ modalChild : 'modifyEvent', eventIndex : i });
+        this.openModal();
+    }
+
+    openModal() {
+        this.setState({ openModal : true });
+    }
+
+    closeModal() {
+        this.setState({ openModal : false, modalChild : null });
+    }
     
     render() {
+        const {
+            modalChild,
+            openModal,
+            expand,
+            dataLoaded,
+            showMore
+        } = this.state;
         return (
             <CollapseSection
                 name="Events"
-                expand={this.state.expand}
-                dataLoaded={this.state.dataLoaded}
+                expand={expand}
+                dataLoaded={dataLoaded}
                 toggleExpand={this.toggleExpand}
             >
-                <div/>
-                <div className="section-cta">
-                    <Button
-                        title="Add new"
-                        onClick={() => null}
-                        type="secondary"
-                    />
+                <div>
+                    {openModal ?
+                        <Modal
+                            close={this.closeModal}
+                        >
+                            <div>
+                                { modalChild === 'newEvent' ?
+                                    <EventForm
+                                        closeForm={this.closeModal}
+                                    /> : null
+                                }
+                                { modalChild === 'modifyEvent' ?
+                                    <EventForm
+                                        modify
+                                        closeForm={this.closeModal}
+                                        eventData = {this.props.events[this.state.eventIndex]}
+                                    /> : null
+                                }
+                            </div>
+                        </Modal> : null
+                    }
+                    <div>
+                        <div>
+                            {
+                                this.props.events.map((evt, i) => (
+                                    <EventComponent
+                                        key={evt._id}
+                                        event={evt}
+                                        showMore={showMore}
+                                        toggleShowMore={this.toggleShowMore}
+                                        onModify={this.onModify}
+                                        index={i}
+                                    />
+                                ))
+                            }
+                        </div>
+                        <div className="section-cta">
+                            <Button
+                                title="Add new"
+                                onClick={() => this.setState({ modalChild : 'newEvent', openModal : true })}
+                                type="secondary"
+                            />
+                        </div>
+                    </div>
                 </div>
             </CollapseSection>
         );
     }
 }
 
-export default Events;
+Events.propTypes = {
+    userId : PropTypes.string.isRequired,
+    getEvents : PropTypes.func.isRequired,
+    events : PropTypes.array.isRequired
+};
+
+function mapStateToProps({ authentication, events }) {
+    return {
+        userId : authentication.userData._id,
+        events : events.events
+    };
+}
+
+export default connect(mapStateToProps, { getEvents })(Events);

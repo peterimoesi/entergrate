@@ -56,3 +56,19 @@ img::-moz-selection {
   @media screen and (max-width: 992px) {
     #App > #app-routes {
       padding-top: 55.6px; } }
+
+.show-more {
+  cursor: pointer;
+  margin-left: 10px; }
+  .show-more:hover {
+    text-decoration: underline;
+    color: blue; }
+
+.show-more-item {
+  font-size: 14px; }
+  .show-more-item .item-head {
+    font-weight: 600;
+    color: #9a9a9a;
+    margin-bottom: 10px; }
+  .show-more-item > div {
+    margin: 30px 0; }

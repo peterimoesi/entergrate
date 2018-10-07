@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CollapseSection from '../../components/collapseSection/collapseSection';
+import CollapseSection from '../../../components/collapseSection/collapseSection';
 
 class Search extends React.Component {
     constructor() {

@@ -1,13 +1,14 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import CollapseSection from '../../components/collapseSection/collapseSection';
 import DefaultInput from '../../components/defaultInput';
 import Button from '../../components/buttons';
 import './styles.scss';
 
 class Profile extends React.Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.toggleExpand = this.toggleExpand.bind(this);
         this.toggleEditing = this.toggleEditing.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -17,13 +18,12 @@ class Profile extends React.Component{
             expand : false,
             editing : '',
             userData : {
-                fullName : 'Still kdnkdn Peter dkvmndkmn',
-                email : 'peterteh@vdfv.com',
-                address : '8 iehfiue iofhef i oifheio oeifheiofheifjoi',
-                phoneNumber : '5365987875983475',
-                password : 'w6366363636',
-                bio : `bgiuw iwu gwuig wiughiuwh huwhgi hwig -wghwpgwi gpwiog pw gwgpwgiwgih hwoigw
-                pqwjuf poqj ohofqihfo ifqofhqofhi qofioiqof  foiq hfoiq ofih qfhoqihfhqoihfoi qhfq oih `
+                fullName : props.userData.fullName,
+                email : props.userData.email,
+                address : props.userData.address,
+                phoneNumber : props.userData.phoneNumber,
+                password : '',
+                bio : props.userData.bio
             }
         };
     }
@@ -37,9 +37,8 @@ class Profile extends React.Component{
     toggleExpand() {
         this.setState({ expand : !this.state.expand }, () => {
             if (this.state.expand) {
-                this.timeout = setTimeout(() => this.setState({ dataLoaded : true }), 3000);
+                this.setState({ dataLoaded : true });
             } else {
-                clearTimeout(this.timeout);
                 this.setState({ dataLoaded : false });
             }
         });
@@ -51,6 +50,7 @@ class Profile extends React.Component{
 
     render () {
         const { editing } = this.state;
+        console.log(this.state);
         return (
             <CollapseSection
                 name="Profile"
@@ -108,7 +108,7 @@ class Profile extends React.Component{
                         <div className="col-lg-6 col-md-6-col-sm-12 col-xs-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
-                                label="Password"
+                                label="Change password"
                                 value={`${this.state.userData.password}******`}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
@@ -143,5 +143,15 @@ class Profile extends React.Component{
     }
 }
 
-export default Profile;
+Profile.propTypes = {
+    userData : PropTypes.object.isRequired
+};
+
+function mapStateToProps({ authentication }) {
+    return {
+        userData : authentication.userData
+    };
+}
+
+export default connect(mapStateToProps)(Profile);
 
