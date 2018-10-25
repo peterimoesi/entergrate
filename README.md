@@ -1,1 +1,1 @@
-Web application fr Entergrate.Org
+Web application for Entergrate.Org
