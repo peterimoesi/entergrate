@@ -3,24 +3,27 @@ import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const button = ({ onClick, title, type, size }) => (
+const button = ({ onClick, title, type, size, icon }) => (
     <button
         onClick={onClick}
-        className={`btn btn-${type} button button-${type} button-${size}`}
+        className={`btn btn-${type} button button-${type} button-${size} entergrate-btn`}
     >
         {title}
+        {icon ? <i className={`fa fa-${icon}`} /> : null}
     </button>
 );
 
 button.propTypes = {
-    onClick : PropTypes.func.isRequired,
-    title  : PropTypes.string.isRequired,
-    type : PropTypes.string.isRequired,
-    size : PropTypes.string
+    onClick: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    size: PropTypes.string
 };
 
 button.defaultProps = {
-    size : ''
+    size: '',
+    icon: null
 };
 
 export default button;

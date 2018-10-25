@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from '../profile';
 import Interest from './interest';
-import Search from './search';
+import Search from './openPositions';
 
 class VolunteerDashboard extends React.Component {
     constructor() {

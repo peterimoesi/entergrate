@@ -1,0 +1,24 @@
+.open-positions {
+  padding-top: 100px; }
+
+.open-event-list-item {
+  border-bottom: 1px solid #ededed;
+  padding: 15px 0; }
+  .open-event-list-item .open-event-picture,
+  .open-event-list-item .open-event-action,
+  .open-event-list-item .open-event-details {
+    margin: 15px 0; }
+  .open-event-list-item .open-event-picture {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .open-event-list-item .open-event-picture img {
+      width: 100%;
+      max-height: 73px;
+      margin-top: 30px; }
+  .open-event-list-item .open-event-owner {
+    color: #fed136; }
+  .open-event-list-item .open-event-date-location {
+    color: #9a9a9a;
+    font-size: 500;
+    margin-top: 30px; }

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@danproudfeet/react-dev-utils": "^7.5.0",
+    "@resuelve/react-dev-utils": "^5.0.5",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "babel-core": "6.26.0",
@@ -36,11 +38,12 @@
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "^2.0.8",
+    "postcss-preset-env": "^6.1.1",
     "promise": "8.0.1",
     "prop-types": "^15.6.2",
     "raf": "3.4.0",
     "react": "^16.5.2",
-    "react-dev-utils": "^5.0.2",
+    "react-dev-utils": "^5.0.3",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
@@ -59,13 +62,10 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start-js": "node scripts/start.js",
-    "start": "npm-run-all -p watch-css start-js",
-    "build-js": "node scripts/build.js",
-    "build": "npm-run-all build-css build-js",
-    "test": "node scripts/test.js --env=jsdom",
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js",
+    "predeploy": "npm run build"
   },
   "devDependencies": {
     "eslint": "^5.6.0",

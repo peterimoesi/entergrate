@@ -78,7 +78,7 @@ class EventForm extends React.Component {
         return (
             <div className="event-form">
                 <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 new-event-input">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <DefaultInput
                             onChange={this.onChange}
                             label="Event name"
@@ -88,7 +88,7 @@ class EventForm extends React.Component {
                             noIcon
                         />
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 new-event-input">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <div>
                             <label>Upload Event image : </label>
                             <div>
@@ -103,7 +103,7 @@ class EventForm extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 new-event-input">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <DefaultInput
                             onChange={this.onChange}
                             label="Event date"
@@ -113,7 +113,7 @@ class EventForm extends React.Component {
                             noIcon
                         />
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 new-event-input">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <DefaultInput
                             onChange={this.onChange}
                             label="Event time"
@@ -123,7 +123,7 @@ class EventForm extends React.Component {
                             noIcon
                         />
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 new-event-input">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <DefaultInput
                             onChange={this.onChange}
                             label="Event location"
@@ -133,7 +133,7 @@ class EventForm extends React.Component {
                             noIcon
                         />
                     </div>
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 new-event-input">
+                    <div className="col-lg-12 col-md-12 col-sm-12 col-12 new-event-input">
                         <DefaultInput
                             onChange={this.onChange}
                             label="Event description"
@@ -144,7 +144,7 @@ class EventForm extends React.Component {
                             noIcon
                         />
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 new-event-input">
+                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <div>
                             <label>Add volunteer requirements</label>
                             {

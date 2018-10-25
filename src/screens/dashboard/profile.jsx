@@ -60,7 +60,7 @@ class Profile extends React.Component{
             >
                 <div>
                     <div className="row">
-                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Full name"
@@ -71,7 +71,7 @@ class Profile extends React.Component{
                                 name="fullName"
                             />
                         </div>
-                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Email"
@@ -83,7 +83,7 @@ class Profile extends React.Component{
                                 name="email"
                             />
                         </div>
-                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 input-col">
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Address"
@@ -94,7 +94,7 @@ class Profile extends React.Component{
                                 name="address"
                             />
                         </div>
-                        <div className="col-lg-6 col-md-6-col-sm-12 col-xs-12 input-col">
+                        <div className="col-lg-6 col-md-6-col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Phone number"
@@ -105,7 +105,7 @@ class Profile extends React.Component{
                                 name="phoneNumber"
                             />
                         </div>
-                        <div className="col-lg-6 col-md-6-col-sm-12 col-xs-12 input-col">
+                        <div className="col-lg-6 col-md-6-col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Change password"
@@ -117,7 +117,7 @@ class Profile extends React.Component{
                                 name="password"
                             />
                         </div>
-                        <div className="col-lg-12 col-md-12-col-sm-12 col-xs-12 input-col">
+                        <div className="col-lg-12 col-md-12-col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="About you"

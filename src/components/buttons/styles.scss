@@ -1,5 +1,5 @@
 .btn.button {
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700 !important;
     text-transform: uppercase;
 }
@@ -14,12 +14,20 @@
     border-color: #fed136;
 }
 
-.btn.button-primary:active, .btn.button-primary:focus, .btn.button-primary:hover {
+.btn.button-primary:active,
+.btn.button-primary:focus,
+.btn.button-primary:hover {
     background-color: #fec810 !important;
     border-color: #fec810 !important;
     color: white;
 }
 
-.btn.button-primary:active, .btn.button-primary:focus {
+.btn.button-primary:active,
+.btn.button-primary:focus {
     box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+}
+.entergrate-btn {
+    i {
+        margin-left: 10px;
+    }
 }

@@ -15,6 +15,8 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         const { isAuthenticated, userGroup } = this.props;
+
+        // prevent users from entering the wrong dashboard
         this.timeout = setTimeout(() => {
             if (isAuthenticated) {
                 if (userGroup === '2') {
@@ -30,6 +32,24 @@ class Dashboard extends React.Component {
         }, 0);
     }
 
+    componentDidUpdate(prevProps) {
+        const { userGroup, isAuthenticated, pathname } = this.props;
+        if (
+            isAuthenticated &&
+            (prevProps.userGroup !== userGroup ||
+                prevProps.pathname !== pathname)
+        ) {
+            console.log('wrong');
+            if (userGroup === '2') {
+                history.push('/dashboard/organisations');
+            } else if (userGroup === '1') {
+                history.push('/dashboard/volunteers');
+            } else {
+                history.push('/login');
+            }
+        }
+    }
+
     componentWillUnmount() {
         clearTimeout(this.timeout);
     }
@@ -38,8 +58,14 @@ class Dashboard extends React.Component {
         console.log(this.props);
         return (
             <Switch>
-                <Route path="/dashboard/organisations" component={OrganisationDashboard} />
-                <Route path="/dashboard/volunteers" component={VolunteerDashboard} />
+                <Route
+                    path="/dashboard/organisations"
+                    component={OrganisationDashboard}
+                />
+                <Route
+                    path="/dashboard/volunteers"
+                    component={VolunteerDashboard}
+                />
                 <Route path="/dashboard" component={Loading} />
             </Switch>
         );
@@ -47,14 +73,16 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-    isAuthenticated : PropTypes.bool.isRequired,
-    userGroup : PropTypes.string.isRequired
+    isAuthenticated: PropTypes.bool.isRequired,
+    userGroup: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired
 };
 
-function mapStateToProps({ authentication }) {
+function mapStateToProps({ authentication, router }) {
     return {
-        isAuthenticated : authentication.isAuthenticated,
-        userGroup : authentication.userData.userGroup 
+        isAuthenticated: authentication.isAuthenticated,
+        userGroup: authentication.userData.userGroup,
+        pathname: router.location.pathname
     };
 }
 

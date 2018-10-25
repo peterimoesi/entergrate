@@ -30,7 +30,7 @@ const NavigationComponent = ({
                         <Link className="nav-link js-scroll-trigger" to="/need-volunteers">Need Volunteers</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link js-scroll-trigger" to="/">Open positions</Link>
+                        <Link className="nav-link js-scroll-trigger" to="/open-events">Open positions</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link js-scroll-trigger" to="/login">login</Link>
