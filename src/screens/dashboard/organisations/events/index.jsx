@@ -14,12 +14,12 @@ class Events extends React.Component {
     constructor() {
         super();
         this.state = {
-            expand : false,
-            dataLoaded : false,
-            showMore : '',
-            openModal : false,
-            eventIndex : '',
-            modalChild : null
+            expand: false,
+            dataLoaded: false,
+            showMore: '',
+            openModal: false,
+            eventIndex: '',
+            modalChild: null
         };
         this.toggleExpand = this.toggleExpand.bind(this);
         this.toggleShowMore = this.toggleShowMore.bind(this);
@@ -29,12 +29,13 @@ class Events extends React.Component {
     }
 
     toggleExpand() {
-        this.setState({ expand : !this.state.expand }, () => {
+        this.setState({ expand: !this.state.expand }, () => {
             if (this.state.expand) {
-                this.props.getEvents(this.props.userId)
-                    .then(res => res && this.setState({ dataLoaded : true }));
+                this.props
+                    .getEvents(this.props.userId)
+                    .then(res => res && this.setState({ dataLoaded: true }));
             } else {
-                this.setState({ dataLoaded : false });
+                this.setState({ dataLoaded: false });
             }
         });
     }
@@ -42,25 +43,25 @@ class Events extends React.Component {
     toggleShowMore(id) {
         const { showMore } = this.state;
         if (id === showMore) {
-            this.setState({ showMore : '' });
+            this.setState({ showMore: '' });
         } else {
-            this.setState({ showMore : id });
+            this.setState({ showMore: id });
         }
     }
 
     onModify(i) {
-        this.setState({ modalChild : 'modifyEvent', eventIndex : i });
+        this.setState({ modalChild: 'modifyEvent', eventIndex: i });
         this.openModal();
     }
 
     openModal() {
-        this.setState({ openModal : true });
+        this.setState({ openModal: true });
     }
 
     closeModal() {
-        this.setState({ openModal : false, modalChild : null });
+        this.setState({ openModal: false, modalChild: null });
     }
-    
+
     render() {
         const {
             modalChild,
@@ -71,51 +72,58 @@ class Events extends React.Component {
         } = this.state;
         return (
             <CollapseSection
-                name="Events"
+                name={`Events (${
+                    this.props.eventLength <= 10
+                        ? this.props.eventLength
+                        : '10+'
+                })`}
                 expand={expand}
                 dataLoaded={dataLoaded}
                 toggleExpand={this.toggleExpand}
             >
                 <div>
-                    {openModal ?
-                        <Modal
-                            close={this.closeModal}
-                        >
+                    {openModal ? (
+                        <Modal close={this.closeModal}>
                             <div>
-                                { modalChild === 'newEvent' ?
-                                    <EventForm
-                                        closeForm={this.closeModal}
-                                    /> : null
-                                }
-                                { modalChild === 'modifyEvent' ?
+                                {modalChild === 'newEvent' ? (
+                                    <EventForm closeForm={this.closeModal} />
+                                ) : null}
+                                {modalChild === 'modifyEvent' ? (
                                     <EventForm
                                         modify
                                         closeForm={this.closeModal}
-                                        eventData = {this.props.events[this.state.eventIndex]}
-                                    /> : null
-                                }
+                                        eventData={
+                                            this.props.events[
+                                                this.state.eventIndex
+                                            ]
+                                        }
+                                    />
+                                ) : null}
                             </div>
-                        </Modal> : null
-                    }
+                        </Modal>
+                    ) : null}
                     <div>
                         <div>
-                            {
-                                this.props.events.map((evt, i) => (
-                                    <EventComponent
-                                        key={evt._id}
-                                        event={evt}
-                                        showMore={showMore}
-                                        toggleShowMore={this.toggleShowMore}
-                                        onModify={this.onModify}
-                                        index={i}
-                                    />
-                                ))
-                            }
+                            {this.props.events.map((evt, i) => (
+                                <EventComponent
+                                    key={evt._id}
+                                    event={evt}
+                                    showMore={showMore}
+                                    toggleShowMore={this.toggleShowMore}
+                                    onModify={this.onModify}
+                                    index={i}
+                                />
+                            ))}
                         </div>
                         <div className="section-cta">
                             <Button
                                 title="Add new"
-                                onClick={() => this.setState({ modalChild : 'newEvent', openModal : true })}
+                                onClick={() =>
+                                    this.setState({
+                                        modalChild: 'newEvent',
+                                        openModal: true
+                                    })
+                                }
                                 type="secondary"
                             />
                         </div>
@@ -127,16 +135,21 @@ class Events extends React.Component {
 }
 
 Events.propTypes = {
-    userId : PropTypes.string.isRequired,
-    getEvents : PropTypes.func.isRequired,
-    events : PropTypes.array.isRequired
+    userId: PropTypes.string.isRequired,
+    getEvents: PropTypes.func.isRequired,
+    events: PropTypes.array.isRequired,
+    eventLength: PropTypes.number.isRequired
 };
 
 function mapStateToProps({ authentication, events }) {
     return {
-        userId : authentication.userData._id,
-        events : events.events
+        userId: authentication.userData._id,
+        eventLength: authentication.userData.events.length,
+        events: events.events
     };
 }
 
-export default connect(mapStateToProps, { getEvents })(Events);
+export default connect(
+    mapStateToProps,
+    { getEvents }
+)(Events);

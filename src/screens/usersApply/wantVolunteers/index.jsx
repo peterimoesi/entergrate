@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ScrollFormInput from '../../../components/scrollInputs';
 import Button from '../../../components/buttons';
 import FileUpload from '../../../components/scrollInputs/upload';
+import Validation from '../../../utils/validation';
 
 import { apply } from './actions';
 
@@ -11,24 +12,25 @@ class NeedVolunteers extends React.Component {
     constructor() {
         super();
         this.state = {
-            userData : {
-                userGroup : 2,
-                fullName : '',
-                email : '',
-                address : '',
-                phoneNumber : '',
-                password : '',
-                image : '',
-                bio : '',
+            error: {},
+            userData: {
+                userGroup: 2,
+                fullName: '',
+                email: '',
+                address: '',
+                phoneNumber: '',
+                password: '',
+                // image : '',
+                bio: ''
             },
-            eventData : {
-                requirements : [],
-                description : '',
-                startDate : '',
-                time : '',
-                location : '',
-                name : '',
-                image : ''
+            eventData: {
+                requirements: [],
+                description: '',
+                date: '',
+                time: '',
+                location: '',
+                name: '',
+                image: ''
             }
         };
         this.onUserChange = this.onUserChange.bind(this);
@@ -70,13 +72,27 @@ class NeedVolunteers extends React.Component {
         this.setState({ eventData });
     }
 
+    validateChanges() {
+        const object = { ...this.state.userData, ...this.state.eventData };
+        const formChanges = Object.keys(object);
+        const { error } = this.state;
+        for (let key of formChanges) {
+            if (key === 'name') {
+                error[key] = Validation.fullName(object[key]);
+            } else if (Validation[key]) {
+                error[key] = Validation[key](object[key]);
+            }
+        }
+        this.setState({ error });
+    }
+
     handleUpload(e, name) {
         e.preventDefault();
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
             const data = this.state[name];
             data.image = e.target.result;
-            this.setState({ [name] : data });
+            this.setState({ [name]: data });
         };
         if (e.target.files[0]) {
             reader.readAsDataURL(e.target.files[0]);
@@ -84,10 +100,20 @@ class NeedVolunteers extends React.Component {
     }
 
     apply() {
+        this.validateChanges();
+        // check for errors
+        const { error } = this.state,
+            errorKeys = Object.keys(error);
+        for (let key of errorKeys) {
+            if (error[key]) {
+                return;
+            }
+        }
+        console.log(error);
         this.props.apply(this.state.userData, this.state.eventData);
     }
 
-    render () {
+    render() {
         const {
             fullName,
             email,
@@ -112,10 +138,13 @@ class NeedVolunteers extends React.Component {
                         <span>Click </span>
                         <Button
                             title="here"
-                            onClick={() =>  null}
+                            onClick={() => null}
                             type="secondary"
                         />
-                        <span> to view the list of open volunteers in your location</span>
+                        <span>
+                            {' '}
+                            to view the list of open volunteers in your location
+                        </span>
                     </div>
                 </div>
                 <ScrollFormInput
@@ -151,9 +180,11 @@ class NeedVolunteers extends React.Component {
                 >
                     <div>
                         <div>Enter your secure password here.</div>
-                        <div>Please note that Entergrate will never ask you for your login information</div>
+                        <div>
+                            Please note that Entergrate will never ask you for
+                            your login information
+                        </div>
                     </div>
-                    
                 </ScrollFormInput>
                 <ScrollFormInput
                     number={4}
@@ -175,7 +206,10 @@ class NeedVolunteers extends React.Component {
                     onKeyDown={this.props.onEnterClick}
                     type="text"
                 >
-                    <div>Please enter your phone number along with the country code</div>
+                    <div>
+                        Please enter your phone number along with the country
+                        code
+                    </div>
                 </ScrollFormInput>
                 <ScrollFormInput
                     number={6}
@@ -186,18 +220,23 @@ class NeedVolunteers extends React.Component {
                     type="text"
                     inputType="textarea"
                 >
-                    <div>Describe your oraganisation in a few words or drop a link to your website</div>
+                    <div>
+                        Describe your oraganisation in a few words or drop a
+                        link to your website
+                    </div>
                 </ScrollFormInput>
-                <FileUpload
+                {/* <FileUpload
                     number={7}
                     onUpload={e => this.handleUpload(e, 'userData')}
                     onClick={this.props.onInputClick}
                     name="profileImage"
                 >
                     <div>Upload your Business picture</div>
-                </FileUpload>
+                </FileUpload> */}
                 <div className="pre-form-info">
-                    <div>Nom complete the form below to describe your event. </div>
+                    <div>
+                        Nom complete the form below to describe your event.{' '}
+                    </div>
                 </div>
                 <ScrollFormInput
                     number={8}
@@ -242,7 +281,9 @@ class NeedVolunteers extends React.Component {
                     type="text"
                     onKeyDown={this.props.onEnterClick}
                 >
-                    <div>Location of the event if it different from the one above</div>
+                    <div>
+                        Location of the event if it different from the one above
+                    </div>
                 </ScrollFormInput>
                 <ScrollFormInput
                     number={10}
@@ -253,7 +294,10 @@ class NeedVolunteers extends React.Component {
                     type="text"
                     inputType="textarea"
                 >
-                    <div>Describe your event or simply drop the link to the event website</div>
+                    <div>
+                        Describe your event or simply drop the link to the event
+                        website
+                    </div>
                 </ScrollFormInput>
                 <ScrollFormInput
                     number={11}
@@ -290,10 +334,13 @@ class NeedVolunteers extends React.Component {
 }
 
 NeedVolunteers.propTypes = {
-    setRef : PropTypes.func.isRequired,
-    onInputClick : PropTypes.func.isRequired,
-    onEnterClick : PropTypes.func.isRequired,
-    apply : PropTypes.func.isRequired
+    setRef: PropTypes.func.isRequired,
+    onInputClick: PropTypes.func.isRequired,
+    onEnterClick: PropTypes.func.isRequired,
+    apply: PropTypes.func.isRequired
 };
 
-export default connect(null, { apply })(NeedVolunteers) ;
+export default connect(
+    null,
+    { apply }
+)(NeedVolunteers);

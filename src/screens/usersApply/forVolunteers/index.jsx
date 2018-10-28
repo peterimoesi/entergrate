@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ScrollFormInput from '../../../components/scrollInputs';
-import FileUpload from '../../../components/scrollInputs/upload';
+// import FileUpload from '../../../components/scrollInputs/upload';
 import Button from '../../../components/buttons';
 
 import { apply } from './actions';
@@ -11,40 +11,40 @@ class ForVolunteers extends React.Component {
     constructor() {
         super();
         this.state = {
-            userGroup : 1,
-            fullName : '',
-            email : '',
-            address : '',
-            phoneNumber : '',
-            password : '',
-            bio : '',
-            image :''
+            userGroup: 1,
+            fullName: '',
+            email: '',
+            address: '',
+            phoneNumber: '',
+            password: '',
+            bio: ''
+            // image: ''
         };
         this.onChange = this.onChange.bind(this);
         this.apply = this.apply.bind(this);
-        this.handleUpload = this.handleUpload.bind(this);
+        // this.handleUpload = this.handleUpload.bind(this);
     }
 
     onChange(e) {
-        this.setState({ [e.target.name] : e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleUpload(e) {
-        e.preventDefault();
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            this.setState({ image : e.target.result });
-        };
-        if (e.target.files[0]) {
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    }
+    // handleUpload(e) {
+    //     e.preventDefault();
+    //     const reader = new FileReader();
+    //     reader.onload = e => {
+    //         this.setState({ image: e.target.result });
+    //     };
+    //     if (e.target.files[0]) {
+    //         reader.readAsDataURL(e.target.files[0]);
+    //     }
+    // }
 
     apply() {
         this.props.apply(this.state);
     }
 
-    render () {
+    render() {
         const {
             fullName,
             email,
@@ -61,7 +61,7 @@ class ForVolunteers extends React.Component {
                         <span>Click </span>
                         <Button
                             title="here"
-                            onClick={() =>  null}
+                            onClick={() => null}
                             type="secondary"
                         />
                         <span> to view the list of available positions</span>
@@ -78,7 +78,9 @@ class ForVolunteers extends React.Component {
                 >
                     <div>
                         <div>Please provide your fullname here</div>
-                        <div>Your name will be displayed along with your profile</div>
+                        <div>
+                            Your name will be displayed along with your profile
+                        </div>
                     </div>
                 </ScrollFormInput>
                 <ScrollFormInput
@@ -92,7 +94,10 @@ class ForVolunteers extends React.Component {
                 >
                     <div>
                         <div>Enter your email address</div>
-                        <div>Your email along with your secure password will be required for login</div>
+                        <div>
+                            Your email along with your secure password will be
+                            required for login
+                        </div>
                     </div>
                 </ScrollFormInput>
                 <ScrollFormInput
@@ -106,7 +111,10 @@ class ForVolunteers extends React.Component {
                 >
                     <div>
                         <div>Enter your secure password here.</div>
-                        <div>Please note that Entergrate will never ask you for your login information</div>
+                        <div>
+                            Please note that Entergrate will never ask you for
+                            your login information
+                        </div>
                     </div>
                 </ScrollFormInput>
                 <ScrollFormInput
@@ -129,7 +137,10 @@ class ForVolunteers extends React.Component {
                     onKeyDown={this.props.onEnterClick}
                     type="text"
                 >
-                    <div>Please enter your phone number along with the country code</div>
+                    <div>
+                        Please enter your phone number along with the country
+                        code
+                    </div>
                 </ScrollFormInput>
                 <ScrollFormInput
                     number={6}
@@ -140,16 +151,20 @@ class ForVolunteers extends React.Component {
                     type="text"
                     inputType="textarea"
                 >
-                    <div>Say a few worlds about yourself. Let organiations know who your are.</div>
+                    <div>
+                        Say a few worlds about yourself. Let organiations know
+                        who your are.
+                    </div>
                 </ScrollFormInput>
-                <FileUpload
+
+                {/* <FileUpload
                     number={6}
                     onUpload={this.handleUpload}
                     onClick={this.props.onInputClick}
                     name="profileImage"
                 >
                     <div>Upload your profile picture</div>
-                </FileUpload>
+                </FileUpload> */}
 
                 <div>
                     <Button
@@ -165,10 +180,13 @@ class ForVolunteers extends React.Component {
 }
 
 ForVolunteers.propTypes = {
-    setRef : PropTypes.func.isRequired,
-    onInputClick : PropTypes.func.isRequired,
-    onEnterClick : PropTypes.func.isRequired,
-    apply : PropTypes.func.isRequired
+    setRef: PropTypes.func.isRequired,
+    onInputClick: PropTypes.func.isRequired,
+    onEnterClick: PropTypes.func.isRequired,
+    apply: PropTypes.func.isRequired
 };
 
-export default connect(null, { apply })(ForVolunteers) ;
+export default connect(
+    null,
+    { apply }
+)(ForVolunteers);

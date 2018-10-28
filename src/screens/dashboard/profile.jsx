@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import CollapseSection from '../../components/collapseSection/collapseSection';
 import DefaultInput from '../../components/defaultInput';
 import Button from '../../components/buttons';
+import validation from '../../utils/validation';
 import './styles.scss';
 
 class Profile extends React.Component {
@@ -13,12 +14,15 @@ class Profile extends React.Component {
         this.toggleEditing = this.toggleEditing.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleCVUpload = this.handleCVUpload.bind(this);
+        this.saveForm = this.saveForm.bind(this);
+        this.getFormChanges = this.getFormChanges.bind(this);
         this.timeout = null;
         this.state = {
-            dataLoaded: false,
-            expand: false,
+            dataLoaded: true,
+            expand: true,
             editing: '',
             cvFileName: '',
+            error: {},
             userData: {
                 fullName: props.userData.fullName,
                 email: props.userData.email,
@@ -26,7 +30,8 @@ class Profile extends React.Component {
                 phoneNumber: props.userData.phoneNumber,
                 password: '',
                 bio: props.userData.bio,
-                cv: ''
+                personalUrl: props.userData.personalUrl || '',
+                cv: props.userData.cv
             }
         };
     }
@@ -56,13 +61,44 @@ class Profile extends React.Component {
         const reader = new FileReader();
         reader.onload = e => {
             const { userData } = this.state;
-            userData.image = e.target.result;
+            userData.cv = e.target.result;
             this.setState({ userData });
         };
         if (e.target.files[0]) {
             this.setState({ cvFileName: e.target.files[0].name });
             reader.readAsDataURL(e.target.files[0]);
         }
+    }
+
+    getFormChanges() {
+        // check which fields are different
+        const { userData } = this.state,
+            defaultUserData = this.props.userData,
+            userKeys = Object.keys(userData),
+            updatedKeys = {};
+        for (let i of userKeys) {
+            if (userData[i] !== defaultUserData[i]) {
+                updatedKeys[i] = userData[i];
+            }
+        }
+        delete updatedKeys.password;
+        return updatedKeys;
+    }
+
+    validateChanges() {
+        const object = this.getFormChanges();
+        const formChanges = Object.keys(object);
+        const { error } = this.state;
+        for (let key of formChanges) {
+            if (validation[key]) {
+                error[key] = validation[key](object[key]);
+            }
+        }
+        this.setState({ error });
+    }
+
+    saveForm() {
+        this.validateChanges(this.getFormChanges());
     }
 
     render() {
@@ -85,18 +121,31 @@ class Profile extends React.Component {
                                 editing={editing}
                                 placeholder="Full name"
                                 name="fullName"
+                                error={this.state.error.fullName}
+                            />
+                        </div>
+                        <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
+                            <DefaultInput
+                                label="Email"
+                                type="email"
+                                value={this.state.userData.email}
+                                placeholder="Email"
+                                name="email"
+                                noIcon
+                                readOnly
                             />
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
-                                label="Email"
-                                type="email"
-                                value={this.state.userData.email}
+                                label="Link to LinkedIn page or personal website"
+                                type="text"
+                                value={this.state.userData.personalUrl}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
-                                placeholder="Email"
-                                name="email"
+                                placeholder="LinkedIn or website"
+                                name="personalUrl"
+                                error={this.state.error.personalUrl}
                             />
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
@@ -119,6 +168,7 @@ class Profile extends React.Component {
                                 editing={editing}
                                 placeholder="Phone number"
                                 name="phoneNumber"
+                                error={this.state.error.phoneNumber}
                             />
                         </div>
                         <div className="col-lg-6 col-md-6-col-sm-12 col-12 input-col">
@@ -171,7 +221,7 @@ class Profile extends React.Component {
                     <div className="section-cta-right">
                         <Button
                             title="Save"
-                            onClick={() => null}
+                            onClick={this.saveForm}
                             type="primary"
                         />
                     </div>

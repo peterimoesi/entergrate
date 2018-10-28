@@ -10,6 +10,7 @@ const eventSchema = new Schema(
         description: String,
         date: String,
         time: String,
+        presonalUrl: String,
         image: {
             data: Buffer,
             type: String
