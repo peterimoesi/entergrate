@@ -1,1 +1,1 @@
-global.apiUrl = 'http://localhost:3002';
+global.apiUrl = 'http://localhost';

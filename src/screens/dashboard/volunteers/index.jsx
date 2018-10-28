@@ -6,15 +6,13 @@ import Search from './openPositions';
 class VolunteerDashboard extends React.Component {
     constructor() {
         super();
-        this.state = {
-        };
+        this.state = {};
     }
-    componentDidMount() {
-    }
+    componentDidMount() {}
     render() {
         return (
             <div>
-                <Profile />
+                <Profile uploadCV />
                 <Interest />
                 <Search />
             </div>

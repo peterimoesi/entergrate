@@ -18,6 +18,8 @@ const eventListComponent = ({
     urlId,
     loaded,
     activeEvent,
+    isAuthenticated,
+    isInterested,
     _id
 }) => (
     <div
@@ -62,6 +64,8 @@ const eventListComponent = ({
                         id={_id}
                         loaded={loaded}
                         activeEvent={activeEvent}
+                        isAuthenticated={isAuthenticated}
+                        isInterested={isInterested}
                     />
                 )}
             />
@@ -80,7 +84,9 @@ eventListComponent.propTypes = {
     setEventRef: PropTypes.func.isRequired,
     urlId: PropTypes.string.isRequired,
     loaded: PropTypes.bool.isRequired,
-    activeEvent: PropTypes.object.isRequired
+    activeEvent: PropTypes.object.isRequired,
+    isInterested: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 };
 
 export default eventListComponent;

@@ -37,9 +37,13 @@
     display: flex;
     flex-wrap: wrap;
     & > div {
-        margin-right : 50px;
+        margin-right: 50px;
         &:first-child {
             margin-bottom: 10px;
         }
     }
+}
+.show-more-interest {
+    outline: none !important;
+    cursor: pointer;
 }

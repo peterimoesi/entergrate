@@ -5,7 +5,10 @@ import './styles.scss';
 import logo from '../../components/img/nav-logo.png';
 
 const NavigationComponent = ({
-    setNavRef
+    setNavRef,
+    isAuthenticated,
+    userGroup,
+    logout
 }) => (
     <nav
         className="navbar navbar-expand-lg navbar-dark fixed-top"
@@ -13,28 +16,72 @@ const NavigationComponent = ({
         ref={e => setNavRef(e)}
     >
         <div className="container">
-            <Link
-                className="navbar-brand js-scroll-trigger" to="/">
-                <img src={logo}/>
+            <Link className="navbar-brand js-scroll-trigger" to="/">
+                <img src={logo} />
             </Link>
-            <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button
+                className="navbar-toggler navbar-toggler-right"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
                 Menu
                 <i className="fa fa-bars" />
             </button>
             <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav text-uppercase ml-auto">
+                    {!isAuthenticated ? (
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link js-scroll-trigger"
+                                to="/for-volunteers"
+                            >
+                                for Volunteers
+                            </Link>
+                        </li>
+                    ) : null}
+                    {!isAuthenticated ? (
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link js-scroll-trigger"
+                                to="/need-volunteers"
+                            >
+                                Need Volunteers
+                            </Link>
+                        </li>
+                    ) : null}
+                    {userGroup !== '2' ? (
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link js-scroll-trigger"
+                                to="/open-events"
+                            >
+                                Open positions
+                            </Link>
+                        </li>
+                    ) : null}
                     <li className="nav-item">
-                        <Link className="nav-link js-scroll-trigger" to="/for-volunteers">for Volunteers</Link>
+                        <Link
+                            className="nav-link js-scroll-trigger"
+                            to={isAuthenticated ? '/dashboard' : '/login'}
+                        >
+                            {isAuthenticated ? 'Dashboard' : 'login'}
+                        </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link js-scroll-trigger" to="/need-volunteers">Need Volunteers</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link js-scroll-trigger" to="/open-events">Open positions</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link js-scroll-trigger" to="/login">login</Link>
-                    </li>
+                    {isAuthenticated ? (
+                        <li className="nav-item">
+                            <Link
+                                className="nav-link js-scroll-trigger"
+                                to="/login"
+                                onClick={e => logout(e)}
+                            >
+                                Logout
+                            </Link>
+                        </li>
+                    ) : null}
                 </ul>
             </div>
         </div>
@@ -42,6 +89,15 @@ const NavigationComponent = ({
 );
 
 NavigationComponent.propTypes = {
-    setNavRef : PropTypes.func.isRequired
+    setNavRef: PropTypes.func.isRequired,
+    userGroup: PropTypes.string,
+    isAuthenticated: PropTypes.bool,
+    logout: PropTypes.func.isRequired
 };
+
+NavigationComponent.defaultProps = {
+    userGroup: null,
+    isAuthenticated: null
+};
+
 export default NavigationComponent;

@@ -11,19 +11,24 @@ class Login extends React.Component {
     constructor() {
         super();
         this.state = {
-            email : '',
-            password : ''
+            email: '',
+            password: ''
         };
         this.onChange = this.onChange.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
     }
 
+    componentDidMount() {
+        console.log(this.props);
+    }
+
     onChange(e) {
-        this.setState({ [e.target.name] : e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     formSubmit() {
-        this.props.onLogin(this.state);
+        const { state } = this.props.location;
+        this.props.onLogin(this.state, state && state.referrer);
     }
 
     render() {
@@ -62,7 +67,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-    onLogin : PropTypes.func.isRequired
+    onLogin: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired
 };
 
-export default connect(null, { onLogin })(Login);
+export default connect(
+    null,
+    { onLogin }
+)(Login);

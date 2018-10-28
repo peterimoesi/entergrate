@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import EventListComponent from './eventListComponent';
-import { getOpenEvents, clearOpenEvents, getOpenSingleEvent } from './actions';
+import {
+    getOpenEvents,
+    clearOpenEvents,
+    getOpenSingleEvent,
+    isInterested
+} from './actions';
 import { animateToElem } from '../../utils/general';
 import './styles.scss';
 
@@ -14,6 +19,7 @@ class OpenEvents extends React.Component {
             loaded: false
         };
         this.eventRef = null;
+        this.isInterested = this.isInterested.bind(this);
         this.setEventRef = this.setEventRef.bind(this);
     }
 
@@ -48,6 +54,10 @@ class OpenEvents extends React.Component {
         this.eventRef = e;
     }
 
+    isInterested(id) {
+        this.props.isInterested(id, this.props.userId);
+    }
+
     render() {
         return (
             <div className="container">
@@ -62,6 +72,8 @@ class OpenEvents extends React.Component {
                                 setEventRef={this.setEventRef}
                                 urlId={this.props.match.params.id || ''}
                                 loaded={this.state.loaded}
+                                isInterested={this.isInterested}
+                                isAuthenticated={this.props.isAuthenticated}
                                 activeEvent={
                                     evt._id === this.props.match.params.id
                                         ? this.props.activeEvent
@@ -77,10 +89,12 @@ class OpenEvents extends React.Component {
     }
 }
 
-function mapStateToProps({ openEvents }) {
+function mapStateToProps({ openEvents, authentication }) {
     return {
         events: openEvents.events,
-        activeEvent: openEvents.activeEvent
+        activeEvent: openEvents.activeEvent,
+        isAuthenticated: authentication.isAuthenticated,
+        userId : authentication.userData._id
     };
 }
 
@@ -90,10 +104,17 @@ OpenEvents.propTypes = {
     events: PropTypes.array.isRequired,
     getOpenSingleEvent: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
-    activeEvent: PropTypes.object.isRequired
+    activeEvent: PropTypes.object.isRequired,
+    isInterested: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    userId : PropTypes.string
+};
+
+OpenEvents.defaultProps = {
+    userId : null
 };
 
 export default connect(
     mapStateToProps,
-    { getOpenEvents, clearOpenEvents, getOpenSingleEvent }
+    { getOpenEvents, clearOpenEvents, getOpenSingleEvent, isInterested }
 )(OpenEvents);

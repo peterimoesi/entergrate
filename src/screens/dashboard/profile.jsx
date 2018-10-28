@@ -6,24 +6,27 @@ import DefaultInput from '../../components/defaultInput';
 import Button from '../../components/buttons';
 import './styles.scss';
 
-class Profile extends React.Component{
+class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.toggleExpand = this.toggleExpand.bind(this);
         this.toggleEditing = this.toggleEditing.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.handleCVUpload = this.handleCVUpload.bind(this);
         this.timeout = null;
         this.state = {
-            dataLoaded : false,
-            expand : false,
-            editing : '',
-            userData : {
-                fullName : props.userData.fullName,
-                email : props.userData.email,
-                address : props.userData.address,
-                phoneNumber : props.userData.phoneNumber,
-                password : '',
-                bio : props.userData.bio
+            dataLoaded: false,
+            expand: false,
+            editing: '',
+            cvFileName: '',
+            userData: {
+                fullName: props.userData.fullName,
+                email: props.userData.email,
+                address: props.userData.address,
+                phoneNumber: props.userData.phoneNumber,
+                password: '',
+                bio: props.userData.bio,
+                cv: ''
             }
         };
     }
@@ -35,22 +38,35 @@ class Profile extends React.Component{
     }
 
     toggleExpand() {
-        this.setState({ expand : !this.state.expand }, () => {
+        this.setState({ expand: !this.state.expand }, () => {
             if (this.state.expand) {
-                this.setState({ dataLoaded : true });
+                this.setState({ dataLoaded: true });
             } else {
-                this.setState({ dataLoaded : false });
+                this.setState({ dataLoaded: false });
             }
         });
     }
 
     toggleEditing(e) {
-        this.setState({ editing : e });
+        this.setState({ editing: e });
     }
 
-    render () {
+    handleCVUpload(e) {
+        e.preventDefault();
+        const reader = new FileReader();
+        reader.onload = e => {
+            const { userData } = this.state;
+            userData.image = e.target.result;
+            this.setState({ userData });
+        };
+        if (e.target.files[0]) {
+            this.setState({ cvFileName: e.target.files[0].name });
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    }
+
+    render() {
         const { editing } = this.state;
-        console.log(this.state);
         return (
             <CollapseSection
                 name="Profile"
@@ -58,7 +74,7 @@ class Profile extends React.Component{
                 dataLoaded={this.state.dataLoaded}
                 toggleExpand={this.toggleExpand}
             >
-                <div>
+                <React.Fragment>
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
                             <DefaultInput
@@ -117,6 +133,28 @@ class Profile extends React.Component{
                                 name="password"
                             />
                         </div>
+                        {this.props.uploadCV && (
+                            <div className="col-lg-6 col-md-6-col-sm-12 col-12 input-col">
+                                <div className="cv-upload-cont">
+                                    <label htmlFor="file-upload">
+                                        <i className="fa fa-arrow-up" />
+                                        Upload your CV
+                                    </label>
+                                    <div className="cv-filename">
+                                        {this.state.cvFileName}
+                                    </div>
+                                    <div className="input-container">
+                                        <input
+                                            type="file"
+                                            id="file-upload"
+                                            placeholder="upload file"
+                                            onChange={this.handleCVUpload}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         <div className="col-lg-12 col-md-12-col-sm-12 col-12 input-col">
                             <DefaultInput
                                 onChange={this.onChange}
@@ -137,21 +175,25 @@ class Profile extends React.Component{
                             type="primary"
                         />
                     </div>
-                </div>
+                </React.Fragment>
             </CollapseSection>
         );
     }
 }
 
 Profile.propTypes = {
-    userData : PropTypes.object.isRequired
+    userData: PropTypes.object.isRequired,
+    uploadCV: PropTypes.bool
+};
+
+Profile.defaultProps = {
+    uploadCV: null
 };
 
 function mapStateToProps({ authentication }) {
     return {
-        userData : authentication.userData
+        userData: authentication.userData
     };
 }
 
 export default connect(mapStateToProps)(Profile);
-

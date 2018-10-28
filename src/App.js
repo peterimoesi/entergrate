@@ -3,6 +3,7 @@ import React from 'react';
 import routes from './routes';
 
 import Navigation from './screens/navbar';
+import Notification from './components/notification';
 
 import './general.scss';
 
@@ -11,9 +12,8 @@ class App extends React.Component {
         return (
             <div className="App" id="App">
                 <Navigation />
-                <div id="app-routes">
-                    {routes}
-                </div>
+                <Notification />
+                <div id="app-routes">{routes}</div>
             </div>
         );
     }

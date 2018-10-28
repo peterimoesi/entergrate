@@ -6,5 +6,32 @@
     text-align: right;
 }
 .section-cta {
-    margin-top : 30px;
+    margin-top: 30px;
+}
+
+.cv-upload-cont {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: 34px;
+    align-items: center;
+    margin-bottom: 30px;
+    label {
+        cursor: pointer;
+        i {
+            margin-right: 10px;
+        }
+        border: 2px solid #9a9a9a;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+    .cv-filename {
+        font-size: 1rem;
+        color: #3a3a3a;
+    }
+    #file-upload[type="file"] {
+        display: none;
+    }
 }
