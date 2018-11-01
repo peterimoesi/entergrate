@@ -21,7 +21,7 @@ class Users extends React.Component {
     componentDidMount() {
         if (this.userApplyRef) {
             this.userApplyRef.addEventListener('scroll', this.handleScroll);
-            this.applyContainerHeightMid =  this.userApplyRef.offsetHeight / 2;
+            this.applyContainerHeightMid = this.userApplyRef.offsetHeight / 2;
             this.navRef = document.querySelector('#mainNav');
             this.formInputs = document.querySelectorAll('.apply-form-inputs');
         }
@@ -39,18 +39,34 @@ class Users extends React.Component {
 
     handleScroll() {
         const applyContainerTop = this.userApplyRef.scrollTop;
-        [].forEach.call(this.formInputs, (elem) => {
+        [].forEach.call(this.formInputs, elem => {
             const elemTop = elem.offsetTop;
             const elemHeight = elem.offsetHeight;
-            if ((elemTop - applyContainerTop) < this.applyContainerHeightMid &&
-                ((elemTop + elemHeight) - applyContainerTop) >= (this.applyContainerHeightMid))
-            {
+            if (
+                elemTop - applyContainerTop < this.applyContainerHeightMid &&
+                elemTop + elemHeight - applyContainerTop >=
+                    this.applyContainerHeightMid
+            ) {
                 elem.classList.add('scroll-view');
                 // autofocus input
-                const input = elem.querySelector('input') || elem.querySelector('textarea');
-                if (input) { input.focus(); }
+                const input =
+                    elem.querySelector('input') ||
+                    elem.querySelector('textarea');
+                if (input) {
+                    input.focus();
+                }
+                // very specific, unrelated condition for react date time, please refactor
+                // if elem has date picker
+                const reactDateTime = elem.querySelector('.rdt');
+                if (reactDateTime) {
+                    reactDateTime.classList.add('rdtOpen');
+                }
             } else {
                 elem.classList.remove('scroll-view');
+                const reactDateTime = elem.querySelector('.rdt');
+                if (reactDateTime) {
+                    reactDateTime.classList.remove('rdtOpen');
+                }
             }
         });
         // Shrink navbar
@@ -62,16 +78,24 @@ class Users extends React.Component {
     }
 
     onInputClick(e) {
-        const firstElemOffsetTop = this.userApplyRef.firstElementChild.offsetTop;
+        const firstElemOffsetTop = this.userApplyRef.firstElementChild
+            .offsetTop;
         this.userApplyRef.scrollTo(0, e.target.offsetTop - firstElemOffsetTop);
     }
 
     onEnterClick(e) {
         if (e.keyCode === 13) {
             [].forEach.call(this.formInputs, (elem, x) => {
-                if (elem.classList.contains('scroll-view') && this.formInputs[x + 1]) {
-                    const firstElemOffsetTop = this.userApplyRef.firstElementChild.offsetTop;
-                    this.userApplyRef.scrollTo(0, this.formInputs[x + 1].offsetTop - firstElemOffsetTop);
+                if (
+                    elem.classList.contains('scroll-view') &&
+                    this.formInputs[x + 1]
+                ) {
+                    const firstElemOffsetTop = this.userApplyRef
+                        .firstElementChild.offsetTop;
+                    this.userApplyRef.scrollTo(
+                        0,
+                        this.formInputs[x + 1].offsetTop - firstElemOffsetTop
+                    );
                     return;
                 }
             });
@@ -83,23 +107,27 @@ class Users extends React.Component {
             <div className="container">
                 <div className="user-apply-container">
                     <Switch>
-                        <Route path="/apply/for-volunteers"
-                            render={(props) =>
+                        <Route
+                            path="/apply/for-volunteers"
+                            render={props => (
                                 <ForVolunteers
                                     {...props}
                                     setRef={this.setUserApplyRef}
                                     onInputClick={this.onInputClick}
                                     onEnterClick={this.onEnterClick}
-                                />}
+                                />
+                            )}
                         />
-                        <Route path="/apply/want-volunteers" 
-                            render={(props) =>
+                        <Route
+                            path="/apply/want-volunteers"
+                            render={props => (
                                 <WantVolunteers
                                     {...props}
                                     setRef={this.setUserApplyRef}
                                     onInputClick={this.onInputClick}
                                     onEnterClick={this.onEnterClick}
-                                />}
+                                />
+                            )}
                         />
                         <Route path="/apply" component={NoPage} />
                     </Switch>

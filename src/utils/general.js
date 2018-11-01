@@ -31,3 +31,28 @@ export function animateScrollTop(to, time) {
         }
     });
 }
+
+export function formatISODate(isoTime, type) {
+    const monthNames = [
+        'Jan',
+        'Feb',
+        'March',
+        'April',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sept',
+        'Oct',
+        'Nov',
+        'Dec'
+    ];
+    const date = new Date(isoTime);
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+    if (type === 'monthYear') {
+        return `${monthNames[monthIndex]}, ${year}`;
+    }
+    return `${day}-${monthIndex + 1}-${year}`;
+}

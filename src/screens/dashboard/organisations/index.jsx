@@ -2,13 +2,15 @@ import React from 'react';
 
 import Profile from '../profile';
 import Events from './events';
-// import Search from '../search';
+import Search from '../volunteers/openPositions';
+import NotificationMenu from '../../../components/notificationMenu';
 
 const OrganisationDashboard = () => (
     <div>
         <Profile />
         <Events />
-        {/* <Search /> */}
+        <Search />
+        <NotificationMenu />
     </div>
 );
 

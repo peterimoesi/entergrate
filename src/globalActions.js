@@ -1,26 +1,21 @@
 import axios from 'axios';
 import history from './routes/history';
 
+export function removeCredentials() {
+    return dispatch => {
+        dispatch({
+            type: 'USER_LOGOUT'
+        });
+        localStorage.removeItem('userCredentials');
+        history.push('/login');
+    };
+}
+
 export function logout() {
     return dispatch =>
-        axios
-            .post('/api/users/logout')
-            .then(() => {
-                dispatch({
-                    type: 'USER_LOGOUT'
-                });
-                localStorage.removeItem('userCredentials');
-                history.push('/login');
-            })
-            .catch(e => {
-                console.log(e);
-                // remove item still even if api error
-                dispatch({
-                    type: 'USER_LOGOUT'
-                });
-                localStorage.removeItem('userCredentials');
-                history.push('/login');
-            });
+        axios.post('/api/users/logout').then(() => {
+            dispatch(removeCredentials());
+        });
 }
 
 export function showNotice(message) {

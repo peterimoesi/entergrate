@@ -1,18 +1,18 @@
-const express = require("express");
-var ObjectId = require("mongoose").Types.ObjectId;
+const express = require('express');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 const router = express.Router();
-const Event = require("../models/event.js");
-const User = require("../models/user.js");
+const Event = require('../models/event.js');
+const User = require('../models/user.js');
 
-const checkAuth = require("./utils");
+const checkAuth = require('./utils');
 
 /* GET Event listing. */
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         await Event.find({})
-            .select("_id name location description image date owner")
-            .populate("owner", "fullName image")
+            .select('_id name location description image dateTime owner')
+            .populate('owner', 'fullName image')
             .exec((err, event) => {
                 if (err) {
                     console.log(err);
@@ -26,10 +26,10 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try {
         await Event.findById(req.params.id)
-            .populate("owner", "-password -events -createdAt -updatedAt")
+            .populate('owner', '-password -events -createdAt -updatedAt')
             .exec((err, event) => {
                 if (err) {
                     console.log(err);
@@ -43,7 +43,7 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
-router.patch("/:id/add-volunteer", checkAuth, async (req, res, next) => {
+router.patch('/:id/add-volunteer', checkAuth, async (req, res, next) => {
     try {
         await Event.findById(req.params.id, async (err, event) => {
             if (err) {
@@ -79,7 +79,7 @@ router.patch("/:id/add-volunteer", checkAuth, async (req, res, next) => {
     }
 });
 
-router.patch("/:id/remove-volunteer", checkAuth, async (req, res, next) => {
+router.patch('/:id/remove-volunteer', checkAuth, async (req, res, next) => {
     try {
         await Event.findById(req.params.id, async (err, event) => {
             if (err) {
@@ -115,21 +115,23 @@ router.patch("/:id/remove-volunteer", checkAuth, async (req, res, next) => {
     }
 });
 
-router.patch("/:id", checkAuth, async (req, res, next) => {
+router.patch('/:id', checkAuth, async (req, res, next) => {
     try {
-        await Event.findById(req.params.id, async (err, event) => {
+        await Event.findById(req.params.id, (err, event) => {
             if (err) {
                 console.log(err);
                 return res.status(400).send(err);
             }
             const keys = Object.keys(req.body);
-            for (let key in args) {
-                if (args.hasOwnProperty(key)) {
-                    (event[key] = req), body[key];
-                }
+            for (let key of keys) {
+                event[key] = req.body[key];
             }
-            await event.save();
-            return res.sendStatus(200);
+            event.save(err => {
+                if (err) {
+                    console.log(err);
+                }
+                return res.sendStatus(200);
+            });
         });
     } catch (e) {
         console.log(e);
@@ -137,13 +139,13 @@ router.patch("/:id", checkAuth, async (req, res, next) => {
     }
 });
 
-router.get("/user/:id", checkAuth, async (req, res, next) => {
+router.get('/user/:id', checkAuth, async (req, res, next) => {
     const id = req.params.id;
     try {
         await Event.find({ owner: new ObjectId(id) })
             .populate({
-                path: "volunteers",
-                select: "-password -events -createdAt -updatedAt -interest"
+                path: 'volunteers',
+                select: '-password -events -updatedAt -interest'
             })
             .exec((err, result) => {
                 console.log(err);
@@ -155,7 +157,7 @@ router.get("/user/:id", checkAuth, async (req, res, next) => {
     }
 });
 
-router.post("/", checkAuth, async (req, res, next) => {
+router.post('/', checkAuth, async (req, res, next) => {
     try {
         const {
             owner,
@@ -164,8 +166,7 @@ router.post("/", checkAuth, async (req, res, next) => {
             description,
             image,
             requirements,
-            date,
-            time
+            dateTime
         } = req.body;
 
         const event = await Event.create({
@@ -175,7 +176,7 @@ router.post("/", checkAuth, async (req, res, next) => {
             description,
             image,
             requirements,
-            date,
+            dateTime,
             time
         });
 

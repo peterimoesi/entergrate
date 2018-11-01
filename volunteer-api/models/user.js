@@ -13,6 +13,7 @@ const userSchema = new Schema(
         phoneNumber: { type: String, required: true },
         password: { type: String, required: true },
         bio: { type: String, required: true },
+        personalUrl: String,
         interest: [
             {
                 type: Schema.Types.ObjectId,

@@ -3,7 +3,7 @@
     padding: 20px 0;
     border-right: 0;
     border-left: 0;
-    color: #3a3a3a;
+    color: #494949;
     font-size: 12px;
     .event-title {
         display: flex;
@@ -76,13 +76,36 @@
 }
 .volunteer-list {
     margin: 30px 0;
-    padding: 30px;
+    padding: 20px;
     box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.03);
     border-radius: 5px;
     .volunteer-list-head {
+        font-size: 18px;
         text-align: center;
+    }
+    .volunteer-item {
+        border-bottom: 1px solid #f5f5f5;
+        padding: 20px 0;
+        &:last-child {
+            border: 0;
+            padding-bottom: 0;
+        }
+        .vol-head {
+            font-weight: 500;
+        }
+        .meb-since {
+            font-size: 10px;
+            font-style: italic;
+            margin: 10px 0;
+        }
     }
     h3 {
         color: #9a9a9a;
+    }
+    .vol-itm-btn {
+        margin-top: 20px;
+    }
+    .vol-itm-dtls > div {
+        margin: 15px 0;
     }
 }

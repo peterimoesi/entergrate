@@ -1,22 +1,23 @@
 .scroll-input {
-    max-width : 100%;
-    opacity : 0.5;
+    max-width: 100%;
+    opacity: 0.5;
     font-size: 24px;
     padding-bottom: 60px;
     margin-bottom: 0;
-    @media screen and (max-width : 992px){
-        font-size : 14px;
+    @media screen and (max-width: 992px) {
+        font-size: 14px;
+    }
+    .form-group {
+        input[type="file"] {
+            border-bottom: 0 !important;
+        }
     }
     &.scroll-view {
         opacity: 1;
-        .form-group {
-            input.form-control, textarea.form-control {
-            border-bottom : 1px solid #ced4da;
-            }
-            input[type="file"] {
-                border-bottom: 0 !important;
-            }
-        }
+    }
+    .invalid-feedback {
+        // padding-left: 40px;
+        font-size: 60%;
     }
     .input-label-cont {
         display: flex;
@@ -24,39 +25,42 @@
     }
     .numbers {
         font-size: 12px;
-        width : 40px;
+        width: 40px;
         i {
-            margin-left : 5px;
+            margin-left: 5px;
         }
-        @media screen and (max-width : 768px){
+        @media screen and (max-width: 768px) {
             display: none;
         }
     }
     .input-label {
-        line-height : 2;
+        line-height: 2;
         font-weight: 300;
         color: #9a9a9a;
     }
     .form-group {
         max-width: 100%;
-        width : 900px;
-        padding-left : 40px;
+        width: 900px;
+        padding-left: 40px;
         margin-bottom: 30px;
-        @media screen and (max-width : 768px){
+        @media screen and (max-width: 768px) {
             padding-left: 0;
         }
-        input.form-control, textarea.form-control {
-            width : 100%;
-            border-radius : 0;
-            border : 0;
-            font-size : 24px;
+        input.form-control,
+        textarea.form-control {
+            width: 100%;
+            border-radius: 0;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 24px;
             padding-bottom: 0;
-            padding-left : 0;
-            @media screen and (max-width : 992px){
-                font-size : 16px;
+            padding-left: 0;
+            @media screen and (max-width: 992px) {
+                font-size: 16px;
             }
             &:focus {
-                outline : none;
+                outline: none;
                 box-shadow: none;
             }
         }
@@ -67,19 +71,20 @@
         .list-form {
             display: block;
             position: relative;
-            .form-list-num, .form-list-close {
+            .form-list-num,
+            .form-list-close {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
                 font-size: 12px;
             }
             .form-list-close {
-                right : 5px;
+                right: 5px;
                 cursor: pointer;
             }
             input {
-                margin-bottom : 10px;
-                padding-left : 15px !important;
+                margin-bottom: 10px;
+                padding-left: 15px !important;
                 padding-right: 15px !important;
             }
         }

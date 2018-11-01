@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
+import Button from '../../../../components/buttons';
 import CollapseSection from '../../../../components/collapseSection/collapseSection';
 import InterestItem from './interestComponent';
 
@@ -38,6 +40,7 @@ class Interest extends React.Component {
         }
     }
     render() {
+        const { interests } = this.props;
         return (
             <CollapseSection
                 name="Your Interest"
@@ -46,7 +49,7 @@ class Interest extends React.Component {
                 toggleExpand={this.toggleExpand}
             >
                 <div>
-                    {this.props.interests.map(int => (
+                    {interests.map(int => (
                         <InterestItem
                             key={int._id}
                             interestItem={int}
@@ -54,6 +57,22 @@ class Interest extends React.Component {
                             showMore={this.state.showMore}
                         />
                     ))}
+                    {!interests.length ? (
+                        <div style={{ marginTop: '30px' }}>
+                            <h5>
+                                You do not have any interest at the moment.
+                                Click{' '}
+                                <Link to="/open-events">
+                                    <Button
+                                        title="here"
+                                        onClick={() => null}
+                                        type="primary"
+                                    />
+                                </Link>{' '}
+                                to checkout open positions
+                            </h5>
+                        </div>
+                    ) : null}
                 </div>
             </CollapseSection>
         );

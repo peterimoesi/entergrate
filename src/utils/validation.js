@@ -18,9 +18,24 @@ class Validation {
         );
     }
 
+    dateTime(date) {
+        return Number.isNaN(Date.parse(date)) && 'Enter a valid Date and time';
+    }
+
     fullName(str) {
         const reg = /^[a-zA-Z'\- ]+$/;
         return !reg.test(str) && 'Enter a valid full name';
+    }
+
+    password(str) {
+        return (
+            str.length < 7 &&
+            'Your password should contain 7 or more characters'
+        );
+    }
+
+    others(input) {
+        return (!input || !input.length) && 'The field should not be empty';
     }
 }
 

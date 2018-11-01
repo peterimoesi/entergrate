@@ -18,8 +18,8 @@ class Profile extends React.Component {
         this.getFormChanges = this.getFormChanges.bind(this);
         this.timeout = null;
         this.state = {
-            dataLoaded: true,
-            expand: true,
+            dataLoaded: false,
+            expand: false,
             editing: '',
             cvFileName: '',
             error: {},
@@ -122,6 +122,7 @@ class Profile extends React.Component {
                                 placeholder="Full name"
                                 name="fullName"
                                 error={this.state.error.fullName}
+                                formType="input"
                             />
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
@@ -131,6 +132,7 @@ class Profile extends React.Component {
                                 value={this.state.userData.email}
                                 placeholder="Email"
                                 name="email"
+                                formType="input"
                                 noIcon
                                 readOnly
                             />
@@ -146,6 +148,7 @@ class Profile extends React.Component {
                                 placeholder="LinkedIn or website"
                                 name="personalUrl"
                                 error={this.state.error.personalUrl}
+                                formType="input"
                             />
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 col-12 input-col">
@@ -157,6 +160,7 @@ class Profile extends React.Component {
                                 editing={editing}
                                 placeholder="Address"
                                 name="address"
+                                formType="input"
                             />
                         </div>
                         <div className="col-lg-6 col-md-6-col-sm-12 col-12 input-col">
@@ -169,6 +173,7 @@ class Profile extends React.Component {
                                 placeholder="Phone number"
                                 name="phoneNumber"
                                 error={this.state.error.phoneNumber}
+                                formType="input"
                             />
                         </div>
                         <div className="col-lg-6 col-md-6-col-sm-12 col-12 input-col">
@@ -181,6 +186,7 @@ class Profile extends React.Component {
                                 placeholder="Password"
                                 type="password"
                                 name="password"
+                                formType="input"
                             />
                         </div>
                         {this.props.uploadCV && (
@@ -212,8 +218,9 @@ class Profile extends React.Component {
                                 value={this.state.userData.bio}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
-                                placeholder="Anout me"
-                                type="textArea"
+                                placeholder="About me"
+                                formType="textArea"
+                                maxLength={240}
                                 name="bio"
                             />
                         </div>

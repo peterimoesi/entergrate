@@ -26,11 +26,17 @@
     textarea {
         transition-timing-function: ease-in-out;
         transition-duration: 400ms;
-        color: #3a3a3a;
+        color: #494949;
         &.no-editing {
             border-color: transparent;
             pointer-events: none;
         }
+    }
+    .text-remaining {
+        position: absolute;
+        right: 0;
+        bottom: -20px;
+        font-size: 12px;
     }
     .invalid-feedback {
         width: calc(100% - 30px);

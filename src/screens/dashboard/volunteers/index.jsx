@@ -2,6 +2,7 @@ import React from 'react';
 import Profile from '../profile';
 import Interest from './interest';
 import Search from './openPositions';
+import NotificationMenu from '../../../components/notificationMenu';
 
 class VolunteerDashboard extends React.Component {
     constructor() {
@@ -12,9 +13,10 @@ class VolunteerDashboard extends React.Component {
     render() {
         return (
             <div>
-                <Profile uploadCV />
+                <Profile />
                 <Interest />
                 <Search />
+                <NotificationMenu />
             </div>
         );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import DateTime from 'react-datetime';
 import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -14,22 +15,33 @@ const dashboardInput = ({
     noIcon,
     readOnly,
     error,
-    type
+    type,
+    formType,
+    maxLength
 }) => (
     <div>
         <label>{label} :</label>
         <div className="input-container form-group">
-            {type === 'textArea' ? (
-                <textarea
-                    className={`profile-input form-control ${editing !== name &&
-                        'no-editing'}`}
-                    name={name}
-                    placeholder={placeholder}
-                    onChange={onChange}
-                    value={value}
-                    rows={4}
-                />
-            ) : (
+            {formType === 'textArea' ? (
+                <React.Fragment>
+                    <textarea
+                        className={`profile-input form-control ${editing !==
+                            name && 'no-editing'}`}
+                        name={name}
+                        placeholder={placeholder}
+                        onChange={onChange}
+                        value={value}
+                        rows={4}
+                        maxLength={maxLength}
+                    />
+                    {editing ? (
+                        <span className="text-remaining">
+                            {maxLength - parseInt(value.length, 10)}
+                        </span>
+                    ) : null}
+                </React.Fragment>
+            ) : null}
+            {formType === 'input' ? (
                 <input
                     className={`profile-input form-control ${editing !== name &&
                         'no-editing'} ${error ? 'is-invalid' : ''}`}
@@ -40,7 +52,16 @@ const dashboardInput = ({
                     type={type}
                     readOnly={readOnly}
                 />
-            )}
+            ) : null}
+            {formType === 'dateTime' ? (
+                <DateTime
+                    className={`${error ? 'is-invalid' : ''}`}
+                    onChange={onChange}
+                    value={value}
+                    type={type}
+                    placeholder={placeholder}
+                />
+            ) : null}
             {!noIcon ? (
                 <i
                     className={`fa fa-${editing === name ? 'close' : 'pencil'}`}
@@ -58,14 +79,17 @@ dashboardInput.propTypes = {
     label: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+        .isRequired,
     onChange: PropTypes.func,
     editing: PropTypes.string,
     toggleEditing: PropTypes.func,
     type: PropTypes.string,
     noIcon: PropTypes.bool,
     readOnly: PropTypes.bool,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    formType: PropTypes.string.isRequired,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    maxLength: PropTypes.number
 };
 
 dashboardInput.defaultProps = {
@@ -75,7 +99,8 @@ dashboardInput.defaultProps = {
     toggleEditing: null,
     editing: null,
     readOnly: false,
-    error: ''
+    error: '',
+    maxLength: null
 };
 
 export default dashboardInput;

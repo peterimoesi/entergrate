@@ -1,0 +1,12 @@
+.apply-form-inputs .rdt {
+    position: static;
+    .rdtPicker {
+        position: static;
+        font-size: 15px;
+        height: auto !important;
+        line-height: 2;
+        .rdtCount {
+            height: auto !important;
+        }
+    }
+}

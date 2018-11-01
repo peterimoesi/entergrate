@@ -19,13 +19,15 @@ class Events extends React.Component {
             showMore: '',
             openModal: false,
             eventIndex: '',
-            modalChild: null
+            modalChild: null,
+            viewVolunteers: false
         };
         this.toggleExpand = this.toggleExpand.bind(this);
         this.toggleShowMore = this.toggleShowMore.bind(this);
         this.onModify = this.onModify.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.onViewVolunteers = this.onViewVolunteers.bind(this);
     }
 
     toggleExpand() {
@@ -43,15 +45,19 @@ class Events extends React.Component {
     toggleShowMore(id) {
         const { showMore } = this.state;
         if (id === showMore) {
-            this.setState({ showMore: '' });
+            this.setState({ showMore: '', viewVolunteers: false });
         } else {
-            this.setState({ showMore: id });
+            this.setState({ showMore: id, viewVolunteers: false });
         }
     }
 
     onModify(i) {
         this.setState({ modalChild: 'modifyEvent', eventIndex: i });
         this.openModal();
+    }
+
+    onViewVolunteers() {
+        this.setState({ viewVolunteers: !this.state.viewVolunteers });
     }
 
     openModal() {
@@ -112,6 +118,8 @@ class Events extends React.Component {
                                     toggleShowMore={this.toggleShowMore}
                                     onModify={this.onModify}
                                     index={i}
+                                    onViewVolunteers={this.onViewVolunteers}
+                                    viewVolunteers={this.state.viewVolunteers}
                                 />
                             ))}
                         </div>

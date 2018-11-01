@@ -1,7 +1,9 @@
 .user-apply-container {
     // height : calc(100vh - 100px);
     // position: relative;
-    
+    .invalid-feedback {
+        display: block;
+    }
 }
 
 .form-container {
@@ -13,7 +15,7 @@
     padding-bottom: calc(50vh - 100px);
     padding-left: 15px;
     padding-right: 15px;
-    @media screen and (max-width : 992px){
+    @media screen and (max-width: 992px) {
         left: 0px;
         padding-top: calc(25vh);
         padding-bottom: calc(25vh);
@@ -24,7 +26,7 @@
     font-weight: 300;
     font-size: 24px;
     margin-bottom: 60px;
-    @media screen and (max-width : 992px){
-        font-size : 14px;
+    @media screen and (max-width: 992px) {
+        font-size: 14px;
     }
 }

@@ -1,37 +1,40 @@
 @import "./vendor/bootstrap/css/bootstrap.min.css";
 @import "./vendor/font-awesome/css/font-awesome.min.css";
+@import "./vendor/react-date-time.css";
 
 body {
     overflow-x: hidden;
-    font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  
-  p {
+    &.no-scroll {
+        overflow: hidden;
+    }
+}
+
+p {
     line-height: 1.75;
-  }
-  
-  a {
+}
+
+a {
     color: #fed136;
-  }
-  
-  a:hover {
+}
+
+a:hover {
     color: #fec503;
-  }
-  
-  .text-primary {
+}
+
+.text-primary {
     color: #fed136 !important;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-  
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 section {
     padding: 100px 0;
     @media (min-width: 768px) {
@@ -39,50 +42,50 @@ section {
     }
 }
 ::-moz-selection {
-  background: #fed136;
-  text-shadow: none;
+    background: #fed136;
+    text-shadow: none;
 }
 
 ::selection {
-  background: #fed136;
-  text-shadow: none;
+    background: #fed136;
+    text-shadow: none;
 }
 
 img::selection {
-  background: transparent;
+    background: transparent;
 }
 
 img::-moz-selection {
-  background: transparent;
+    background: transparent;
 }
 .text-align-left {
-  text-align : left;
+    text-align: left;
 }
 .text-align-right {
-  text-align : right;
+    text-align: right;
 }
 #App > #app-routes {
-  padding-top : 100px;
-  @media screen and (max-width : 992px){
-    padding-top : 55.6px;
-  }
-} 
+    padding-top: 100px;
+    @media screen and (max-width: 992px) {
+        padding-top: 55.6px;
+    }
+}
 .show-more {
-  cursor: pointer;
-  margin-left : 10px;
-  &:hover {
-      text-decoration: underline;
-      color : blue;
-  }
+    cursor: pointer;
+    margin-left: 10px;
+    &:hover {
+        text-decoration: underline;
+        color: blue;
+    }
 }
 .show-more-item {
-  font-size: 14px;
-  .item-head {
-      font-weight: 600;
-      color : #9a9a9a;
-      margin-bottom: 10px;
-  }
-  & > div {
-      margin : 30px 0;
-  }
+    font-size: 14px;
+    .item-head {
+        font-weight: 600;
+        color: #9a9a9a;
+        margin-bottom: 10px;
+    }
+    & > div {
+        margin: 30px 0;
+    }
 }

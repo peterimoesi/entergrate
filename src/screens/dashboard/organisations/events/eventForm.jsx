@@ -12,28 +12,41 @@ class EventForm extends React.Component {
         super();
         this.onChange = this.onChange.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
+        this.onDateChange = this.onDateChange.bind(this);
         this.submit = this.submit.bind(this);
+        this.getFormChanges = this.getFormChanges.bind(this);
         this.state = {
-            eventData : {
-                requirements : [],
-                description : '',
-                location : '',
-                date : '',
-                time : '',
-                name : '',
-                image : ''
+            eventId: null,
+            eventData: {
+                requirements: [],
+                description: '',
+                location: '',
+                dateTime: new Date(),
+                name: '',
+                image: ''
             }
         };
     }
     componentDidMount() {
         if (this.props.modify) {
-            this.setState({ eventData : this.props.eventData });
+            this.setState({
+                eventData: {
+                    ...this.props.eventData,
+                    dateTime: new Date(this.props.eventData.dateTime)
+                }
+            });
         }
     }
 
     onChange(e) {
         const { eventData } = this.state;
         eventData[e.target.name] = e.target.value;
+        this.setState({ eventData });
+    }
+
+    onDateChange(e) {
+        const { eventData } = this.state;
+        eventData.dateTime = e._d;
         this.setState({ eventData });
     }
 
@@ -58,7 +71,7 @@ class EventForm extends React.Component {
     handleUpload(e) {
         e.preventDefault();
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
             const { eventData } = this.state;
             eventData.image = e.target.result;
             this.setState({ eventData });
@@ -68,8 +81,31 @@ class EventForm extends React.Component {
         }
     }
 
+    getFormChanges() {
+        // check which fields are different
+        const { eventData } = this.state,
+            defaultEventData = this.props.eventData,
+            eventKeys = Object.keys(eventData),
+            updatedKeys = {};
+        for (let i of eventKeys) {
+            if (eventData[i] !== defaultEventData[i]) {
+                updatedKeys[i] = eventData[i];
+            }
+        }
+        updatedKeys._id = this.state.eventData._id;
+        console.log(updatedKeys);
+        return updatedKeys;
+    }
+
     submit() {
-        this.props.submit(this.state.eventData, this.props.userId)
+        this.props
+            .submit(
+                this.props.modify
+                    ? this.getFormChanges()
+                    : this.state.eventData,
+                this.props.userId,
+                this.props.modify
+            )
             .then(res => res === 200 && this.props.closeForm());
     }
 
@@ -86,6 +122,8 @@ class EventForm extends React.Component {
                             placeholder="Event name"
                             name="name"
                             noIcon
+                            type="text"
+                            formType="input"
                         />
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
@@ -105,21 +143,12 @@ class EventForm extends React.Component {
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <DefaultInput
-                            onChange={this.onChange}
+                            onChange={this.onDateChange}
                             label="Event date"
-                            value={eventData.date}
+                            value={eventData.dateTime || ''}
                             placeholder="DD-MM-YYYY"
                             name="date"
-                            noIcon
-                        />
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
-                        <DefaultInput
-                            onChange={this.onChange}
-                            label="Event time"
-                            value={eventData.time}
-                            placeholder="12:30 am - 3:30pm"
-                            name="time"
+                            formType="dateTime"
                             noIcon
                         />
                     </div>
@@ -130,6 +159,8 @@ class EventForm extends React.Component {
                             value={eventData.location}
                             placeholder="Event location"
                             name="location"
+                            type="text"
+                            formType="input"
                             noIcon
                         />
                     </div>
@@ -140,32 +171,35 @@ class EventForm extends React.Component {
                             value={eventData.description}
                             placeholder="Event description"
                             name="description"
-                            type="textArea"
+                            formType="textArea"
                             noIcon
                         />
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-12 col-12 new-event-input">
                         <div>
                             <label>Add volunteer requirements</label>
-                            {
-                                eventData.requirements.map((req, i) => (
-                                    <div key={i} className="requirement-input">
-                                        <input
-                                            className="form-control"
-                                            onChange={e => this.handleListChange(e.target.value, i)}
-                                            value={req}
-                                        />
-                                        <i
-                                            className="fa fa-close"
-                                            onClick={() => {
-                                                this.removeFromList(i);
-                                            }}
-                                            role="button"
-                                            tabIndex="0"
-                                        />
-                                    </div>
-                                ))
-                            }
+                            {eventData.requirements.map((req, i) => (
+                                <div key={i} className="requirement-input">
+                                    <input
+                                        className="form-control"
+                                        onChange={e =>
+                                            this.handleListChange(
+                                                e.target.value,
+                                                i
+                                            )
+                                        }
+                                        value={req}
+                                    />
+                                    <i
+                                        className="fa fa-close"
+                                        onClick={() => {
+                                            this.removeFromList(i);
+                                        }}
+                                        role="button"
+                                        tabIndex="0"
+                                    />
+                                </div>
+                            ))}
                             <div>
                                 <Button
                                     title="Add new +"
@@ -177,11 +211,7 @@ class EventForm extends React.Component {
                     </div>
                 </div>
                 <div className="section-cta-right">
-                    <Button
-                        title="Save"
-                        onClick={this.submit}
-                        type="primary"
-                    />
+                    <Button title="Save" onClick={this.submit} type="primary" />
                 </div>
             </div>
         );
@@ -189,20 +219,23 @@ class EventForm extends React.Component {
 }
 
 const mapStateToProps = ({ authentication }) => ({
-    userId : authentication.userData._id
+    userId: authentication.userData._id
 });
 
 EventForm.propTypes = {
-    submit : PropTypes.func.isRequired,
-    userId : PropTypes.string.isRequired,
-    closeForm : PropTypes.func.isRequired,
-    modify : PropTypes.bool,
-    eventData : PropTypes.object
+    submit: PropTypes.func.isRequired,
+    userId: PropTypes.string.isRequired,
+    closeForm: PropTypes.func.isRequired,
+    modify: PropTypes.bool,
+    eventData: PropTypes.object
 };
 
 EventForm.defaultProps = {
-    modify : false,
-    eventData : null
+    modify: false,
+    eventData: null
 };
 
-export default connect(mapStateToProps, { submit })(EventForm);
+export default connect(
+    mapStateToProps,
+    { submit }
+)(EventForm);

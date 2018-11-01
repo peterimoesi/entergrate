@@ -8,8 +8,7 @@ const eventSchema = new Schema(
         name: String,
         location: String,
         description: String,
-        date: String,
-        time: String,
+        dateTime: String,
         presonalUrl: String,
         image: {
             data: Buffer,

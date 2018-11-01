@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import ScrollFormInput from '../../../components/scrollInputs';
-// import FileUpload from '../../../components/scrollInputs/upload';
 import Button from '../../../components/buttons';
+import Validation from '../../../utils/validation';
 
 import { apply } from './actions';
 
@@ -11,36 +13,55 @@ class ForVolunteers extends React.Component {
     constructor() {
         super();
         this.state = {
+            error: {},
             userGroup: 1,
             fullName: '',
             email: '',
             address: '',
             phoneNumber: '',
             password: '',
+            personalUrl: '',
             bio: ''
-            // image: ''
         };
         this.onChange = this.onChange.bind(this);
         this.apply = this.apply.bind(this);
-        // this.handleUpload = this.handleUpload.bind(this);
     }
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    // handleUpload(e) {
-    //     e.preventDefault();
-    //     const reader = new FileReader();
-    //     reader.onload = e => {
-    //         this.setState({ image: e.target.result });
-    //     };
-    //     if (e.target.files[0]) {
-    //         reader.readAsDataURL(e.target.files[0]);
-    //     }
-    // }
+    validateChanges() {
+        const formChanges = [
+            'fullName',
+            'email',
+            'address',
+            'phoneNumber',
+            'password',
+            'bio',
+            'personalUrl'
+        ];
 
+        const { error } = this.state;
+        for (let key of formChanges) {
+            if (Validation[key]) {
+                error[key] = Validation[key](this.state[key]);
+            } else {
+                error[key] = Validation['others'](this.state[key]);
+            }
+        }
+        this.setState({ error });
+    }
     apply() {
+        this.validateChanges();
+        // check for errors
+        const { error } = this.state,
+            errorKeys = Object.keys(error);
+        for (let key of errorKeys) {
+            if (error[key]) {
+                return;
+            }
+        }
         this.props.apply(this.state);
     }
 
@@ -51,19 +72,23 @@ class ForVolunteers extends React.Component {
             address,
             phoneNumber,
             password,
-            bio
+            bio,
+            personalUrl
         } = this.state;
+        console.log(this.state.error);
         return (
             <div className="form-container" ref={this.props.setRef}>
                 <div className="pre-form-info">
                     <div>Fill the form below to create your profile. </div>
                     <div>
                         <span>Click </span>
-                        <Button
-                            title="here"
-                            onClick={() => null}
-                            type="secondary"
-                        />
+                        <Link to="/open-events">
+                            <Button
+                                title="here"
+                                onClick={() => null}
+                                type="secondary"
+                            />
+                        </Link>
                         <span> to view the list of available positions</span>
                     </div>
                 </div>
@@ -75,6 +100,7 @@ class ForVolunteers extends React.Component {
                     value={fullName}
                     type="text"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.fullName}
                 >
                     <div>
                         <div>Please provide your fullname here</div>
@@ -91,6 +117,7 @@ class ForVolunteers extends React.Component {
                     value={email}
                     type="email"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.email}
                 >
                     <div>
                         <div>Enter your email address</div>
@@ -108,6 +135,7 @@ class ForVolunteers extends React.Component {
                     value={password}
                     type="password"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.password}
                 >
                     <div>
                         <div>Enter your secure password here.</div>
@@ -125,6 +153,7 @@ class ForVolunteers extends React.Component {
                     value={address}
                     type="text"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.address}
                 >
                     <div>Your contact address, city and country</div>
                 </ScrollFormInput>
@@ -135,6 +164,7 @@ class ForVolunteers extends React.Component {
                     name="phoneNumber"
                     value={phoneNumber}
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.phoneNumber}
                     type="text"
                 >
                     <div>
@@ -146,26 +176,33 @@ class ForVolunteers extends React.Component {
                     number={6}
                     onChange={this.onChange}
                     onClick={this.props.onInputClick}
+                    name="personalUrl"
+                    value={personalUrl}
+                    onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.personalUrl}
+                    type="text"
+                >
+                    <div>
+                        Please enter the Url to your public profile. e.g
+                        LinkedIn
+                    </div>
+                </ScrollFormInput>
+                <ScrollFormInput
+                    number={7}
+                    onChange={this.onChange}
+                    onClick={this.props.onInputClick}
                     name="bio"
                     value={bio}
                     type="text"
                     inputType="textarea"
+                    error={this.state.error.bio}
                 >
                     <div>
-                        Say a few worlds about yourself. Let organiations know
-                        who your are.
+                        Say a few worlds (240) about yourself. Let organiations
+                        know who your are. -{' '}
+                        <span>{240 - parseInt(bio.length)}</span>
                     </div>
                 </ScrollFormInput>
-
-                {/* <FileUpload
-                    number={6}
-                    onUpload={this.handleUpload}
-                    onClick={this.props.onInputClick}
-                    name="profileImage"
-                >
-                    <div>Upload your profile picture</div>
-                </FileUpload> */}
-
                 <div>
                     <Button
                         title="Apply"

@@ -1,21 +1,34 @@
 const initialState = {
-    events : []
+    events: []
 };
 
 export default (state = initialState, action) => {
-    if (action.type === 'GET_EVENTS') {
+    switch (action.type) {
+    case 'GET_EVENTS':
         return {
-            events : action.data
+            events: action.data
         };
-    } else if (action.type === 'CLEAR_EVENTS') {
+    case 'CLEAR_EVENTS':
         return {
-            events : []
+            events: []
         };
-    } else if (action.type === 'ADD_EVENT') {
+    case 'UPDATE_EVENT': {
+        const activeEvent = state.events.findIndex(
+            x => x._id === action.data._id
+        );
+        state.events[activeEvent] = {
+            ...state.events[activeEvent],
+            ...action.data
+        };
         return {
-            events : [ ...state.events, action.data]
+            events: [...state.events]
         };
-    } else {
+    }
+    case 'ADD_EVENT':
+        return {
+            events: [...state.events, action.data]
+        };
+    default:
         return state;
     }
 };

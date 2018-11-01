@@ -43,6 +43,7 @@ class Login extends React.Component {
                         label="Email"
                         onChange={this.onChange}
                         value={this.state.email}
+                        formType="input"
                     />
                     <DefaultInput
                         noIcon
@@ -52,6 +53,7 @@ class Login extends React.Component {
                         label="Password"
                         onChange={this.onChange}
                         value={this.state.password}
+                        formType="input"
                     />
                     <div className="login-final-cta">
                         <Button

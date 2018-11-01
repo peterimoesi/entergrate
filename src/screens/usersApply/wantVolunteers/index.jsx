@@ -20,14 +20,13 @@ class NeedVolunteers extends React.Component {
                 address: '',
                 phoneNumber: '',
                 password: '',
-                // image : '',
+                personalUrl: '',
                 bio: ''
             },
             eventData: {
                 requirements: [],
                 description: '',
-                date: '',
-                time: '',
+                dateTime: '',
                 location: '',
                 name: '',
                 image: ''
@@ -35,6 +34,7 @@ class NeedVolunteers extends React.Component {
         };
         this.onUserChange = this.onUserChange.bind(this);
         this.onEventChange = this.onEventChange.bind(this);
+        this.onDateChange = this.onDateChange.bind(this);
         this.addToList = this.addToList.bind(this);
         this.removeFromList = this.removeFromList.bind(this);
         this.handleListChange = this.handleListChange.bind(this);
@@ -51,6 +51,12 @@ class NeedVolunteers extends React.Component {
     onEventChange(e) {
         const { eventData } = this.state;
         eventData[e.target.name] = e.target.value;
+        this.setState({ eventData });
+    }
+
+    onDateChange(e) {
+        const { eventData } = this.state;
+        eventData.dateTime = e._d;
         this.setState({ eventData });
     }
 
@@ -81,6 +87,8 @@ class NeedVolunteers extends React.Component {
                 error[key] = Validation.fullName(object[key]);
             } else if (Validation[key]) {
                 error[key] = Validation[key](object[key]);
+            } else if (key !== 'image' && key !== 'userGroup') {
+                error[key] = Validation['others'](object[key]);
             }
         }
         this.setState({ error });
@@ -109,7 +117,6 @@ class NeedVolunteers extends React.Component {
                 return;
             }
         }
-        console.log(error);
         this.props.apply(this.state.userData, this.state.eventData);
     }
 
@@ -120,15 +127,15 @@ class NeedVolunteers extends React.Component {
             address,
             phoneNumber,
             password,
-            bio
+            bio,
+            personalUrl
         } = this.state.userData;
         const {
             requirements,
             description,
             location,
             name,
-            date,
-            time
+            dateTime
         } = this.state.eventData;
         return (
             <div className="form-container" ref={this.props.setRef}>
@@ -155,6 +162,7 @@ class NeedVolunteers extends React.Component {
                     value={fullName}
                     type="text"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.fullName}
                 >
                     <div>Name of your Organisation</div>
                 </ScrollFormInput>
@@ -166,6 +174,7 @@ class NeedVolunteers extends React.Component {
                     value={email}
                     type="email"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.email}
                 >
                     <div>Enter your business/contact email address</div>
                 </ScrollFormInput>
@@ -177,6 +186,7 @@ class NeedVolunteers extends React.Component {
                     value={password}
                     type="password"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.password}
                 >
                     <div>
                         <div>Enter your secure password here.</div>
@@ -194,6 +204,7 @@ class NeedVolunteers extends React.Component {
                     value={address}
                     type="text"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.address}
                 >
                     <div>Your contact address, city and country</div>
                 </ScrollFormInput>
@@ -204,6 +215,7 @@ class NeedVolunteers extends React.Component {
                     name="phoneNumber"
                     value={phoneNumber}
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.phoneNumber}
                     type="text"
                 >
                     <div>
@@ -215,27 +227,36 @@ class NeedVolunteers extends React.Component {
                     number={6}
                     onChange={this.onUserChange}
                     onClick={this.props.onInputClick}
+                    name="personalUrl"
+                    value={personalUrl}
+                    onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.personalUrl}
+                    type="text"
+                >
+                    <div>
+                        Please enter the Url to your public profile. e.g
+                        LinkedIn
+                    </div>
+                </ScrollFormInput>
+                <ScrollFormInput
+                    number={7}
+                    onChange={this.onUserChange}
+                    onClick={this.props.onInputClick}
                     name="bio"
                     value={bio}
                     type="text"
                     inputType="textarea"
+                    error={this.state.error.bio}
+                    maxLength={240}
                 >
                     <div>
-                        Describe your oraganisation in a few words or drop a
-                        link to your website
+                        Describe your organisation in a few words (240) -{' '}
+                        <span>{240 - parseInt(bio.length)}</span>
                     </div>
                 </ScrollFormInput>
-                {/* <FileUpload
-                    number={7}
-                    onUpload={e => this.handleUpload(e, 'userData')}
-                    onClick={this.props.onInputClick}
-                    name="profileImage"
-                >
-                    <div>Upload your Business picture</div>
-                </FileUpload> */}
                 <div className="pre-form-info">
                     <div>
-                        Nom complete the form below to describe your event.{' '}
+                        Now complete the form below to describe your event.{' '}
                     </div>
                 </div>
                 <ScrollFormInput
@@ -246,31 +267,21 @@ class NeedVolunteers extends React.Component {
                     value={name}
                     type="text"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.name}
                 >
                     <div>The name of the event</div>
                 </ScrollFormInput>
                 <ScrollFormInput
                     number={8}
-                    onChange={this.onEventChange}
-                    onClick={this.props.onInputClick}
-                    name="date"
-                    value={date}
+                    onChange={this.onDateChange}
+                    value={dateTime}
                     type="text"
+                    inputType="dateTime"
                     placeholder="DD-MM-YYYY"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.dateTime}
                 >
-                    <div>The date of the event</div>
-                </ScrollFormInput>
-                <ScrollFormInput
-                    number={8}
-                    onChange={this.onEventChange}
-                    onClick={this.props.onInputClick}
-                    name="time"
-                    value={time}
-                    type="text"
-                    onKeyDown={this.props.onEnterClick}
-                >
-                    <div>The time of event in am or pm</div>
+                    <div>The date and time of the event</div>
                 </ScrollFormInput>
                 <ScrollFormInput
                     number={9}
@@ -280,6 +291,7 @@ class NeedVolunteers extends React.Component {
                     value={location}
                     type="text"
                     onKeyDown={this.props.onEnterClick}
+                    error={this.state.error.location}
                 >
                     <div>
                         Location of the event if it different from the one above
@@ -293,6 +305,7 @@ class NeedVolunteers extends React.Component {
                     value={description}
                     type="text"
                     inputType="textarea"
+                    error={this.state.error.description}
                 >
                     <div>
                         Describe your event or simply drop the link to the event
@@ -309,6 +322,7 @@ class NeedVolunteers extends React.Component {
                     value={requirements}
                     type="text"
                     inputType="formList"
+                    error={this.state.error.requirements}
                 >
                     <div>List the requirements needed for this position</div>
                 </ScrollFormInput>

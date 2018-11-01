@@ -1,10 +1,10 @@
-const express = require("express");
-const bcrypt = require("bcryptjs");
+const express = require('express');
+const bcrypt = require('bcryptjs');
 
 const router = express.Router();
-const User = require("../models/user.js");
+const User = require('../models/user.js');
 
-const checkAuth = require("./utils");
+const checkAuth = require('./utils');
 
 /* GET users listing. */
 // router.get('/', checkAuth, async (req, res, next) => {
@@ -12,7 +12,7 @@ const checkAuth = require("./utils");
 //     res.send(200, { message: 'this is a protected api, you are logged in'});
 // });
 
-router.patch("/:id", checkAuth, async (req, res, next) => {
+router.patch('/:id', checkAuth, async (req, res, next) => {
     try {
         await User.findByIdAndUpdate(req.params.id, {
             ...req.body
@@ -23,7 +23,15 @@ router.patch("/:id", checkAuth, async (req, res, next) => {
     }
 });
 
-router.post("/logout", checkAuth, (req, res) => {
+router.get('/is-authenticated', checkAuth, async (req, res, next) => {
+    try {
+        res.send(200);
+    } catch (e) {
+        res.send(400, e);
+    }
+});
+
+router.post('/logout', checkAuth, (req, res) => {
     try {
         req.session.auth = false;
         return res.sendStatus(200);
@@ -33,22 +41,22 @@ router.post("/logout", checkAuth, (req, res) => {
     }
 });
 
-router.post("/login", async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     try {
         User.findOne({ email })
             // .populate("interest", "-volunteers -createdAt -updatedAt")
             .populate({
-                path: "interest",
-                select: "-volunteers -createdAt -updatedAt",
-                populate: { path: "owner", select: "fullName" }
+                path: 'interest',
+                select: '-volunteers -createdAt -updatedAt',
+                populate: { path: 'owner', select: 'fullName' }
             })
             .exec((err, user) => {
                 if (!user) {
                     return res
                         .status(401)
-                        .json({ error: true, errorMessage: "No user found" });
+                        .json({ error: true, errorMessage: 'No user found' });
                 }
                 bcrypt.compare(password, user.password, (err, result) => {
                     if (result) {
@@ -57,25 +65,25 @@ router.post("/login", async (req, res, next) => {
                     } else {
                         return res.status(401).send({
                             error: true,
-                            errorMessage: "Unauthorised"
+                            errorMessage: 'Unauthorised'
                         });
                     }
                 });
             });
     } catch (e) {
-        console.log("Error authenticating user: ");
+        console.log('Error authenticating user: ');
         console.log(e);
         next();
     }
 });
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const { email, password } = req.body;
 
     if (password.length < 6) {
         return res.status(400).json({
             error: true,
-            errorMessage: "Password should be more than 6"
+            errorMessage: 'Password should be more than 6'
         });
     }
     try {
@@ -86,7 +94,7 @@ router.post("/", async (req, res, next) => {
             )
             .then(user => {
                 req.session.auth = true;
-                req.session.username = email;
+                req.session._id = user._id;
                 res.send(user);
             })
             .catch(error => {
