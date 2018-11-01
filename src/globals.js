@@ -1,1 +1,1 @@
-global.apiUrl = '/';
+global.apiUrl = '';
