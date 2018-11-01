@@ -176,8 +176,7 @@ router.post('/', checkAuth, async (req, res, next) => {
             description,
             image,
             requirements,
-            dateTime,
-            time
+            dateTime
         });
 
         User.findById(owner).exec((err, user) => {
