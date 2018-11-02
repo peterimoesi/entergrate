@@ -16,7 +16,8 @@ class OpenEvents extends React.Component {
     constructor() {
         super();
         this.state = {
-            loaded: false
+            loaded: false,
+            waiting: false
         };
         this.eventRef = null;
         this.isInterested = this.isInterested.bind(this);
@@ -55,7 +56,10 @@ class OpenEvents extends React.Component {
     }
 
     isInterested(id) {
-        this.props.isInterested(id, this.props.userId);
+        this.setState({ waiting: true });
+        this.props
+            .isInterested(id, this.props.userId)
+            .then(() => this.setState({ waiting: false }));
     }
 
     render() {
@@ -73,6 +77,7 @@ class OpenEvents extends React.Component {
                                 urlId={this.props.match.params.id || ''}
                                 loaded={this.state.loaded}
                                 isInterested={this.isInterested}
+                                waiting={this.state.waiting}
                                 isAuthenticated={this.props.isAuthenticated}
                                 activeEvent={
                                     evt._id === this.props.match.params.id
@@ -94,7 +99,7 @@ function mapStateToProps({ openEvents, authentication }) {
         events: openEvents.events,
         activeEvent: openEvents.activeEvent,
         isAuthenticated: authentication.isAuthenticated,
-        userId : authentication.userData._id
+        userId: authentication.userData._id
     };
 }
 
@@ -107,11 +112,11 @@ OpenEvents.propTypes = {
     activeEvent: PropTypes.object.isRequired,
     isInterested: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    userId : PropTypes.string
+    userId: PropTypes.string
 };
 
 OpenEvents.defaultProps = {
-    userId : null
+    userId: null
 };
 
 export default connect(

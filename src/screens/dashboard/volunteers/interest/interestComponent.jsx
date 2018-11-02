@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { formatISODate } from '../../../../utils/general';
+
 import './styles.scss';
 
 const interest = ({ interestItem, showMore, toggleShowMore }) => (
@@ -35,12 +37,8 @@ const interest = ({ interestItem, showMore, toggleShowMore }) => (
             <div className="show-more-item">
                 <div className="interest-location-date">
                     <div>
-                        <div className="item-head">Date</div>
-                        <div>{interestItem.date}</div>
-                    </div>
-                    <div>
-                        <div className="item-head">Time</div>
-                        <div>{interestItem.time}</div>
+                        <div className="item-head">Date & Time</div>
+                        <div>{formatISODate(interestItem.dateTime)}</div>
                     </div>
                     <div>
                         <div className="item-head">Location</div>

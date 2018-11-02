@@ -54,7 +54,10 @@ export function isInterested(id, volunteerId) {
                 volunteerId
             })
             .then(res => {
-                console.log(res);
+                dispatch({
+                    type: 'ADD_ONE_INTEREST',
+                    data: res.data
+                });
                 dispatch(showNotice('Interest added'));
             })
             .catch(e => console.log(e));

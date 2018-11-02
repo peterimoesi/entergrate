@@ -13,6 +13,17 @@ export default (state = initialState, action) => {
             isAuthenticated: true,
             userData: action.data
         };
+    case 'ADD_ONE_INTEREST': {
+        const userInterest = [...state.userData.interest];
+        userInterest.push(action.data);
+        return {
+            ...state,
+            userData: {
+                ...state.userData,
+                interest: userInterest
+            }
+        };
+    }
     default:
         return state;
     }

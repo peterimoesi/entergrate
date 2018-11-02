@@ -8,7 +8,8 @@ const EventComponent = ({
     loaded,
     activeEvent,
     isInterested,
-    isAuthenticated
+    isAuthenticated,
+    waiting
 }) => (
     <div className="col-lg-8 col-md-10 col-sm-9 col-12 offset-md-2">
         {!loaded ? (
@@ -29,10 +30,13 @@ const EventComponent = ({
                 <div className="interested-cta">
                     {isAuthenticated ? (
                         <Button
-                            title="I'm interested"
+                            title={
+                                waiting ? 'Please wait...' : 'I\'m interested'
+                            }
                             type="primary"
                             onClick={() => isInterested(activeEvent._id)}
-                            icon="check"
+                            icon={waiting ? null : 'check'}
+                            disabled={waiting}
                         />
                     ) : (
                         <Link
@@ -60,7 +64,8 @@ EventComponent.propTypes = {
     loaded: PropTypes.bool.isRequired,
     activeEvent: PropTypes.object.isRequired,
     isInterested: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: PropTypes.bool.isRequired,
+    waiting: PropTypes.bool.isRequired
 };
 
 export default EventComponent;

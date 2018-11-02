@@ -41,6 +41,7 @@ class Interest extends React.Component {
     }
     render() {
         const { interests } = this.props;
+        console.log(interests);
         return (
             <CollapseSection
                 name="Your Interest"

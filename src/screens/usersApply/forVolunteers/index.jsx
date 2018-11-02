@@ -75,7 +75,6 @@ class ForVolunteers extends React.Component {
             bio,
             personalUrl
         } = this.state;
-        console.log(this.state.error);
         return (
             <div className="form-container" ref={this.props.setRef}>
                 <div className="pre-form-info">

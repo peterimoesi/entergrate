@@ -39,7 +39,6 @@ class Dashboard extends React.Component {
             (prevProps.userGroup !== userGroup ||
                 prevProps.pathname !== pathname)
         ) {
-            console.log('wrong');
             if (userGroup === '2') {
                 history.push('/dashboard/organisations');
             } else if (userGroup === '1') {
@@ -55,7 +54,6 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <Switch>
                 <Route

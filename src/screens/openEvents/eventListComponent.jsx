@@ -5,6 +5,7 @@ import { Link, Switch, Route } from 'react-router-dom';
 import EventComponent from './eventComponent';
 import Button from '../../components/buttons';
 import defaultImg from '../../components/img/2.png';
+import { formatISODate } from '../../utils/general';
 import './styles.scss';
 
 const eventListComponent = ({
@@ -12,7 +13,7 @@ const eventListComponent = ({
     name,
     description,
     location,
-    date,
+    dateTime,
     image,
     setEventRef,
     urlId,
@@ -20,6 +21,7 @@ const eventListComponent = ({
     activeEvent,
     isAuthenticated,
     isInterested,
+    waiting,
     _id
 }) => (
     <div
@@ -37,7 +39,7 @@ const eventListComponent = ({
                 <h5 className="open-event-owner">{owner.fullName}</h5>
                 <div>{description}</div>
                 <div className="open-event-date-location">
-                    <div>Date : {date}</div>
+                    <div>Date : {formatISODate(dateTime)}</div>
                     <div>Location : {location}</div>
                 </div>
             </div>
@@ -61,6 +63,7 @@ const eventListComponent = ({
                 render={props => (
                     <EventComponent
                         {...props}
+                        waiting={waiting}
                         id={_id}
                         loaded={loaded}
                         activeEvent={activeEvent}
@@ -78,7 +81,7 @@ eventListComponent.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
+    dateTime: PropTypes.instanceOf(Date).isRequired,
     _id: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     setEventRef: PropTypes.func.isRequired,
@@ -86,7 +89,8 @@ eventListComponent.propTypes = {
     loaded: PropTypes.bool.isRequired,
     activeEvent: PropTypes.object.isRequired,
     isInterested: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired
+    isAuthenticated: PropTypes.bool.isRequired,
+    waiting: PropTypes.bool.isRequired
 };
 
 export default eventListComponent;
