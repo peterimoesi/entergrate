@@ -1,0 +1,13 @@
+
+{
+   "apps" : [
+    {
+      "name"       : "your-app",
+      "script"     : "npm",
+      "interpreter": "none",
+      "args"       : "pushstate-server start"
+    }
+  ]
+}
+
+
