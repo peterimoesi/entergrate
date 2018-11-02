@@ -71,7 +71,7 @@ router.patch('/:id/add-volunteer', checkAuth, async (req, res, next) => {
                 await user.save();
             });
             await event.save();
-            return res.sendStatus(200);
+            return res.status(200).send(event);
         });
     } catch (e) {
         console.log(e);
