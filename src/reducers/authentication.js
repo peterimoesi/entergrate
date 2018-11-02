@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-const initialState = {
-    isAuthenticated: false,
-    userData: {
-        events: [],
-        interest: []
-    }
-};
-
-export default (state = initialState, action) => {
-    switch (action.type) {
-    case 'IS_AUTHENTICATED':
-        return {
-            isAuthenticated: true,
-            userData: action.data
-        };
-    default:
-        return state;
-    }
-};
-=======
 const initialState = {
     isAuthenticated: false,
     userData: {
@@ -49,4 +28,3 @@ export default (state = initialState, action) => {
         return state;
     }
 };
->>>>>>> f09388b30b5ddfaf916e3e6607f2355c755e3164
