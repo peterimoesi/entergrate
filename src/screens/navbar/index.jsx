@@ -111,11 +111,12 @@ Navigation.propTypes = {
     userGroup: PropTypes.number,
     isAuthenticated: PropTypes.bool.isRequired,
     logout: PropTypes.func.isRequired,
-    locationKey: PropTypes.string.isRequired
+    locationKey: PropTypes.string
 };
 
 Navigation.defaultProps = {
-    userGroup: null
+    userGroup: null,
+    locationKey: ''
 };
 export default connect(
     mapStateToProps,
