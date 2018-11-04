@@ -33,7 +33,6 @@ class Users extends React.Component {
     }
 
     setUserApplyRef(e) {
-        console.log(e);
         this.userApplyRef = e;
     }
 
@@ -78,9 +77,16 @@ class Users extends React.Component {
     }
 
     onInputClick(e) {
-        const firstElemOffsetTop = this.userApplyRef.firstElementChild
-            .offsetTop;
-        this.userApplyRef.scrollTo(0, e.target.offsetTop - firstElemOffsetTop);
+        var screenWidth = window.matchMedia('(min-width: 992px)').matches;
+        console.log(screenWidth);
+        if (screenWidth) {
+            const firstElemOffsetTop = this.userApplyRef.firstElementChild
+                .offsetTop;
+            this.userApplyRef.scrollTo(
+                0,
+                e.target.offsetTop - firstElemOffsetTop
+            );
+        }
     }
 
     onEnterClick(e) {

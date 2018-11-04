@@ -40,7 +40,7 @@ const EventComponent = ({
             <div className="event-admin-detail">
                 <div>
                     <div>Date created : {event.dateCreated}</div>
-                    <div>entergrates ({event.entergrates.length})</div>
+                    <div>Entergrates ({event.entergrates.length})</div>
                 </div>
                 <div
                     className="show-more"
