@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import history from '../../routes/history';
-import VolunteerDashboard from './volunteers';
-import OrganisationDashboard from './organisations';
+import VolunteerDashboard from './entergrates';
+import AdminDashboard from './admin';
 import Loading from '../../components/loading';
 
 class Dashboard extends React.Component {
@@ -19,10 +19,10 @@ class Dashboard extends React.Component {
         // prevent users from entering the wrong dashboard
         this.timeout = setTimeout(() => {
             if (isAuthenticated) {
-                if (userGroup === '2') {
-                    history.push('/dashboard/organisations');
-                } else if (userGroup === '1') {
-                    history.push('/dashboard/volunteers');
+                if (userGroup === 2) {
+                    history.push('/dashboard/admin');
+                } else if (userGroup === 1) {
+                    history.push('/dashboard/entergrates');
                 } else {
                     history.push('/login');
                 }
@@ -39,10 +39,10 @@ class Dashboard extends React.Component {
             (prevProps.userGroup !== userGroup ||
                 prevProps.pathname !== pathname)
         ) {
-            if (userGroup === '2') {
-                history.push('/dashboard/organisations');
-            } else if (userGroup === '1') {
-                history.push('/dashboard/volunteers');
+            if (userGroup === 2) {
+                history.push('/dashboard/admin');
+            } else if (userGroup === 1) {
+                history.push('/dashboard/entergrates');
             } else {
                 history.push('/login');
             }
@@ -56,12 +56,9 @@ class Dashboard extends React.Component {
     render() {
         return (
             <Switch>
+                <Route path="/dashboard/admin" component={AdminDashboard} />
                 <Route
-                    path="/dashboard/organisations"
-                    component={OrganisationDashboard}
-                />
-                <Route
-                    path="/dashboard/volunteers"
+                    path="/dashboard/entergrates"
                     component={VolunteerDashboard}
                 />
                 <Route path="/dashboard" component={Loading} />
@@ -72,7 +69,7 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    userGroup: PropTypes.string.isRequired,
+    userGroup: PropTypes.number.isRequired,
     pathname: PropTypes.string.isRequired
 };
 

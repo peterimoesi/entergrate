@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import NoPage from '../no-page';
-import ForVolunteers from './forVolunteers';
-import WantVolunteers from './wantVolunteers';
+import ForEntergrates from './forEntergrates';
+// import Wantentergrates from './wantentergrates';
 
 import './styles.scss';
 
@@ -108,9 +108,9 @@ class Users extends React.Component {
                 <div className="user-apply-container">
                     <Switch>
                         <Route
-                            path="/apply/for-volunteers"
+                            path="/apply/for-entergrates"
                             render={props => (
-                                <ForVolunteers
+                                <ForEntergrates
                                     {...props}
                                     setRef={this.setUserApplyRef}
                                     onInputClick={this.onInputClick}
@@ -118,17 +118,17 @@ class Users extends React.Component {
                                 />
                             )}
                         />
-                        <Route
-                            path="/apply/want-volunteers"
+                        {/* <Route
+                            path="/apply/want-entergrates"
                             render={props => (
-                                <WantVolunteers
+                                <Wantentergrates
                                     {...props}
                                     setRef={this.setUserApplyRef}
                                     onInputClick={this.onInputClick}
                                     onEnterClick={this.onEnterClick}
                                 />
                             )}
-                        />
+                        /> */}
                         <Route path="/apply" component={NoPage} />
                     </Switch>
                 </div>

@@ -11,7 +11,7 @@ class Validation {
         return !reg.test(str) && 'Enter a valid phone number';
     }
 
-    personalUrl(str) {
+    url(str) {
         const reg = /[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
         return (
             !reg.test(str) && 'Invalid Url. Example : http://www.entergrate.org'

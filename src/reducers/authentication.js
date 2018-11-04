@@ -15,7 +15,9 @@ export default (state = initialState, action) => {
         };
     case 'ADD_ONE_INTEREST': {
         const userInterest = [...state.userData.interest];
-        userInterest.push(action.data);
+        if (userInterest.findIndex(x => x._id === action.data._id) === -1) {
+            userInterest.push(action.data);
+        }
         return {
             ...state,
             userData: {

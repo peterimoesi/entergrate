@@ -18,10 +18,6 @@ class Login extends React.Component {
         this.formSubmit = this.formSubmit.bind(this);
     }
 
-    componentDidMount() {
-        console.log(this.props);
-    }
-
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }

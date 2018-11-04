@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactQuill from 'react-quill';
 import DateTime from 'react-datetime';
 import PropTypes from 'prop-types';
 
+import 'react-quill/dist/quill.snow.css';
 import './styles.scss';
 
 const dashboardInput = ({
@@ -17,7 +19,8 @@ const dashboardInput = ({
     error,
     type,
     formType,
-    maxLength
+    maxLength,
+    style
 }) => (
     <div>
         <label>{label} :</label>
@@ -51,6 +54,7 @@ const dashboardInput = ({
                     value={value}
                     type={type}
                     readOnly={readOnly}
+                    style={style}
                 />
             ) : null}
             {formType === 'dateTime' ? (
@@ -60,6 +64,18 @@ const dashboardInput = ({
                     value={value}
                     type={type}
                     placeholder={placeholder}
+                />
+            ) : null}
+            {formType === 'exTextArea' ? (
+                <ReactQuill
+                    className={`profile-input form-control ${editing !== name &&
+                        'no-editing'} ${error ? 'is-invalid' : ''}`}
+                    name={name}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    value={value}
+                    type={type}
+                    readOnly={readOnly}
                 />
             ) : null}
             {!noIcon ? (
@@ -89,7 +105,8 @@ dashboardInput.propTypes = {
     readOnly: PropTypes.bool,
     formType: PropTypes.string.isRequired,
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    maxLength: PropTypes.number
+    maxLength: PropTypes.number,
+    style: PropTypes.object
 };
 
 dashboardInput.defaultProps = {
@@ -100,7 +117,8 @@ dashboardInput.defaultProps = {
     editing: null,
     readOnly: false,
     error: '',
-    maxLength: null
+    maxLength: null,
+    style: null
 };
 
 export default dashboardInput;

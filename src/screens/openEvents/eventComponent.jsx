@@ -16,17 +16,6 @@ const EventComponent = ({
             <Loading />
         ) : (
             <div>
-                <div className="show-more-item">
-                    <div className="item-head">Requirements</div>
-                    <ul className="requirement-list">
-                        {activeEvent.requirements &&
-                            activeEvent.requirements.map((req, i) => (
-                                <li key={i} className="">
-                                    {req}
-                                </li>
-                            ))}
-                    </ul>
-                </div>
                 <div className="interested-cta">
                     {isAuthenticated ? (
                         <Button

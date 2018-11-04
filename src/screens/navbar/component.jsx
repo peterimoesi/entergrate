@@ -8,7 +8,8 @@ const NavigationComponent = ({
     setNavRef,
     isAuthenticated,
     userGroup,
-    logout
+    logout,
+    handleNavShow
 }) => (
     <nav
         className="navbar navbar-expand-lg navbar-dark fixed-top"
@@ -27,6 +28,7 @@ const NavigationComponent = ({
                 aria-controls="navbarResponsive"
                 aria-expanded="false"
                 aria-label="Toggle navigation"
+                onClick={() => handleNavShow()}
             >
                 Menu
                 <i className="fa fa-bars" />
@@ -37,19 +39,9 @@ const NavigationComponent = ({
                         <li className="nav-item">
                             <Link
                                 className="nav-link js-scroll-trigger"
-                                to="/for-volunteers"
+                                to="/for-entergrates"
                             >
-                                for Volunteers
-                            </Link>
-                        </li>
-                    ) : null}
-                    {!isAuthenticated ? (
-                        <li className="nav-item">
-                            <Link
-                                className="nav-link js-scroll-trigger"
-                                to="/need-volunteers"
-                            >
-                                Need Volunteers
+                                for entergrates
                             </Link>
                         </li>
                     ) : null}
@@ -90,8 +82,9 @@ const NavigationComponent = ({
 
 NavigationComponent.propTypes = {
     setNavRef: PropTypes.func.isRequired,
-    userGroup: PropTypes.string,
+    userGroup: PropTypes.number,
     isAuthenticated: PropTypes.bool,
+    handleNavShow: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
 };
 

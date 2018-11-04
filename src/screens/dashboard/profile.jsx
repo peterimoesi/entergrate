@@ -30,7 +30,7 @@ class Profile extends React.Component {
                 phoneNumber: props.userData.phoneNumber,
                 password: '',
                 bio: props.userData.bio,
-                personalUrl: props.userData.personalUrl || '',
+                url: props.userData.url || '',
                 cv: props.userData.cv
             }
         };
@@ -105,7 +105,7 @@ class Profile extends React.Component {
         const { editing } = this.state;
         return (
             <CollapseSection
-                name="Profile"
+                name={`${this.state.userData.fullName} - Profile`}
                 expand={this.state.expand}
                 dataLoaded={this.state.dataLoaded}
                 toggleExpand={this.toggleExpand}
@@ -142,12 +142,12 @@ class Profile extends React.Component {
                                 onChange={this.onChange}
                                 label="Link to LinkedIn page or personal website"
                                 type="text"
-                                value={this.state.userData.personalUrl}
+                                value={this.state.userData.url}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
                                 placeholder="LinkedIn or website"
-                                name="personalUrl"
-                                error={this.state.error.personalUrl}
+                                name="url"
+                                error={this.state.error.url}
                                 formType="input"
                             />
                         </div>

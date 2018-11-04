@@ -9,7 +9,7 @@ import { formatISODate } from '../../utils/general';
 import './styles.scss';
 
 const eventListComponent = ({
-    owner,
+    businessName,
     name,
     description,
     location,
@@ -30,14 +30,24 @@ const eventListComponent = ({
     >
         <div className="col-lg-2 col-md-2 col-sm-3 col-3">
             <div className="open-event-picture">
-                <img src={image || owner.image || defaultImg} />
+                <img src={image || defaultImg} />
             </div>
         </div>
         <div className="col-lg-8 col-md-10 col-sm-9 col-12">
             <div className="open-event-details">
                 <h5>{name}</h5>
-                <h5 className="open-event-owner">{owner.fullName}</h5>
-                <div>{description}</div>
+                <h5 className="open-event-owner">{businessName}</h5>
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html:
+                            window.location.pathname === `/open-events/${_id}`
+                                ? description
+                                : `${description.substr(
+                                    0,
+                                    240
+                                )}<span>...</span>`
+                    }}
+                />
                 <div className="open-event-date-location">
                     <div>Date : {formatISODate(dateTime)}</div>
                     <div>Location : {location}</div>
@@ -77,11 +87,14 @@ const eventListComponent = ({
 );
 
 eventListComponent.propTypes = {
-    owner: PropTypes.object.isRequired,
+    businessName: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    dateTime: PropTypes.instanceOf(Date).isRequired,
+    dateTime: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(Date)
+    ]).isRequired,
     _id: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     setEventRef: PropTypes.func.isRequired,

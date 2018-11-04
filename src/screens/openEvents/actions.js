@@ -47,11 +47,11 @@ export function clearOpenEvents() {
     };
 }
 
-export function isInterested(id, volunteerId) {
-    return dispatch =>
+export function isInterested(id, entergrateId) {
+    return (dispatch, getState) =>
         axios
-            .patch(`${global.apiUrl}/api/event/${id}/add-volunteer`, {
-                volunteerId
+            .patch(`${global.apiUrl}/api/event/${id}/add-entergrate`, {
+                entergrateId
             })
             .then(res => {
                 dispatch({
@@ -59,6 +59,11 @@ export function isInterested(id, volunteerId) {
                     data: res.data
                 });
                 dispatch(showNotice('Interest added'));
+                // update user credentials
+                localStorage.setItem(
+                    'userCredentials',
+                    JSON.stringify(getState().authentication.userData)
+                );
             })
             .catch(e => console.log(e));
 }

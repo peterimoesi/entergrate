@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import authentication from './authentication';
-import events from '../screens/dashboard/organisations/events/reducers';
+import events from '../screens/dashboard/admin/events/reducers';
 import openEvents from '../screens/openEvents/reducer';
 import notification from '../components/notification/reducer';
 

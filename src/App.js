@@ -11,7 +11,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App" id="App">
-                <Navigation />
+                <Navigation {...this.props} />
                 <Notification />
                 <div id="app-routes">{routes}</div>
             </div>
