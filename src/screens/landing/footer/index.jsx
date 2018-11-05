@@ -39,11 +39,6 @@ const footer = () => (
                                     <i className="fa fa-linkedin" />
                                 </a>
                             </li>
-                            <li className="list-inline-item">
-                                <a href="#">
-                                    <i className="fa fa-linkedin" />
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <div className="col-md-4">
