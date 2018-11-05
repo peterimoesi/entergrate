@@ -6,6 +6,7 @@
 + Send welcome mail on user signup
 + Restricted admin dashboard
 + No notification on notification menu
++ Added meta description
 
 #### Entergrate version 0.1 (03-11-2018)
 
