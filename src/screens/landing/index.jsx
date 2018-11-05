@@ -1,15 +1,20 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Team from './team';
 
+import MainLanding from './mainLanding';
 import UserInformation from './userInformation';
 import Footer from './footer';
+
+import newBg from './assets/new_bg.jpeg';
 
 import './styles.scss';
 
 const Landing = () => (
-    <div>
+    <div id="landing-page">
+        <MainLanding />
         <UserInformation userGroup={1} />
         <section id="about" className="bg-light">
             <div className="container">
@@ -96,11 +101,45 @@ const Landing = () => (
                 <div className="row">
                     <div className="col-lg-12">
                         <ul className="timeline">
+                            <li>
+                                <div className="timeline-image">
+                                    <img
+                                        className="rounded-circle img-fluid img-max-height"
+                                        style={{ width: '100%' }}
+                                        src={newBg}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="timeline-panel">
+                                    <div className="timeline-heading">
+                                        <h4>November 6 2018</h4>
+                                        <h4 className="subheading">
+                                            Harnessing the full potentials of
+                                            the immigrants in Finland
+                                        </h4>
+                                    </div>
+                                    <div className="timeline-body">
+                                        <p className="text-muted">
+                                            Come be an Entergrate volunteer
+                                        </p>
+                                        <p className="text-muted">
+                                            Click{' '}
+                                            <a
+                                                href="https://www.eventbrite.com/e/entergrate-town-hall-meeting-tickets-51659582201?aff=erelexpmlt"
+                                                target="_blank"
+                                            >
+                                                here
+                                            </a>{' '}
+                                            for more information
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
                             <li className="timeline-inverted">
                                 <div className="timeline-image">
                                     <img
                                         className="rounded-circle img-fluid img-max-height"
-                                        src="img/new_bg.jpeg"
+                                        src={newBg}
                                         alt=""
                                     />
                                 </div>
@@ -132,7 +171,7 @@ const Landing = () => (
                                 <div className="timeline-image">
                                     <img
                                         className="rounded-circle img-fluid img-max-height"
-                                        src="img/Linkbout/2.png"
+                                        src={newBg}
                                         alt=""
                                     />
                                 </div>
@@ -158,7 +197,7 @@ const Landing = () => (
                                 <div className="timeline-image">
                                     <img
                                         className="rounded-circle img-fluid img-max-height"
-                                        src="img/Linkbout/1.png"
+                                        src={newBg}
                                         alt=""
                                     />
                                 </div>

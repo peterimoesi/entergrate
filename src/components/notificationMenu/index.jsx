@@ -29,6 +29,9 @@ class NotificationMenu extends React.Component {
                     <div>
                         <div className="notification-head">Notification</div>
                     </div>
+                    <div className="no-notification">
+                        <h6>No notifications</h6>
+                    </div>
                 </div>
             </div>
         );

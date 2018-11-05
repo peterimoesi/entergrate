@@ -31,7 +31,7 @@ router.get('/is-authenticated', checkAuth, async (req, res, next) => {
     }
 });
 
-router.post('/logout', checkAuth, (req, res) => {
+router.post('/logout', (req, res) => {
     try {
         req.session.auth = false;
         return res.sendStatus(200);
