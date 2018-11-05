@@ -1,4 +1,4 @@
-## Application Change log
+## Application change log
 
 #### Entergrate version 0.2 (05-11-2018)
 
