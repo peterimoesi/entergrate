@@ -7,8 +7,9 @@ import CollapseSection from '../../../../components/collapseSection/collapseSect
 import EventComponent from './eventComponent';
 import Modal from '../../../../components/modals';
 import EventForm from './eventForm';
+import ContactForm from './contactForm';
 
-import { getEvents } from './actions';
+import { getEvents, contact } from './actions';
 
 class Events extends React.Component {
     constructor() {
@@ -21,7 +22,12 @@ class Events extends React.Component {
             eventIndex: '',
             modalChild: null,
             viewentergrates: false,
-            apiError: false
+            apiError: false,
+            contactForm: {
+                to: '',
+                subject: '',
+                message: ''
+            }
         };
         this.toggleExpand = this.toggleExpand.bind(this);
         this.toggleShowMore = this.toggleShowMore.bind(this);
@@ -29,6 +35,9 @@ class Events extends React.Component {
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.onViewentergrates = this.onViewentergrates.bind(this);
+        this.onContactFormChange = this.onContactFormChange.bind(this);
+        this.onContact = this.onContact.bind(this);
+        this.onContactMessageSend = this.onContactMessageSend.bind(this);
     }
 
     toggleExpand() {
@@ -71,6 +80,30 @@ class Events extends React.Component {
         this.setState({ openModal: false, modalChild: null });
     }
 
+    onContactFormChange(name, txt) {
+        const { contactForm } = this.state;
+        contactForm[name] = txt;
+        this.setState({ contactForm });
+    }
+
+    onContact(toAll, toEmail) {
+        const { contactForm } = this.state;
+        if (toAll) {
+            contactForm.to = toAll.map(ent => ent.email).join(', ');
+        } else {
+            contactForm.to = toEmail;
+        }
+        this.setState({
+            contactForm,
+            openModal: true,
+            modalChild: 'contactForm'
+        });
+    }
+
+    onContactMessageSend() {
+        this.props.contact(this.state.contactForm);
+    }
+
     render() {
         const {
             modalChild,
@@ -105,6 +138,13 @@ class Events extends React.Component {
                                         }
                                     />
                                 ) : null}
+                                {modalChild === 'contactForm' ? (
+                                    <ContactForm
+                                        formData={this.state.contactForm}
+                                        onChange={this.onContactFormChange}
+                                        submit={this.onContactMessageSend}
+                                    />
+                                ) : null}
                             </div>
                         </Modal>
                     ) : null}
@@ -120,6 +160,7 @@ class Events extends React.Component {
                                     index={i}
                                     onViewentergrates={this.onViewentergrates}
                                     viewentergrates={this.state.viewentergrates}
+                                    onContact={this.onContact}
                                 />
                             ))}
                         </div>
@@ -150,7 +191,8 @@ class Events extends React.Component {
 Events.propTypes = {
     userId: PropTypes.string.isRequired,
     getEvents: PropTypes.func.isRequired,
-    events: PropTypes.array.isRequired
+    events: PropTypes.array.isRequired,
+    contact: PropTypes.func.isRequired
 };
 
 function mapStateToProps({ authentication, events }) {
@@ -162,5 +204,5 @@ function mapStateToProps({ authentication, events }) {
 
 export default connect(
     mapStateToProps,
-    { getEvents }
+    { getEvents, contact }
 )(Events);

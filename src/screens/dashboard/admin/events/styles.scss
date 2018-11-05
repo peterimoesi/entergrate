@@ -52,26 +52,13 @@
         }
     }
 }
-.event-form {
+.event-form,
+.contact-form {
     label {
         font-size: 12px;
     }
-    .new-event-input,
-    .requirement-input {
+    .new-event-input {
         margin: 15px 0;
-    }
-    .requirement-input {
-        position: relative;
-        i {
-            top: 50%;
-            transform: translateY(-50%);
-            position: absolute;
-            right: 10px;
-            cursor: pointer;
-        }
-        input {
-            padding-right: 25px;
-        }
     }
 }
 .volunteer-list {
@@ -79,6 +66,7 @@
     padding: 20px;
     box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.03);
     border-radius: 5px;
+    position: relative;
     .volunteer-list-head {
         font-size: 18px;
         text-align: center;
@@ -107,5 +95,27 @@
     }
     .vol-itm-dtls > div {
         margin: 15px 0;
+    }
+    .contact-all {
+        position: absolute;
+        right: 30px;
+        top: 30px;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+            color: #fed136;
+        }
+        @media screen and (max-width: 350px) {
+            top: 50px;
+        }
+    }
+    .contact-ent {
+        color: #9a9a9a;
+        font-size: 20px;
+        margin-left: 10px;
+        cursor: pointer;
+        &:hover {
+            color: #fed136;
+        }
     }
 }

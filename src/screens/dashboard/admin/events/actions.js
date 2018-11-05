@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { showNotice } from '../../../../globalActions';
+
 export function getEvents(userId) {
     return dispatch =>
         axios
@@ -50,4 +52,15 @@ export function submit(eventData, userId, modify) {
                 })
                 .catch(e => console.log(e));
     }
+}
+
+export function contact(contactForm) {
+    return dispatch =>
+        axios
+            .post(`${global.apiUrl}/api/contact`, contactForm)
+            .then(res => {
+                console.log(res);
+                dispatch(showNotice('Message sent'));
+            })
+            .catch(e => console.log(e));
 }

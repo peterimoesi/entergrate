@@ -9,6 +9,7 @@ const session = require('express-session');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const eventRouter = require('./routes/events');
+const contactRouter = require('./routes/contact');
 
 const app = express();
 
@@ -51,6 +52,7 @@ db.once('open', () => {
     app.use('/', indexRouter);
     app.use('/api/users', usersRouter);
     app.use('/api/event', eventRouter);
+    app.use('/api/contact', contactRouter);
 
     // catch 404 and forward to error handler
     app.use((req, res, next) => {

@@ -15,7 +15,8 @@ const EventComponent = ({
     onModify,
     index,
     onViewentergrates,
-    viewentergrates
+    viewentergrates,
+    onContact
 }) => (
     <div className="event-details">
         <div className="event-default">
@@ -73,6 +74,12 @@ const EventComponent = ({
                             <div className="volunteer-list-head">
                                 Entergrates
                             </div>
+                            <div
+                                className="contact-all"
+                                onClick={() => onContact(event.entergrates)}
+                            >
+                                contact all
+                            </div>
                             <div>
                                 {event.entergrates.map(vol => (
                                     <div
@@ -89,6 +96,16 @@ const EventComponent = ({
                                                 >
                                                     {vol.email}
                                                 </span>
+                                                <i
+                                                    title="contact user"
+                                                    className="contact-ent fa fa-envelope"
+                                                    onClick={() =>
+                                                        onContact(
+                                                            null,
+                                                            vol.email
+                                                        )
+                                                    }
+                                                />
                                             </div>
                                             <div>
                                                 <div className="vol-head">
@@ -111,7 +128,9 @@ const EventComponent = ({
                                                     vol.url ||
                                                     window.location.pathname
                                                 }
-                                                target="_blank"
+                                                target={
+                                                    vol.url ? '_blank' : null
+                                                }
                                                 rel="noreferrer"
                                             >
                                                 <Button
@@ -146,7 +165,8 @@ EventComponent.propTypes = {
     onModify: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
     onViewentergrates: PropTypes.func.isRequired,
-    viewentergrates: PropTypes.bool.isRequired
+    viewentergrates: PropTypes.bool.isRequired,
+    onContact: PropTypes.func.isRequired
 };
 
 export default EventComponent;

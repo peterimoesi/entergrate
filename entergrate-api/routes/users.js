@@ -35,6 +35,7 @@ router.get('/is-authenticated', checkAuth, async (req, res, next) => {
 router.post('/logout', (req, res) => {
     try {
         req.session.auth = false;
+        req.session.email = null;
         return res.sendStatus(200);
     } catch (e) {
         console.log(e);
@@ -62,6 +63,8 @@ router.post('/login', async (req, res, next) => {
                 bcrypt.compare(password, user.password, (err, result) => {
                     if (result) {
                         req.session.auth = true;
+                        req.session._id = user._id;
+                        req.session.user = email;
                         if (user.userGroup === 2) {
                             req.session.admin = true;
                         }
@@ -99,9 +102,10 @@ router.post('/', async (req, res, next) => {
             .then(user => {
                 req.session.auth = true;
                 req.session._id = user._id;
+                req.session.user = email;
                 transporter.sendMail(
                     {
-                        from: 'admin@entergrate.com',
+                        from: 'admin@entergrate.org',
                         to: email,
                         subject: 'Welcome to Entergrate',
                         text: 'Welcome to Entergrate',
