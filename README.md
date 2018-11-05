@@ -4,7 +4,7 @@
 
 + Added nodemailer
 + Send welcome mail on user signup
-+ Disabled admin signup
++ Restricted admin dashboard
 
 #### Entergrate version 0.1 (03-11-2018)
 
