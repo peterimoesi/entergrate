@@ -1,5 +1,10 @@
 ## Application change log
 
+
+#### Entergrate version 0.3 (06-11-2018)
+
++ Added user contact functionality for admin
+
 #### Entergrate version 0.2 (05-11-2018)
 
 + Added nodemailer
