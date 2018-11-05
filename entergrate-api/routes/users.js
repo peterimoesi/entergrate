@@ -65,30 +65,6 @@ router.post('/login', async (req, res, next) => {
                         if (user.userGroup === 2) {
                             req.session.admin = true;
                         }
-                        transporter.sendMail(
-                            {
-                                from: 'admin@entergrate.com',
-                                to: email,
-                                subject: 'Welcome to Entergrate',
-                                text: `<div>
-                                    <h3>Welcome</h3>
-                                    <div>
-                                        <p>Congratulations on been an entergrate</p>
-                                        <p>Click <a href="disis.me/open-events">here</a> to view open positions</p>
-                                    </div>
-                                </div>`
-                            },
-                            (err, info) => {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log(
-                                        'Message sent: %s',
-                                        info.response
-                                    );
-                                }
-                            }
-                        );
                         res.send(user);
                     } else {
                         return res.status(401).send({
@@ -123,6 +99,28 @@ router.post('/', async (req, res, next) => {
             .then(user => {
                 req.session.auth = true;
                 req.session._id = user._id;
+                transporter.sendMail(
+                    {
+                        from: 'admin@entergrate.com',
+                        to: email,
+                        subject: 'Welcome to Entergrate',
+                        text: 'Welcome to Entergrate',
+                        html: `<div>
+                            <h3>Welcome</h3>
+                            <div>
+                                <p>Congratulations on been an entergrate</p>
+                                <p>Click <a href="disis.me/open-events">here</a> to view open positions</p>
+                            </div>
+                        </div>`
+                    },
+                    (err, info) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log('Message sent: %s', info.response);
+                        }
+                    }
+                );
                 res.send(user);
             })
             .catch(error => {
