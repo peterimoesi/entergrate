@@ -82,10 +82,12 @@ class Users extends React.Component {
         if (screenWidth) {
             const firstElemOffsetTop = this.userApplyRef.firstElementChild
                 .offsetTop;
-            this.userApplyRef.scrollTo(
-                0,
-                e.target.offsetTop - firstElemOffsetTop
-            );
+            if (this.userApplyRef.scrollTo) {
+                this.userApplyRef.scrollTo(
+                    0,
+                    e.target.offsetTop - firstElemOffsetTop
+                );
+            }
         }
     }
 
@@ -98,10 +100,13 @@ class Users extends React.Component {
                 ) {
                     const firstElemOffsetTop = this.userApplyRef
                         .firstElementChild.offsetTop;
-                    this.userApplyRef.scrollTo(
-                        0,
-                        this.formInputs[x + 1].offsetTop - firstElemOffsetTop
-                    );
+                    if (this.userApplyRef.scrollTo) {
+                        this.userApplyRef.scrollTo(
+                            0,
+                            this.formInputs[x + 1].offsetTop -
+                                firstElemOffsetTop
+                        );
+                    }
                     return;
                 }
             });
