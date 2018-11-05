@@ -1,3 +1,8 @@
-# Entergrate version 1.0
+# Entergrate version 0.2
 
-+ Changes
++ Added nodemailer
++ Send welcome mail on user signup
+
+# Entergrate version 0.1
+
++ Disabled admin signup
