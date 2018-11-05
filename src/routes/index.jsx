@@ -14,8 +14,8 @@ const routes = (
         <Route path="/open-events/:id?" component={OpenEvents} />
         <Route path="/apply" component={UserApplyScreen} />
         <Route path="/login" component={Login} />
-        <Route path="/" component={LandingScreen} />
-        <Route component={NoPage} />
+        <Route exact path="/" component={LandingScreen} />
+        <Route path="*" component={NoPage} />
     </Switch>
 );
 
