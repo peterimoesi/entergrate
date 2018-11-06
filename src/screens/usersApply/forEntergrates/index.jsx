@@ -195,6 +195,7 @@ class ForEntergrates extends React.Component {
                     type="text"
                     inputType="textarea"
                     error={this.state.error.bio}
+                    maxLength={240}
                 >
                     <div>
                         Say a few worlds (240) about yourself. Let organiations

@@ -39,7 +39,7 @@ const NavigationComponent = ({
                         <li className="nav-item">
                             <Link
                                 className="nav-link js-scroll-trigger"
-                                to="/for-entergrates"
+                                to="/apply/for-entergrates"
                             >
                                 for entergrates
                             </Link>

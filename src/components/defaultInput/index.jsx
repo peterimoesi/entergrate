@@ -24,7 +24,7 @@ const dashboardInput = ({
 }) => (
     <div>
         <label>{label} :</label>
-        <div className="input-container form-group">
+        <div className={`input-container form-group ${formType}`}>
             {formType === 'textArea' ? (
                 <React.Fragment>
                     <textarea
