@@ -76,7 +76,7 @@ class ForEntergrates extends React.Component {
             url
         } = this.state;
         return (
-            <form>
+            <form onSubmit={e => e.preventDefault()}>
                 <div className="form-container" ref={this.props.setRef}>
                     <div className="pre-form-info">
                         <div>Fill the form below to create your profile. </div>

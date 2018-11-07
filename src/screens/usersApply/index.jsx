@@ -99,6 +99,7 @@ class Users extends React.Component {
     }
 
     onEnterClick(e) {
+        e.preventDefault();
         if (e.keyCode === 13) {
             [].forEach.call(this.formInputs, (elem, x) => {
                 if (
@@ -108,10 +109,17 @@ class Users extends React.Component {
                     const firstElemOffsetTop = this.userApplyRef
                         .firstElementChild.offsetTop;
                     if (this.userApplyRef.scrollTo) {
-                        this.userApplyRef.scrollTo(
-                            0,
+                        // this.userApplyRef.scrollTo(
+                        //     0,
+                        //     this.formInputs[x + 1].offsetTop -
+                        //         firstElemOffsetTop
+                        // );
+                        scrollTo(
                             this.formInputs[x + 1].offsetTop -
-                                firstElemOffsetTop
+                                firstElemOffsetTop,
+                            this.userApplyRef,
+                            null,
+                            500
                         );
                     }
                     return;
