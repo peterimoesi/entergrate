@@ -6,6 +6,7 @@
 + Fixed open event api call with empty id
 + Animated user apply scroll input
 + user profile update functionality
++ press enter to submit login form
 
 #### Entergrate version 0.3 (06-11-2018)
 
