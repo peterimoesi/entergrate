@@ -1,6 +1,6 @@
 ## Application change log
 
-#### Entergrate version 0.3 (06-11-2018)
+#### Entergrate version 0.4 (06-11-2018)
 
 + Fixed event interested bug (module export error)
 + Fixed open event api call with empty id
