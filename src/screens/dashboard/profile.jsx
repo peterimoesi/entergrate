@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { userUpdate } from './action';
 import CollapseSection from '../../components/collapseSection/collapseSection';
 import DefaultInput from '../../components/defaultInput';
 import Button from '../../components/buttons';
 import validation from '../../utils/validation';
+import { checkForErrors } from '../../utils/general';
 import './styles.scss';
 
 class Profile extends React.Component {
@@ -16,6 +19,7 @@ class Profile extends React.Component {
         this.handleCVUpload = this.handleCVUpload.bind(this);
         this.saveForm = this.saveForm.bind(this);
         this.getFormChanges = this.getFormChanges.bind(this);
+        this.checkForErrors = checkForErrors.bind(this);
         this.timeout = null;
         this.state = {
             dataLoaded: false,
@@ -77,11 +81,10 @@ class Profile extends React.Component {
             userKeys = Object.keys(userData),
             updatedKeys = {};
         for (let i of userKeys) {
-            if (userData[i] !== defaultUserData[i]) {
+            if (userData[i] != defaultUserData[i]) {
                 updatedKeys[i] = userData[i];
             }
         }
-        delete updatedKeys.password;
         return updatedKeys;
     }
 
@@ -99,6 +102,12 @@ class Profile extends React.Component {
 
     saveForm() {
         this.validateChanges(this.getFormChanges());
+        if (!this.checkForErrors()) return;
+        this.props.userUpdate({
+            _id: this.props.userData._id,
+            ...this.getFormChanges()
+        });
+        this.setState({ editing: '' });
     }
 
     render() {
@@ -180,11 +189,13 @@ class Profile extends React.Component {
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Change password"
-                                value={`${this.state.userData.password}******`}
+                                value={this.state.userData.password}
                                 toggleEditing={this.toggleEditing}
+                                error={this.state.error.password}
                                 editing={editing}
                                 placeholder="Password"
                                 type="password"
+                                autocomplete="new-password"
                                 name="password"
                                 formType="input"
                             />
@@ -240,6 +251,7 @@ class Profile extends React.Component {
 
 Profile.propTypes = {
     userData: PropTypes.object.isRequired,
+    userUpdate: PropTypes.func.isRequired,
     uploadCV: PropTypes.bool
 };
 
@@ -253,4 +265,7 @@ function mapStateToProps({ authentication }) {
     };
 }
 
-export default connect(mapStateToProps)(Profile);
+export default connect(
+    mapStateToProps,
+    { userUpdate }
+)(Profile);

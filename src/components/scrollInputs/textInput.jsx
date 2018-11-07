@@ -10,7 +10,8 @@ const textInput = ({
     onKeyDown,
     name,
     placeholder,
-    error
+    error,
+    autocomplete
 }) => (
     <input
         className={`form-control ${error ? 'is-invalid' : ''}`}
@@ -20,6 +21,7 @@ const textInput = ({
         name={name}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
+        autoComplete={autocomplete}
     />
 );
 
@@ -34,14 +36,16 @@ textInput.propTypes = {
     placeholder: PropTypes.string,
     onClick: PropTypes.func,
     klass: PropTypes.string,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    autocomplete: PropTypes.string
 };
 
 textInput.defaultProps = {
     onClick: null,
     placeholder: '',
     klass: '',
-    error: false
+    error: false,
+    autocomplete: ''
 };
 
 export default textInput;

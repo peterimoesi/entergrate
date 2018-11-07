@@ -56,3 +56,14 @@ export function formatISODate(isoTime, type) {
     }
     return `${day}-${monthIndex + 1}-${year}`;
 }
+
+export function checkForErrors() {
+    const { error } = this.state,
+        errorKeys = Object.keys(error);
+    for (let key of errorKeys) {
+        if (error[key]) {
+            return false;
+        }
+    }
+    return true;
+}

@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import NoPage from '../no-page';
 import ForEntergrates from './forEntergrates';
+
+import scrollTo from '../../utils/scrollTo';
 // import Wantentergrates from './wantentergrates';
 
 import './styles.scss';
@@ -78,14 +80,19 @@ class Users extends React.Component {
 
     onInputClick(e) {
         var screenWidth = window.matchMedia('(min-width: 992px)').matches;
-        console.log(screenWidth);
         if (screenWidth) {
             const firstElemOffsetTop = this.userApplyRef.firstElementChild
                 .offsetTop;
             if (this.userApplyRef.scrollTo) {
-                this.userApplyRef.scrollTo(
-                    0,
-                    e.target.offsetTop - firstElemOffsetTop
+                // this.userApplyRef.scrollTo(
+                //     0,
+                //     e.target.offsetTop - firstElemOffsetTop
+                // );
+                scrollTo(
+                    e.target.offsetTop - firstElemOffsetTop,
+                    this.userApplyRef,
+                    null,
+                    500
                 );
             }
         }

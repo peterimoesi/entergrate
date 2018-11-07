@@ -6,6 +6,7 @@ import DefaultInput from '../../../../components/defaultInput';
 import Button from '../../../../components/buttons';
 import validation from '../../../../utils/validation';
 
+import { checkForErrors } from '../../../../utils/general';
 import { submit } from './actions';
 import './styles.scss';
 
@@ -18,6 +19,7 @@ class EventForm extends React.Component {
         this.onDateChange = this.onDateChange.bind(this);
         this.submit = this.submit.bind(this);
         this.getFormChanges = this.getFormChanges.bind(this);
+        this.checkForErrors = checkForErrors.bind(this);
         this.state = {
             eventId: null,
             error: {},
@@ -120,14 +122,7 @@ class EventForm extends React.Component {
     submit() {
         this.validateChanges();
         // check for errors
-        const { error } = this.state,
-            errorKeys = Object.keys(error);
-        for (let key of errorKeys) {
-            if (error[key]) {
-                return;
-            }
-        }
-
+        if (!this.checkForErrors()) return;
         this.props
             .submit(
                 this.props.modify

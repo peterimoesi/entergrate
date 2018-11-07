@@ -68,7 +68,10 @@ router.post('/login', async (req, res, next) => {
                         if (user.userGroup === 2) {
                             req.session.admin = true;
                         }
-                        res.send(user);
+                        res.status(200).send({
+                            ...user._doc,
+                            password: ''
+                        });
                     } else {
                         return res.status(401).send({
                             error: true,
@@ -94,11 +97,7 @@ router.post('/', async (req, res, next) => {
         });
     }
     try {
-        bcrypt
-            .hash(password, 12)
-            .then(hashedPassword =>
-                User.create({ ...req.body, password: hashedPassword })
-            )
+        User.create({ ...req.body })
             .then(user => {
                 req.session.auth = true;
                 req.session._id = user._id;
@@ -125,9 +124,13 @@ router.post('/', async (req, res, next) => {
                         }
                     }
                 );
-                res.send(user);
+                res.status(200).send({
+                    ...user._doc,
+                    password: ''
+                });
             })
             .catch(error => {
+                console.log(error);
                 res.status(400).send(error);
             });
     } catch (e) {
@@ -135,30 +138,23 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-// export const profileImageUpdate = async (req, res) => {
-//     const { imageString } = req.body;
-//     const { userId } = req.params;
-//     try {
-//         await User.findById(userId, async(err, user) => {
-//             user.image = imageString;
-//             user.save((err, updatedUser) => {
-//                 if (err) {
-//                     console.log(err);
-//                     return res.status(401).json({ error: true, errorMessage: 'Error saving img' });
-//                 }
-//                 return res.status(200).json({
-//                     success : true,
-//                     user : {
-//                         image : updatedUser.image,
-//                     },
-//                 });
-//             });
-//         });
-//     }
-//     catch (e) {
-//         console.log(e);
-//         return res.status(401).json({ error: true, errorMessage: 'Unauthorised' });
-//     }
-// };
-
+router.patch('/', Auth.checkAuth, async (req, res, next) => {
+    try {
+        await User.findById(req.body._id, async (err, user) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).send(err);
+            }
+            const keys = Object.keys(req.body);
+            for (let key of keys) {
+                user[key] = req.body[key];
+            }
+            await user.save();
+            res.send(200);
+        });
+    } catch (e) {
+        console.log(e);
+        return res.status(400).send(e);
+    }
+});
 module.exports = router;

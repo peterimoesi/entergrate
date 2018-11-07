@@ -20,7 +20,9 @@ const dashboardInput = ({
     type,
     formType,
     maxLength,
-    style
+    style,
+    autocomplete,
+    onKeyDown
 }) => (
     <div>
         <label>{label} :</label>
@@ -55,6 +57,8 @@ const dashboardInput = ({
                     type={type}
                     readOnly={readOnly}
                     style={style}
+                    autoComplete={autocomplete}
+                    onKeyDown={onKeyDown}
                 />
             ) : null}
             {formType === 'dateTime' ? (
@@ -106,7 +110,9 @@ dashboardInput.propTypes = {
     formType: PropTypes.string.isRequired,
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     maxLength: PropTypes.number,
-    style: PropTypes.object
+    style: PropTypes.object,
+    autocomplete: PropTypes.string,
+    onKeyDown: PropTypes.func
 };
 
 dashboardInput.defaultProps = {
@@ -118,7 +124,9 @@ dashboardInput.defaultProps = {
     readOnly: false,
     error: '',
     maxLength: null,
-    style: null
+    style: null,
+    autocomplete: '',
+    onKeyDown: null
 };
 
 export default dashboardInput;

@@ -82,7 +82,6 @@ router.patch('/:id/add-entergrate', Auth.checkAuth, async (req, res, next) => {
                 }
                 const { interest } = user,
                     interestIndex = interest.indexOf(req.params.id);
-                console.log(interestIndex);
                 if (interestIndex === -1) {
                     interest.push(req.params.id);
                 }

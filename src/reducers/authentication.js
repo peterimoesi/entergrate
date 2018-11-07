@@ -13,6 +13,14 @@ export default (state = initialState, action) => {
             isAuthenticated: true,
             userData: action.data
         };
+    case 'AUTH_UPDATED':
+        return {
+            ...state,
+            userData: {
+                ...state.userData,
+                ...action.data
+            }
+        };
     case 'ADD_ONE_INTEREST': {
         const userInterest = [...state.userData.interest];
         if (userInterest.findIndex(x => x._id === action.data._id) === -1) {

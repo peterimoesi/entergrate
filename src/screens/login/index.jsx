@@ -15,6 +15,7 @@ class Login extends React.Component {
             password: ''
         };
         this.onChange = this.onChange.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
     }
 
@@ -25,6 +26,12 @@ class Login extends React.Component {
     formSubmit() {
         const { state } = this.props.location;
         this.props.onLogin(this.state, state && state.referrer);
+    }
+
+    onKeyDown(e) {
+        if (e.keyCode === 13) {
+            this.formSubmit();
+        }
     }
 
     render() {
@@ -40,6 +47,7 @@ class Login extends React.Component {
                         onChange={this.onChange}
                         value={this.state.email}
                         formType="input"
+                        onKeyDown={this.onKeyDown}
                     />
                     <DefaultInput
                         noIcon
@@ -50,6 +58,7 @@ class Login extends React.Component {
                         onChange={this.onChange}
                         value={this.state.password}
                         formType="input"
+                        onKeyDown={this.onKeyDown}
                     />
                     <div className="login-final-cta">
                         <Button
