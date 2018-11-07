@@ -67,7 +67,7 @@ const eventListComponent = ({
                 </Link>
             </div>
         </div>
-        {userGroup === 1 ? (
+        {userGroup === 1 && new Date(dateTime).getTime() > Date.now() ? (
             <Switch>
                 <Route
                     path={`/open-events/${_id}`}

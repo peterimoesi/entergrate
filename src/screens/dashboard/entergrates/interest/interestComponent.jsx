@@ -5,15 +5,11 @@ import { formatISODate } from '../../../../utils/general';
 
 import './styles.scss';
 
-const interest = ({ interestItem, showMore, toggleShowMore }) => (
+const interest = ({ active, interestItem, showMore, toggleShowMore }) => (
     <div className="volunteer-interest">
         <div className="interest-status">
-            <span>{interestItem.active ? 'Ongoing' : 'Closed'}</span>
-            <div
-                className={`status-icon status-${
-                    interestItem.active ? 'green' : 'red'
-                }`}
-            />
+            <span>{active ? 'Ongoing' : 'Closed'}</span>
+            <div className={`status-icon status-${active ? 'green' : 'red'}`} />
         </div>
         <div className="interest-name">
             <h4>
@@ -61,7 +57,8 @@ const interest = ({ interestItem, showMore, toggleShowMore }) => (
 interest.propTypes = {
     interestItem: PropTypes.object.isRequired,
     showMore: PropTypes.string.isRequired,
-    toggleShowMore: PropTypes.func.isRequired
+    toggleShowMore: PropTypes.func.isRequired,
+    active: PropTypes.bool.isRequired
 };
 
 export default interest;

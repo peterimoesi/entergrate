@@ -41,6 +41,7 @@ class Interest extends React.Component {
     }
     render() {
         const { interests } = this.props;
+        const dateNow = Date.now();
         return (
             <CollapseSection
                 name={`Your Interest (${interests.length})`}
@@ -49,12 +50,13 @@ class Interest extends React.Component {
                 toggleExpand={this.toggleExpand}
             >
                 <div>
-                    {interests.map(int => (
+                    {interests.reverse().map(int => (
                         <InterestItem
                             key={int._id}
                             interestItem={int}
                             toggleShowMore={this.toggleShowMore}
                             showMore={this.state.showMore}
+                            active={new Date(int.dateTime).getTime() > dateNow}
                         />
                     ))}
                     {!interests.length ? (

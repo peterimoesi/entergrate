@@ -12,6 +12,7 @@ router.get('/', async (req, res, next) => {
     try {
         await Event.find({})
             .select(!req.session.admin ? '-entergrates' : null)
+            .sort('-dateTime')
             .exec((err, event) => {
                 if (err) {
                     console.log(err);
@@ -48,6 +49,7 @@ router.get('/admin/:id', Auth.checkAdminAuth, async (req, res, next) => {
                 path: 'entergrates',
                 select: '-password -events -updatedAt -interest'
             })
+            .sort('-dateTime')
             .exec((err, event) => {
                 if (err) {
                     console.log(err);
