@@ -1,5 +1,8 @@
 ## Application change log
 
+#### Entergrate version 0.3 (06-11-2018)
+
++ Fixed event interested bug (module export error)
 
 #### Entergrate version 0.3 (06-11-2018)
 
