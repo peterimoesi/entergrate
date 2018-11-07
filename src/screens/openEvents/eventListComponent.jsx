@@ -22,6 +22,7 @@ const eventListComponent = ({
     isAuthenticated,
     isInterested,
     waiting,
+    userGroup,
     _id
 }) => (
     <div
@@ -66,23 +67,25 @@ const eventListComponent = ({
                 </Link>
             </div>
         </div>
-
-        <Switch>
-            <Route
-                path={`/open-events/${_id}`}
-                render={props => (
-                    <EventComponent
-                        {...props}
-                        waiting={waiting}
-                        id={_id}
-                        loaded={loaded}
-                        activeEvent={activeEvent}
-                        isAuthenticated={isAuthenticated}
-                        isInterested={isInterested}
-                    />
-                )}
-            />
-        </Switch>
+        {userGroup === 1 ? (
+            <Switch>
+                <Route
+                    path={`/open-events/${_id}`}
+                    render={props => (
+                        <EventComponent
+                            {...props}
+                            waiting={waiting}
+                            id={_id}
+                            loaded={loaded}
+                            activeEvent={activeEvent}
+                            isAuthenticated={isAuthenticated}
+                            isInterested={isInterested}
+                            userGroup={userGroup}
+                        />
+                    )}
+                />
+            </Switch>
+        ) : null}
     </div>
 );
 
@@ -103,7 +106,8 @@ eventListComponent.propTypes = {
     activeEvent: PropTypes.object.isRequired,
     isInterested: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    waiting: PropTypes.bool.isRequired
+    waiting: PropTypes.bool.isRequired,
+    userGroup: PropTypes.number.isRequired
 };
 
 export default eventListComponent;

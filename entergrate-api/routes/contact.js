@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const checkAdminAuth = require('./utils');
-const transporter = require('./mailer');
+const Auth = require('./utils');
 
-router.post('/', checkAdminAuth, async (req, res) => {
+router.post('/', Auth.checkAdminAuth, async (req, res) => {
     const { to, subject, message } = req.body;
     try {
         await transporter.sendMail(

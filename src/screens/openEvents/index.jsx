@@ -26,12 +26,12 @@ class OpenEvents extends React.Component {
 
     componentDidMount() {
         this.props.getOpenEvents().then(() => {
-            console.log(this.eventRef);
             if (this.props.match.params.id) {
                 this.eventRef && animateToElem(this.eventRef, 500); // scroll to elem
-                this.props
-                    .getOpenSingleEvent(this.props.match.params.id)
-                    .then(() => this.setState({ loaded: true }));
+                this.props.match.params.id &&
+                    this.props
+                        .getOpenSingleEvent(this.props.match.params.id)
+                        .then(() => this.setState({ loaded: true }));
             }
         });
     }
@@ -40,9 +40,10 @@ class OpenEvents extends React.Component {
         if (prevProps.match.params.id !== this.props.match.params.id) {
             this.eventRef && animateToElem(this.eventRef, 500);
             this.setState({ loaded: false }, () => {
-                this.props
-                    .getOpenSingleEvent(this.props.match.params.id)
-                    .then(() => this.setState({ loaded: true }));
+                this.props.match.params.id &&
+                    this.props
+                        .getOpenSingleEvent(this.props.match.params.id)
+                        .then(() => this.setState({ loaded: true }));
             });
         }
     }
@@ -79,6 +80,7 @@ class OpenEvents extends React.Component {
                                 isInterested={this.isInterested}
                                 waiting={this.state.waiting}
                                 isAuthenticated={this.props.isAuthenticated}
+                                userGroup={this.props.userGroup}
                                 activeEvent={
                                     evt._id === this.props.match.params.id
                                         ? this.props.activeEvent
@@ -99,7 +101,8 @@ function mapStateToProps({ openEvents, authentication }) {
         events: openEvents.events,
         activeEvent: openEvents.activeEvent,
         isAuthenticated: authentication.isAuthenticated,
-        userId: authentication.userData._id
+        userId: authentication.userData._id,
+        userGroup: authentication.userData.userGroup
     };
 }
 
@@ -112,11 +115,13 @@ OpenEvents.propTypes = {
     activeEvent: PropTypes.object.isRequired,
     isInterested: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    userId: PropTypes.string
+    userId: PropTypes.string,
+    userGroup: PropTypes.number
 };
 
 OpenEvents.defaultProps = {
-    userId: null
+    userId: null,
+    userGroup: 1
 };
 
 export default connect(

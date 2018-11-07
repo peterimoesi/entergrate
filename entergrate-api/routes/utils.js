@@ -1,15 +1,13 @@
-module.exports = function checkAuth(req, res, next) {
-    console.log(req.session.auth);
+exports.checkAuth = function(req, res, next) {
     if (!req.session || !req.session.auth) {
+        console.log('false');
         res.sendStatus(401);
         return;
     }
-
     next();
 };
 
-module.exports = function checkAdminAuth(req, res, next) {
-    console.log(req.session.auth);
+exports.checkAdminAuth = function(req, res, next) {
     if (!req.session || !req.session.auth || !req.session.admin) {
         res.sendStatus(401);
         return;

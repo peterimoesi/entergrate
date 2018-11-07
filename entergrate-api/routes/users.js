@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const User = require('../models/user.js');
 
-const checkAuth = require('./utils');
+const Auth = require('./utils');
 const transporter = require('./mailer');
 
 /* GET users listing. */
@@ -13,7 +13,7 @@ const transporter = require('./mailer');
 //     res.send(200, { message: 'this is a protected api, you are logged in'});
 // });
 
-router.patch('/:id', checkAuth, async (req, res, next) => {
+router.patch('/:id', Auth.checkAuth, async (req, res, next) => {
     try {
         await User.findByIdAndUpdate(req.params.id, {
             ...req.body
@@ -24,7 +24,7 @@ router.patch('/:id', checkAuth, async (req, res, next) => {
     }
 });
 
-router.get('/is-authenticated', checkAuth, async (req, res, next) => {
+router.get('/is-authenticated', Auth.checkAuth, async (req, res, next) => {
     try {
         res.send(200);
     } catch (e) {

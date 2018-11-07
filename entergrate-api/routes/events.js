@@ -5,8 +5,7 @@ const router = express.Router();
 const Event = require('../models/event.js');
 const User = require('../models/user.js');
 
-const checkAuth = require('./utils');
-const checkAuthAdmin = require('./utils');
+const Auth = require('./utils');
 
 /* GET Event listing. */
 router.get('/', async (req, res, next) => {
@@ -40,8 +39,9 @@ router.get('/:id', async (req, res, next) => {
         return res.status(400).send(e);
     }
 });
+console.log(Auth);
 
-router.get('/admin/:id', checkAuthAdmin, async (req, res, next) => {
+router.get('/admin/:id', Auth.checkAdminAuth, async (req, res, next) => {
     try {
         await Event.find({})
             .populate({
@@ -61,7 +61,7 @@ router.get('/admin/:id', checkAuthAdmin, async (req, res, next) => {
     }
 });
 
-router.patch('/:id/add-entergrate', checkAuth, async (req, res, next) => {
+router.patch('/:id/add-entergrate', Auth.checkAuth, async (req, res, next) => {
     try {
         await Event.findById(req.params.id, async (err, event) => {
             if (err) {
@@ -97,43 +97,47 @@ router.patch('/:id/add-entergrate', checkAuth, async (req, res, next) => {
     }
 });
 
-router.patch('/:id/remove-entergrate', checkAuth, async (req, res, next) => {
-    try {
-        await Event.findById(req.params.id, async (err, event) => {
-            if (err) {
-                console.log(err);
-                return res.status(400).send(err);
-            }
+router.patch(
+    '/:id/remove-entergrate',
+    Auth.checkAuth,
+    async (req, res, next) => {
+        try {
+            await Event.findById(req.params.id, async (err, event) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(400).send(err);
+                }
 
-            const { entergrateId } = req.body;
-            const { entergrates } = event,
-                index = entergrates.indexOf(entergrateId);
-            if (index > -1) {
-                entergrates.splice(index, 1);
-            }
-            // update user event objects
-            User.findById(entergrateId, async (error, user) => {
-                if (error) {
-                    console.log(error);
-                    return res.status(400).send(error);
+                const { entergrateId } = req.body;
+                const { entergrates } = event,
+                    index = entergrates.indexOf(entergrateId);
+                if (index > -1) {
+                    entergrates.splice(index, 1);
                 }
-                const { interest } = user,
-                    interestIndex = interest.indexOf(req.params.id);
-                if (interestIndex > -1) {
-                    interest.splice(interestIndex, 1);
-                }
-                await user.save();
+                // update user event objects
+                User.findById(entergrateId, async (error, user) => {
+                    if (error) {
+                        console.log(error);
+                        return res.status(400).send(error);
+                    }
+                    const { interest } = user,
+                        interestIndex = interest.indexOf(req.params.id);
+                    if (interestIndex > -1) {
+                        interest.splice(interestIndex, 1);
+                    }
+                    await user.save();
+                });
+                await event.save();
+                return res.sendStatus(200);
             });
-            await event.save();
-            return res.sendStatus(200);
-        });
-    } catch (e) {
-        console.log(e);
-        return res.status(400).send(e);
+        } catch (e) {
+            console.log(e);
+            return res.status(400).send(e);
+        }
     }
-});
+);
 
-router.patch('/:id', checkAuthAdmin, async (req, res, next) => {
+router.patch('/:id', Auth.checkAdminAuth, async (req, res, next) => {
     try {
         await Event.findById(req.params.id, (err, event) => {
             if (err) {
@@ -175,7 +179,7 @@ router.patch('/:id', checkAuthAdmin, async (req, res, next) => {
 //     }
 // });
 
-router.post('/', checkAuthAdmin, async (req, res, next) => {
+router.post('/', Auth.checkAdminAuth, async (req, res, next) => {
     try {
         const event = await Event.create({
             ...req.body
