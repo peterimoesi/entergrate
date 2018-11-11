@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Team from './team';
 
-import MainLanding from './mainLanding';
+// import MainLanding from './mainLanding';
 import UserInformation from './userInformation';
 import Footer from './footer';
 
@@ -14,7 +14,7 @@ import './styles.scss';
 
 const Landing = () => (
     <div id="landing-page">
-        <MainLanding />
+        {/* <MainLanding /> */}
         <UserInformation userGroup={1} />
         <section id="about" className="bg-light">
             <div className="container">

@@ -12,7 +12,7 @@ const UserInformation = ({ userGroup }) => (
             <div className="user-info user-info-show">
                 <div>
                     <h2 className="section-heading text-uppercase">
-                        Want to be an Entergrate?
+                        Want to be an Entergrater?
                     </h2>
                     <p className="text-muted">
                         Entergrate is a social enterprise established in May
