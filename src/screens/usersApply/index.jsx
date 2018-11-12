@@ -99,7 +99,7 @@ class Users extends React.Component {
     }
 
     onEnterClick(e) {
-        e.preventDefault();
+        // e.preventDefault();
         if (e.keyCode === 13) {
             [].forEach.call(this.formInputs, (elem, x) => {
                 if (

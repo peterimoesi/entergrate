@@ -12,10 +12,10 @@ export function removeCredentials() {
 }
 
 export function logout() {
-    return dispatch =>
-        axios.post('/api/users/logout').then(() => {
-            dispatch(removeCredentials());
-        });
+    return dispatch => {
+        dispatch(removeCredentials());
+        axios.post('/api/users/logout');
+    };
 }
 
 export function showNotice(message) {
