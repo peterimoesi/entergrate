@@ -28,7 +28,6 @@ class ForEntergrates extends React.Component {
     }
 
     onChange(e) {
-        console.log(e);
         this.setState({ [e.target.name]: e.target.value });
     }
 

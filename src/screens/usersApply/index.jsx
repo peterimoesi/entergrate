@@ -84,10 +84,6 @@ class Users extends React.Component {
             const firstElemOffsetTop = this.userApplyRef.firstElementChild
                 .offsetTop;
             if (this.userApplyRef.scrollTo) {
-                // this.userApplyRef.scrollTo(
-                //     0,
-                //     e.target.offsetTop - firstElemOffsetTop
-                // );
                 scrollTo(
                     e.target.offsetTop - firstElemOffsetTop,
                     this.userApplyRef,
@@ -99,8 +95,8 @@ class Users extends React.Component {
     }
 
     onEnterClick(e) {
-        // e.preventDefault();
         if (e.keyCode === 13) {
+            e.preventDefault();
             [].forEach.call(this.formInputs, (elem, x) => {
                 if (
                     elem.classList.contains('scroll-view') &&
@@ -109,11 +105,6 @@ class Users extends React.Component {
                     const firstElemOffsetTop = this.userApplyRef
                         .firstElementChild.offsetTop;
                     if (this.userApplyRef.scrollTo) {
-                        // this.userApplyRef.scrollTo(
-                        //     0,
-                        //     this.formInputs[x + 1].offsetTop -
-                        //         firstElemOffsetTop
-                        // );
                         scrollTo(
                             this.formInputs[x + 1].offsetTop -
                                 firstElemOffsetTop,
