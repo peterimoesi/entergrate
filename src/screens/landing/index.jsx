@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import About from './about';
 import Team from './team';
 
 // import MainLanding from './mainLanding';
@@ -16,76 +16,7 @@ const Landing = () => (
     <div id="landing-page">
         {/* <MainLanding /> */}
         <UserInformation userGroup={1} />
-        <section id="about" className="bg-light">
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-12 text-center">
-                        <h2 className="section-heading text-uppercase">
-                            About
-                        </h2>
-                        <h3 className="section-subheading text-muted">
-                            Entergrate is a social enterprise established in May
-                            2018 in Finland. Entergrate as an organization wants
-                            to create a professional inclusiveness of immigrants
-                            in the society, so that they can add value to the
-                            professional lives of the society and themselves. We
-                            will form a network which connects immigrants with
-                            different organizations giving them access to the
-                            information they need to grow, educationally, and
-                            professionally. We want to create the synergy
-                            between organizations working in the immigrant
-                            communities and immigrants themselves. Creating
-                            links between people and bringing immigrants
-                            together with different agents we aim to ease the
-                            challenges immigrants might face during the entry to
-                            the labor market and while building a professional
-                            career.
-                        </h3>
-                    </div>
-                </div>
-                <div className="row text-center">
-                    <div className="col-md-4">
-                        <span className="fa-stack fa-4x">
-                            <i className="fa fa-circle fa-stack-2x text-primary" />
-                            <i className="fa fa-volume-up fa-stack-1x fa-inverse" />
-                        </span>
-                        <h4 className="service-heading">Mission</h4>
-                        <p className="text-muted">
-                            Be the number 1 immigrant platform for professional
-                            development, networking, growth and information.
-                        </p>
-                    </div>
-                    <div className="col-md-4">
-                        <span className="fa-stack fa-4x">
-                            <i className="fa fa-circle fa-stack-2x text-primary" />
-                            <i className="fa fa-eye fa-stack-1x fa-inverse" />
-                        </span>
-                        <h4 className="service-heading">Vision</h4>
-                        <p className="text-muted">
-                            Harness the skills and potential of immigrants in
-                            Finland by providing a wide and versatile
-                            professional network, and town hall meeting, where
-                            strategic solutions are proffered for problems
-                            facing immigrants.
-                        </p>
-                    </div>
-                    <div className="col-md-4">
-                        <span className="fa-stack fa-4x">
-                            <i className="fa fa-circle fa-stack-2x text-primary" />
-                            <i className="fa fa-shopping-cart fa-stack-1x fa-inverse" />
-                        </span>
-                        <h4 className="service-heading">Goals</h4>
-                        <p className="text-muted">
-                            Change the bias stereotype towards immigrants by
-                            facilitating the entry to the labor market. Working
-                            together with locals and local organizations we
-                            create synergy and cooperation.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <About />
         <section id="events">
             <div className="container">
                 <div className="row">

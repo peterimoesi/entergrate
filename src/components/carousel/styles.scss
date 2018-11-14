@@ -1,0 +1,30 @@
+.carousel-cont {
+    @media screen and (min-width: 1200px) {
+        height: calc(100vh - 70px);
+    }
+    position: relative;
+    & > div {
+        height: 100%;
+        & > .carousel-slider {
+            height: 100%;
+        }
+    }
+    .carosel-child {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @media screen and (min-width: 1200px) {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+        }
+    }
+    .carousel.carousel-slider {
+        @media screen and (max-width: 1200px) {
+            display: none;
+        }
+    }
+}
