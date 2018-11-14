@@ -1,5 +1,9 @@
 ## Application change log
 
+#### Entergrate version 0.5 (12-11-2018)
+
++ Input field bug fixes
+
 #### Entergrate version 0.4 (07-11-2018)
 
 + Fixed event interested bug (module export error)
