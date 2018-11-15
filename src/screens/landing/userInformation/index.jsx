@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typist from 'react-typist';
 
 import history from '../../../routes/history';
 import Button from '../../../components/buttons';
@@ -12,7 +13,16 @@ const UserInformation = ({ userGroup }) => (
             <div className="user-info user-info-show">
                 <div>
                     <h2 className="section-heading text-uppercase">
-                        Want to be an Entergrater?
+                        <Typist
+                            cursor={{
+                                show: false
+                            }}
+                        >
+                            <span style={{ visibility: 'hidden' }}>{'"'}</span>
+                            <span>Want to b</span>
+                            <Typist.Backspace count={9} delay={800} />
+                            <span>Become an Entergrater</span>
+                        </Typist>
                     </h2>
                     <p className="text-muted">
                         Entergrate is a social enterprise established in May
