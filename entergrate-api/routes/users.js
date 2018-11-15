@@ -104,7 +104,7 @@ router.post('/', async (req, res, next) => {
                 req.session.user = email;
                 transporter.sendMail(
                     {
-                        from: 'admin@entergrate.org',
+                        from: 'info@entergrate.org',
                         to: email,
                         subject: 'Welcome to Entergrate',
                         text: 'Welcome to Entergrate',

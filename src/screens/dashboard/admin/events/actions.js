@@ -61,6 +61,10 @@ export function contact(contactForm) {
             .then(res => {
                 console.log(res);
                 dispatch(showNotice('Message sent'));
+                return 200;
             })
-            .catch(e => console.log(e));
+            .catch(e => {
+                console.log(e), dispatch(showNotice('Message  sending failed'));
+                return 400;
+            });
 }

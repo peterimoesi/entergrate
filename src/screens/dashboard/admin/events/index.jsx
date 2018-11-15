@@ -101,7 +101,9 @@ class Events extends React.Component {
     }
 
     onContactMessageSend() {
-        this.props.contact(this.state.contactForm);
+        this.props
+            .contact(this.state.contactForm)
+            .then(res => res === 200 && this.closeModal());
     }
 
     render() {

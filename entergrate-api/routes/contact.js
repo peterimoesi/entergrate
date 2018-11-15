@@ -10,7 +10,7 @@ router.post('/', Auth.checkAdminAuth, async (req, res) => {
     try {
         await transporter.sendMail(
             {
-                from: req.session.email,
+                from: 'info@entergrate.org',
                 to,
                 subject,
                 html: `<div>${message}
