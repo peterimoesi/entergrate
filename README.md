@@ -1,5 +1,9 @@
 ## Application change log
 
+#### Entergrate version 0.6 (12-11-2018)
+
++ Added Carousel
+
 #### Entergrate version 0.5 (12-11-2018)
 
 + Input field bug fixes
