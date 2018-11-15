@@ -1,6 +1,10 @@
 ## Application change log
 
-#### Entergrate version 0.6 (12-11-2018)
+#### Entergrate version 0.7 (15-11-2018)
+
++ Added Autotype animation
+
+#### Entergrate version 0.6 (14-11-2018)
 
 + Added Carousel
 
