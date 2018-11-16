@@ -3,6 +3,8 @@
 #### Entergrate version 0.7 (15-11-2018)
 
 + Added Autotype animation
++ Mail provider change
++ Close modal on mail send
 
 #### Entergrate version 0.6 (14-11-2018)
 
