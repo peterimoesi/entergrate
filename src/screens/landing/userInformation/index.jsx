@@ -7,7 +7,7 @@ import Button from '../../../components/buttons';
 
 import './styles.scss';
 
-function rerunTypist(state, prop) {
+function rerunTypist(state) {
     return {
         running: !state.running
     };
