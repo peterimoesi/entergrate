@@ -39,6 +39,11 @@ const scrollFormInput = props => {
                 <div>
                     <div>*</div>
                     {htmlElement}
+                    {props.onKeyDown ? (
+                        <div className="action-next">
+                            Press <span>Enter</span> to go next
+                        </div>
+                    ) : null}
                 </div>
                 {props.error ? (
                     <div className="invalid-feedback">{props.error}</div>
@@ -54,12 +59,14 @@ scrollFormInput.propTypes = {
     children: PropTypes.element.isRequired,
     onClick: PropTypes.func,
     klass: PropTypes.string,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    onKeyDown: PropTypes.func
 };
 
 scrollFormInput.defaultProps = {
     inputType: null,
-    error: false
+    error: false,
+    onKeyDown: false
 };
 
 export default scrollFormInput;

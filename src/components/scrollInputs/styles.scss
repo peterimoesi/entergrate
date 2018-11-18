@@ -89,4 +89,18 @@
             }
         }
     }
+    .action-next {
+        font-size: 12px;
+        margin-top: 10px;
+        font-weight: 600;
+        span {
+            color: #fff;
+            padding: 2px 5px;
+            background: #6c757d;
+            border-radius: 5px;
+        }
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
 }
