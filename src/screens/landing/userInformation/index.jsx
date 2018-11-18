@@ -8,7 +8,6 @@ import Button from '../../../components/buttons';
 import './styles.scss';
 
 function rerunTypist(state, prop) {
-    console.log(state, prop);
     return {
         running: !state.running
     };
@@ -37,7 +36,6 @@ class UserInformation extends React.Component {
 
     render() {
         const { userGroup } = this.props;
-        console.log(this.state);
         return (
             <section id="beEntergrate">
                 <div className="container">
