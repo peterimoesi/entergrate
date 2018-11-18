@@ -5,6 +5,7 @@
 + Added Autotype animation
 + Mail provider change
 + Close modal on mail send
++ Mobile (iox, android, windows) toolbar theme color change
 
 #### Entergrate version 0.6 (14-11-2018)
 
