@@ -51,7 +51,7 @@ const NavigationComponent = ({
                                 className="nav-link js-scroll-trigger"
                                 to="/open-events"
                             >
-                                Open positions
+                                Events
                             </Link>
                         </li>
                     ) : null}
