@@ -1,5 +1,9 @@
 ## Application change log
 
+#### Entergrate version 0.8 (26-11-2018)
+
++ User account delete
+
 #### Entergrate version 0.7 (15-11-2018)
 
 + Added Autotype animation
