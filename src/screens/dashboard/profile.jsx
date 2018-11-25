@@ -25,8 +25,8 @@ class Profile extends React.Component {
         this.onDelete = this.onDelete.bind(this);
         this.timeout = null;
         this.state = {
-            dataLoaded: true,
-            expand: true,
+            dataLoaded: false,
+            expand: false,
             editing: '',
             cvFileName: '',
             error: {},
