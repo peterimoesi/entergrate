@@ -1,7 +1,7 @@
 .collapse-section {
     padding: 50px 0 0;
     .section-title {
-        h3,
+        h4,
         i {
             color: #9a9a9a;
         }
@@ -10,7 +10,7 @@
             cursor: pointer;
             outline: none !important;
         }
-        h3 {
+        h4 {
             font-weight: 600;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             @media screen and (max-width: 768px) {

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 const User = require('../models/user.js');
+const Event = require('../models/event.js');
 
 const Auth = require('./utils');
 const transporter = require('./mailer');
@@ -35,7 +36,7 @@ router.get('/is-authenticated', Auth.checkAuth, async (req, res, next) => {
 router.post('/logout', (req, res) => {
     try {
         req.session.auth = false;
-        req.session.email = null;
+        req.session._id = null;
         return res.sendStatus(200);
     } catch (e) {
         console.log(e);
@@ -64,7 +65,6 @@ router.post('/login', async (req, res, next) => {
                     if (result) {
                         req.session.auth = true;
                         req.session._id = user._id;
-                        req.session.user = email;
                         if (user.userGroup === 2) {
                             req.session.admin = true;
                         }
@@ -101,7 +101,6 @@ router.post('/', async (req, res, next) => {
             .then(user => {
                 req.session.auth = true;
                 req.session._id = user._id;
-                req.session.user = email;
                 transporter.sendMail(
                     {
                         from: 'info@entergrate.org',
@@ -140,7 +139,7 @@ router.post('/', async (req, res, next) => {
 
 router.patch('/', Auth.checkAuth, async (req, res, next) => {
     try {
-        await User.findById(req.body._id, async (err, user) => {
+        await User.findById(req.session._id, async (err, user) => {
             if (err) {
                 console.log(err);
                 return res.status(400).send(err);
@@ -157,4 +156,34 @@ router.patch('/', Auth.checkAuth, async (req, res, next) => {
         return res.status(400).send(e);
     }
 });
+
+router.delete('/', Auth.checkAuth, async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.session._id, async (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).send(err);
+            }
+            await Event.find({}, (error, events) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(400).send(err);
+                }
+                events.forEach(currEvent => {
+                    currEvent.entergrates = currEvent.entergrates.filter(
+                        ent => ent != req.session._id
+                    );
+                    currEvent.save();
+                });
+            });
+            req.session.auth = false;
+            req.session._id = null;
+            res.status(401).send('User deleted');
+        });
+    } catch (e) {
+        console.log(e);
+        return res.status(400).send(e);
+    }
+});
+
 module.exports = router;

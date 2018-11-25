@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { userUpdate } from './action';
+import { userUpdate, deleteAccount } from './action';
 import CollapseSection from '../../components/collapseSection/collapseSection';
 import DefaultInput from '../../components/defaultInput';
 import Button from '../../components/buttons';
 import validation from '../../utils/validation';
+import Modal from '../../components/modals';
+import modalAction from '../../components/modals/action';
 import { checkForErrors } from '../../utils/general';
 import './styles.scss';
 
@@ -20,13 +22,15 @@ class Profile extends React.Component {
         this.saveForm = this.saveForm.bind(this);
         this.getFormChanges = this.getFormChanges.bind(this);
         this.checkForErrors = checkForErrors.bind(this);
+        this.onDelete = this.onDelete.bind(this);
         this.timeout = null;
         this.state = {
-            dataLoaded: false,
-            expand: false,
+            dataLoaded: true,
+            expand: true,
             editing: '',
             cvFileName: '',
             error: {},
+            openModal: false,
             userData: {
                 fullName: props.userData.fullName,
                 email: props.userData.email,
@@ -104,19 +108,29 @@ class Profile extends React.Component {
         this.validateChanges(this.getFormChanges());
         if (!this.checkForErrors()) return;
         this.props.userUpdate({
-            _id: this.props.userData._id,
             ...this.getFormChanges()
         });
         this.setState({ editing: '' });
     }
 
+    onDelete() {
+        this.setState(state => modalAction(state));
+    }
+
     render() {
-        const { editing } = this.state;
+        const {
+            editing,
+            userData,
+            openModal,
+            expand,
+            dataLoaded,
+            error
+        } = this.state;
         return (
             <CollapseSection
-                name={`${this.state.userData.fullName} - Profile`}
-                expand={this.state.expand}
-                dataLoaded={this.state.dataLoaded}
+                name={`${userData.fullName} - Profile`}
+                expand={expand}
+                dataLoaded={dataLoaded}
                 toggleExpand={this.toggleExpand}
             >
                 <React.Fragment>
@@ -125,12 +139,12 @@ class Profile extends React.Component {
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Full name"
-                                value={this.state.userData.fullName}
+                                value={userData.fullName}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
                                 placeholder="Full name"
                                 name="fullName"
-                                error={this.state.error.fullName}
+                                error={error.fullName}
                                 formType="input"
                             />
                         </div>
@@ -138,7 +152,7 @@ class Profile extends React.Component {
                             <DefaultInput
                                 label="Email"
                                 type="email"
-                                value={this.state.userData.email}
+                                value={userData.email}
                                 placeholder="Email"
                                 name="email"
                                 formType="input"
@@ -151,12 +165,12 @@ class Profile extends React.Component {
                                 onChange={this.onChange}
                                 label="Link to LinkedIn page or personal website"
                                 type="text"
-                                value={this.state.userData.url}
+                                value={userData.url}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
                                 placeholder="LinkedIn or website"
                                 name="url"
-                                error={this.state.error.url}
+                                error={error.url}
                                 formType="input"
                             />
                         </div>
@@ -164,7 +178,7 @@ class Profile extends React.Component {
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Address"
-                                value={this.state.userData.address}
+                                value={userData.address}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
                                 placeholder="Address"
@@ -176,12 +190,12 @@ class Profile extends React.Component {
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Phone number"
-                                value={this.state.userData.phoneNumber}
+                                value={userData.phoneNumber}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
                                 placeholder="Phone number"
                                 name="phoneNumber"
-                                error={this.state.error.phoneNumber}
+                                error={error.phoneNumber}
                                 formType="input"
                             />
                         </div>
@@ -189,9 +203,9 @@ class Profile extends React.Component {
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="Change password"
-                                value={this.state.userData.password}
+                                value={userData.password}
                                 toggleEditing={this.toggleEditing}
-                                error={this.state.error.password}
+                                error={error.password}
                                 editing={editing}
                                 placeholder="Password"
                                 type="password"
@@ -226,7 +240,7 @@ class Profile extends React.Component {
                             <DefaultInput
                                 onChange={this.onChange}
                                 label="About you"
-                                value={this.state.userData.bio}
+                                value={userData.bio}
                                 toggleEditing={this.toggleEditing}
                                 editing={editing}
                                 placeholder="About me"
@@ -242,7 +256,28 @@ class Profile extends React.Component {
                             onClick={this.saveForm}
                             type="primary"
                         />
+                        <div className="delete-acc" onClick={this.onDelete}>
+                            Delete account
+                        </div>
                     </div>
+                    {openModal ? (
+                        <Modal>
+                            <div style={{ textAlign: 'center' }}>
+                                <div>
+                                    <h6>Are you sure you want to delete?</h6>
+                                </div>
+                                <div style={{ marginTop: '30px' }}>
+                                    <Button
+                                        title="Delete"
+                                        onClick={() =>
+                                            this.props.deleteAccount()
+                                        }
+                                        type="primary"
+                                    />
+                                </div>
+                            </div>
+                        </Modal>
+                    ) : null}
                 </React.Fragment>
             </CollapseSection>
         );
@@ -252,6 +287,7 @@ class Profile extends React.Component {
 Profile.propTypes = {
     userData: PropTypes.object.isRequired,
     userUpdate: PropTypes.func.isRequired,
+    deleteAccount: PropTypes.func.isRequired,
     uploadCV: PropTypes.bool
 };
 
@@ -267,5 +303,5 @@ function mapStateToProps({ authentication }) {
 
 export default connect(
     mapStateToProps,
-    { userUpdate }
+    { userUpdate, deleteAccount }
 )(Profile);

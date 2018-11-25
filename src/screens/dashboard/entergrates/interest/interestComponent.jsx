@@ -12,10 +12,10 @@ const interest = ({ active, interestItem, showMore, toggleShowMore }) => (
             <div className={`status-icon status-${active ? 'green' : 'red'}`} />
         </div>
         <div className="interest-name">
-            <h4>
+            <h5>
                 <span>{interestItem.businessName} : </span>
                 <span>{interestItem.name}</span>
-            </h4>
+            </h5>
         </div>
         <div className="interest-applied-date">
             {/* <span>Applied: {interestItem.dateApplied} </span> */}

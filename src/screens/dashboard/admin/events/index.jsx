@@ -6,6 +6,7 @@ import Button from '../../../../components/buttons';
 import CollapseSection from '../../../../components/collapseSection/collapseSection';
 import EventComponent from './eventComponent';
 import Modal from '../../../../components/modals';
+import modalAction from '../../../../components/modals/action';
 import EventForm from './eventForm';
 import ContactForm from './contactForm';
 
@@ -32,8 +33,7 @@ class Events extends React.Component {
         this.toggleExpand = this.toggleExpand.bind(this);
         this.toggleShowMore = this.toggleShowMore.bind(this);
         this.onModify = this.onModify.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
         this.onViewentergrates = this.onViewentergrates.bind(this);
         this.onContactFormChange = this.onContactFormChange.bind(this);
         this.onContact = this.onContact.bind(this);
@@ -64,20 +64,17 @@ class Events extends React.Component {
     }
 
     onModify(i) {
-        this.setState({ modalChild: 'modifyEvent', eventIndex: i });
-        this.openModal();
+        this.setState({ eventIndex: i });
+        this.toggleModal('modifyEvent');
     }
 
     onViewentergrates() {
         this.setState({ viewentergrates: !this.state.viewentergrates });
     }
 
-    openModal() {
-        this.setState({ openModal: true });
-    }
-
-    closeModal() {
-        this.setState({ openModal: false, modalChild: null });
+    toggleModal(type) {
+        // toggle different modal type
+        this.setState(state => modalAction(state, type));
     }
 
     onContactFormChange(name, txt) {
@@ -94,10 +91,9 @@ class Events extends React.Component {
             contactForm.to = toEmail;
         }
         this.setState({
-            contactForm,
-            openModal: true,
-            modalChild: 'contactForm'
+            contactForm
         });
+        this.toggleModal('contactForm');
     }
 
     onContactMessageSend() {
@@ -124,15 +120,15 @@ class Events extends React.Component {
             >
                 <div>
                     {openModal ? (
-                        <Modal close={this.closeModal}>
+                        <Modal close={this.toggleModal}>
                             <div>
                                 {modalChild === 'newEvent' ? (
-                                    <EventForm closeForm={this.closeModal} />
+                                    <EventForm closeForm={this.toggleModal} />
                                 ) : null}
                                 {modalChild === 'modifyEvent' ? (
                                     <EventForm
                                         modify
-                                        closeForm={this.closeModal}
+                                        closeForm={this.toggleModal}
                                         eventData={
                                             this.props.events[
                                                 this.state.eventIndex
@@ -174,12 +170,7 @@ class Events extends React.Component {
                         <div className="section-cta">
                             <Button
                                 title="Add new"
-                                onClick={() =>
-                                    this.setState({
-                                        modalChild: 'newEvent',
-                                        openModal: true
-                                    })
-                                }
+                                onClick={() => this.toggleModal('newEvent')}
                                 type="secondary"
                             />
                         </div>

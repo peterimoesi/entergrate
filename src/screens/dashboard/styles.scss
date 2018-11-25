@@ -1,5 +1,16 @@
 .section-cta-right {
     text-align: right;
+    .delete-acc {
+        font-weight: 500;
+        opacity: 0.5;
+        margin-top: 40px;
+        cursor: pointer;
+        font-size: 14px;
+        transition-duration: 400ms;
+        &:hover {
+            opacity: 1;
+        }
+    }
 }
 
 .section-cta-left {
