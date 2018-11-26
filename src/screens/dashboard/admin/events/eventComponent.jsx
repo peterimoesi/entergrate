@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../../../components/buttons';
 
+import ShareEvent from '../../../../components/shareEvent';
+import Button from '../../../../components/buttons';
 import defaultImg from '../../../../components/img/2.png';
+import { getInnerHTMLText } from '../../../../utils/general';
 
 import './styles.scss';
 
@@ -61,6 +63,11 @@ const EventComponent = ({
                         dangerouslySetInnerHTML={{ __html: event.description }}
                     />
                 </div>
+                <ShareEvent
+                    id={event._id}
+                    title={event.name}
+                    description={getInnerHTMLText(event.description)}
+                />
                 <div className="event-management">
                     <div
                         className="item-head manage"

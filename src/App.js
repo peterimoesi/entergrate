@@ -1,7 +1,5 @@
 import React from 'react';
-
 import routes from './routes';
-
 import Navigation from './screens/navbar';
 import Notification from './components/notification';
 

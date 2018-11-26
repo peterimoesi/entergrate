@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Link, Switch, Route } from 'react-router-dom';
 
 import EventComponent from './eventComponent';
 import Button from '../../components/buttons';
 import defaultImg from '../../components/img/2.png';
 import { formatISODate } from '../../utils/general';
+import ShareEvent from '../../components/shareEvent';
+import { getInnerHTMLText } from '../../utils/general';
 import './styles.scss';
 
 const eventListComponent = ({
@@ -66,7 +69,13 @@ const eventListComponent = ({
                     />
                 </Link>
             </div>
+            <ShareEvent
+                id={_id}
+                title={name}
+                description={getInnerHTMLText(description)}
+            />
         </div>
+
         {userGroup === 1 && new Date(dateTime).getTime() > Date.now() ? (
             <Switch>
                 <Route

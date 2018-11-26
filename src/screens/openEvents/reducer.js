@@ -1,6 +1,9 @@
 const initialState = {
     events: [],
-    activeEvent: {}
+    activeEvent: {
+        title: '',
+        description: ''
+    }
 };
 
 export default (state = initialState, action) => {

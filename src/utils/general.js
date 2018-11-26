@@ -67,3 +67,10 @@ export function checkForErrors() {
     }
     return true;
 }
+
+export function getInnerHTMLText(html) {
+    // strip html tags from html strings
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
+}
