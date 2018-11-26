@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/loading';
 import Button from '../../components/buttons';
-import { getInnerHTMLText } from '../../utils/general';
 
 const EventComponent = ({
     loaded,
@@ -17,23 +16,6 @@ const EventComponent = ({
     <React.Fragment>
         <Helmet>
             <title>{`Entergrate - ${activeEvent.name}`}</title>
-            <meta name="title" content={`Entergrate - ${activeEvent.name}`} />
-            <meta
-                property="og:title"
-                content={`Entergrate - ${activeEvent.name}`}
-            />
-            <meta
-                name="description"
-                content={`Entergrate - ${getInnerHTMLText(
-                    activeEvent.description
-                ).substr(0, 240)}...`}
-            />
-            <meta
-                property="og:description"
-                content={`Entergrate - ${getInnerHTMLText(
-                    activeEvent.description
-                ).substr(0, 240)}...`}
-            />
         </Helmet>
         <div className="col-lg-8 col-md-10 col-sm-9 col-12 offset-md-2">
             {!loaded ? (
