@@ -37,7 +37,7 @@ class UserInformation extends React.Component {
     render() {
         const { userGroup } = this.props;
         return (
-            <section id="beEntergrate">
+            <header id="beEntergrate">
                 <div className="container">
                     <div className="user-info user-info-show">
                         <div>
@@ -86,7 +86,7 @@ class UserInformation extends React.Component {
                         </div>
                     </div>
                 </div>
-            </section>
+            </header>
         );
     }
 }

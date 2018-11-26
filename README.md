@@ -5,6 +5,7 @@
 -   User account delete
 -   'Open positions' changed to 'Events'
 -   Bug fixes and optimizations
+-   SEO optimiations
 
 #### Entergrate version 0.7 (15-11-2018)
 
