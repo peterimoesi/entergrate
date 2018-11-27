@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Helmet } from 'react-helmet';
+import DocumentMeta from 'react-document-meta';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/loading';
 import Button from '../../components/buttons';
@@ -13,10 +13,19 @@ const EventComponent = ({
     isAuthenticated,
     waiting
 }) => (
-    <React.Fragment>
-        <Helmet>
+    <DocumentMeta
+        {...{
+            title: `Entergrate - ${activeEvent.name}`,
+            meta: {
+                name: {
+                    'og:title': 'rDescription'
+                }
+            }
+        }}
+    >
+        {/* <Helmet>
             <title>{`Entergrate - ${activeEvent.name}`}</title>
-        </Helmet>
+        </Helmet> */}
         <div className="col-lg-8 col-md-10 col-sm-9 col-12 offset-md-2">
             {!loaded ? (
                 <Loading />
@@ -56,7 +65,7 @@ const EventComponent = ({
                 </div>
             )}
         </div>
-    </React.Fragment>
+    </DocumentMeta>
 );
 
 EventComponent.propTypes = {
