@@ -6,6 +6,8 @@ package-lock.json
 
 # config
 entergrate-api/routes/mailer.js
+entergrate-api/app.js
+entergrate-api/bin/www
 
 # dependencies
 node_modules
