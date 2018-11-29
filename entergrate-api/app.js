@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const helmet = require('helmet');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -12,6 +13,8 @@ const eventRouter = require('./routes/events');
 const contactRouter = require('./routes/contact');
 
 const app = express();
+
+app.use(helmet());
 
 // database configuration
 const uri = 'mongodb://localhost/entergrate';
