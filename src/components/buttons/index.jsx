@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const button = ({ onClick, title, type, size, icon, disabled }) => (
+const button = ({ onClick, title, type, size, icon, disabled, lowercase }) => (
     <button
         onClick={onClick}
-        className={`btn btn-${type} button button-${type} button-${size} entergrate-btn`}
+        className={`btn btn-${type} button button-${type} button-${size} entergrate-btn ${
+            lowercase ? 'btn-lowercase' : ''
+        }`}
         disabled={disabled}
     >
         {title}
@@ -20,13 +22,15 @@ button.propTypes = {
     type: PropTypes.string.isRequired,
     icon: PropTypes.string,
     disabled: PropTypes.bool,
+    lowercase: PropTypes.bool,
     size: PropTypes.string
 };
 
 button.defaultProps = {
     size: '',
     icon: null,
-    disabled: false
+    disabled: false,
+    lowercase: false
 };
 
 export default button;

@@ -1,17 +1,23 @@
 const createError = require('http-errors');
 const express = require('express');
+
+const helmet = require('helmet');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-// import '@babel/polyfill';
+const passport = require('passport');
 
+require('./routes/passport')(passport);
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users')(passport);
 const eventRouter = require('./routes/events');
 const contactRouter = require('./routes/contact');
 
 const app = express();
+
+app.use(helmet());
+app.use(passport.initialize());
 
 // database configuration
 const uri = 'mongodb://localhost/entergrate';
@@ -41,6 +47,7 @@ db.once('open', () => {
             cookie: { expires: 6000000 }
         })
     );
+    app.use(passport.session());
     app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header(
@@ -61,6 +68,7 @@ db.once('open', () => {
 
     // error handler
     app.use((err, req, res, next) => {
+        console.log(err);
         // set locals, only providing error in development
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};

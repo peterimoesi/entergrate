@@ -15,6 +15,7 @@ const userSchema = new Schema(
         password: { type: String, required: true },
         bio: { type: String, required: true },
         url: String,
+        facebookID: String,
         interest: [
             {
                 type: Schema.Types.ObjectId,

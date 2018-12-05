@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../../components/buttons';
 import DefaultInput from '../../components/defaultInput';
+import { Link } from 'react-router-dom';
 
 import { onLogin } from './action';
 import './styles.scss';
@@ -38,6 +39,22 @@ class Login extends React.Component {
         return (
             <div className="container">
                 <div id="login-form">
+                    <div
+                        style={{
+                            textAlign: 'center'
+                        }}
+                    >
+                        <span>Log in with </span>
+                        <a
+                            href="/api/users/auth/facebook"
+                            className="btn btn-secondary button entergrate-btn"
+                            style={{
+                                textTransform: 'lowercase'
+                            }}
+                        >
+                            facebook <i className="fa fa-facebook" />
+                        </a>
+                    </div>
                     <DefaultInput
                         noIcon
                         name="email"
@@ -66,6 +83,14 @@ class Login extends React.Component {
                             type="primary"
                             onClick={this.formSubmit}
                         />
+                    </div>
+                    <div
+                        style={{
+                            textAlign: 'center'
+                        }}
+                    >
+                        You don{'\''}t have an account ? Sign up{' '}
+                        <Link to="/apply/for-entergrates">here</Link>
                     </div>
                 </div>
             </div>

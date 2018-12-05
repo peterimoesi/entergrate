@@ -5,9 +5,9 @@ yarn.lock
 package-lock.json
 
 # config
-entergrate-api/app.js
-entergrate-api/bin/www
+entergrate-api/bin
 entergrate-api/routes/mailer.js
+entergrate-api/config
 
 # dependencies
 node_modules

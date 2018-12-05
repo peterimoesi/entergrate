@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Auth = require('./utils');
 
-const transporter = require('./mailer');
+const transporter = require('../config/mailer');
 
 router.post('/', Auth.checkAdminAuth, async (req, res) => {
     const { to, subject, message } = req.body;

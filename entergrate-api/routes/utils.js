@@ -1,6 +1,15 @@
 exports.checkAuth = function(req, res, next) {
-    if (!req.session || !req.session.auth) {
-        console.log('false');
+    console.log(
+        req.session,
+        !req.session &&
+            (!req.session.auth &&
+                (!req.session.passport || !req.session.passport.user))
+    );
+    if (
+        !req.session &&
+        (!req.session.auth &&
+            (!req.session.passport || !req.session.passport.user))
+    ) {
         res.sendStatus(401);
         return;
     }

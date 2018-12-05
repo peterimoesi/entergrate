@@ -94,6 +94,16 @@ class ForEntergrates extends React.Component {
                                 to view the list of available positions
                             </span>
                         </div>
+                        <div className="fb-login">
+                            <span>Signup with </span>
+                            <a
+                                href="/api/users/auth/facebook"
+                                className="btn btn-secondary button entergrate-btn"
+                                style={{ textTransform: 'lowercase' }}
+                            >
+                                facebook <i className="fa fa-facebook" />
+                            </a>
+                        </div>
                     </div>
                     <ScrollFormInput
                         number={1}

@@ -6,30 +6,38 @@ import history from '../../routes/history';
 import VolunteerDashboard from './entergrates';
 import AdminDashboard from './admin';
 import Loading from '../../components/loading';
+import { checkAuthentication } from './action';
 
 class Dashboard extends React.Component {
     constructor() {
         super();
         this.timeout = null;
+        this.userGroupCheck = this.userGroupCheck.bind(this);
     }
 
     componentDidMount() {
-        const { isAuthenticated, userGroup } = this.props;
-
-        // prevent users from entering the wrong dashboard
-        this.timeout = setTimeout(() => {
+        const { isAuthenticated, match, checkAuthentication } = this.props;
+        if (match.params.ext === 'facebook') {
+            checkAuthentication();
+        } else {
+            // prevent users from entering the wrong dashboard
             if (isAuthenticated) {
-                if (userGroup === 2) {
-                    history.push('/dashboard/admin');
-                } else if (userGroup === 1) {
-                    history.push('/dashboard/entergrates');
-                } else {
-                    history.push('/login');
-                }
+                this.userGroupCheck();
             } else {
                 history.push('/login');
             }
-        }, 0);
+        }
+    }
+
+    userGroupCheck() {
+        const { userGroup } = this.props;
+        if (userGroup === 2) {
+            history.push('/dashboard/admin');
+        } else if (userGroup === 1) {
+            history.push('/dashboard/entergrates');
+        } else {
+            history.push('/login');
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -70,7 +78,9 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     userGroup: PropTypes.number.isRequired,
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired,
+    match: PropTypes.object.isRequired,
+    checkAuthentication: PropTypes.func.isRequired
 };
 
 function mapStateToProps({ authentication, router }) {
@@ -81,4 +91,7 @@ function mapStateToProps({ authentication, router }) {
     };
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(
+    mapStateToProps,
+    { checkAuthentication }
+)(Dashboard);

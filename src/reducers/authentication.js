@@ -2,7 +2,8 @@ const initialState = {
     isAuthenticated: false,
     userData: {
         events: [],
-        interest: []
+        interest: [],
+        userGroup: 0
     }
 };
 

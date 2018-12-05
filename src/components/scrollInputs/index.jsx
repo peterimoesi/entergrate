@@ -66,7 +66,7 @@ scrollFormInput.propTypes = {
 scrollFormInput.defaultProps = {
     inputType: null,
     error: false,
-    onKeyDown: false
+    onKeyDown: null
 };
 
 export default scrollFormInput;

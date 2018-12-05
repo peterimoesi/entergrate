@@ -6,7 +6,7 @@ const User = require('../models/user.js');
 const Event = require('../models/event.js');
 
 const Auth = require('./utils');
-const transporter = require('./mailer');
+const transporter = require('../config/mailer');
 
 /* GET users listing. */
 // router.get('/', checkAuth, async (req, res, next) => {
@@ -27,9 +27,24 @@ router.patch('/:id', Auth.checkAuth, async (req, res, next) => {
 
 router.get('/is-authenticated', Auth.checkAuth, async (req, res, next) => {
     try {
-        res.send(200);
+        User.findById(req.session.passport.user)
+            .populate({
+                path: 'interest',
+                select: '-entergrates -createdAt -updatedAt',
+                populate: { path: 'owner', select: 'fullName' }
+            })
+            .exec((err, user) => {
+                if (err || !user) {
+                    console.log(err);
+                    return res
+                        .status(401)
+                        .json({ error: true, errorMessage: 'No user found' });
+                }
+                res.status(200).send(user);
+            });
     } catch (e) {
-        res.send(400, e);
+        console.log(e);
+        res.status(400).send(400, e);
     }
 });
 
@@ -37,6 +52,8 @@ router.post('/logout', (req, res) => {
     try {
         req.session.auth = false;
         req.session._id = null;
+        req.session.admin = false;
+        req.session.passport = {};
         return res.sendStatus(200);
     } catch (e) {
         console.log(e);
@@ -186,4 +203,22 @@ router.delete('/', Auth.checkAuth, async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = function(passport) {
+    // fb passport authentication
+
+    router.get(
+        '/auth/facebook',
+        passport.authenticate('facebook', { scope: ['email'] })
+    );
+
+    router.get(
+        '/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/dashboard/facebook',
+            failureRedirect: '/login',
+            session: true
+        })
+    );
+
+    return router;
+};

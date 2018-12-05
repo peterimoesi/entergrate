@@ -10,7 +10,7 @@ import OpenEvents from '../screens/openEvents';
 
 const routes = (
     <Switch>
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/dashboard/:ext?" component={Dashboard} />
         <Route path="/open-events/:id?" component={OpenEvents} />
         <Route path="/apply" component={UserApplyScreen} />
         <Route path="/login" component={Login} />
